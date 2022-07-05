@@ -1,3 +1,11 @@
+window.addEventListener('message', function (eventData) {
+    let parsedEventData = JSON.parse(eventData.data);
+    if(parsedEventData.event_code === "pass-event-iframe" && parsedEventData.data) {
+      console.log('from Iframe : pass-event-iframe ')
+    }
+
+});
+
 (function () {
     setTimeout(() => {
         loadHome();
