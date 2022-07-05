@@ -1,33 +1,9 @@
-window.addEventListener('message', function (eventData) {
-    let parsedEventData = JSON.parse(eventData.data);
-    (function () {
-        setTimeout(() => {
-            console.log('parsedEventData.data~~~~>>', parsedEventData.data)
-            if(parsedEventData.event_code === "pass-event-iframe" && parsedEventData.data == "welcome") {
-                console.log('from Iframe : pass-event-iframe ');
-                loadHome();
-            }
-            if(parsedEventData.event_code === "pass-event-iframe" && parsedEventData.data == "terms and condition") {
-                console.log('from Iframe : pass-event-iframe ');
-                tncAccept();
-            }else{
-                loadHome();
-            }
-        }, 500);
-    })()
-
-    if(parsedEventData.event_code === "pass-event-iframe" && parsedEventData.data) {
-      console.log('from Iframe : pass-event-iframe ')
-    }
-
-});
-
-// (function () {
-//     setTimeout(() => {
-//         loadHome();
-//         // tncAccept();
-//     }, 500);
-// })()
+(function () {
+    setTimeout(() => {
+        loadHome();
+        // tncAccept();
+    }, 500);
+})()
 
 function loadHome() {
     $("#content_box").append(`
