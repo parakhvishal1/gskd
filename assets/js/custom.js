@@ -1,7 +1,7 @@
 (function () {
     setTimeout(() => {
-        loadHome();
-        // tncAccept();
+        // loadHome();
+        tncAccept();
     }, 500);
 })()
 
