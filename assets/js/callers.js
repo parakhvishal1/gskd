@@ -12,7 +12,7 @@
         window.updateCartData = {};
         window.cartData = {};
         // CallScreen(1);
-        CallScreen(2);
+        CallScreen(4);
     }, 500);
 })();
 
