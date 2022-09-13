@@ -40,11 +40,21 @@ function injectDynamicCssToParent() {
 }
 
 window.addEventListener('message', function (eventData) {
-    let parsedData = JSON.parse(eventData.data)
+    let parsedData = JSON.parse(eventData.data);
+
+    console.log("parsedData", parsedData)
     
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'welcome',
+            data: parsedData.data.data
+        }), '*');
+        return;
+    }
+
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'welcome-screen',
             data: parsedData.data.data
         }), '*');
         return;
