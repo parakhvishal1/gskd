@@ -1,0 +1,122 @@
+/* Order Card Start */
+.profile_setting_card {
+    margin: 10px 20px 20px 20px;
+}
+
+.order_card {
+    background: #ffffff;
+    border: 1px solid #959595;
+    box-shadow: 0px 3px 12px rgba(84, 79, 64, 0.1);
+    border-radius: 5px;
+    padding: 14px 0;
+    margin-bottom: 20px;
+}
+
+.order_card .title,
+.progress_plan .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    padding: 0 16px;
+}
+
+.order_card .info,
+.order_card .title .name {
+    cursor: pointer;
+}
+
+.order_card.menu .title .name {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.order_card.menu .title .name:hover {
+    font-weight: 700;
+}
+
+.order_card.menu .info.cta:hover {
+    font-weight: 700;
+}
+
+.order_card .title .name,
+.progress_plan .title .name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.order_card .title .arrow img {
+    height: 10px;
+    width: 10px;
+}
+
+.order_card .title .arrow.edit img {
+    height: 15px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.order_card .info {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 22px;
+    color: #151515;
+    padding: 0 16px;
+}
+
+.order_card .info.outer {
+    padding: 0 20px;
+}
+
+.order_card .info.outer .success {
+    color: #008a00;
+}
+
+.order_card .info.outer .warning {
+    color: #efaa4b;
+}
+
+.order_card .info.outer .failed {
+    color: #f23904;
+}
+/* Order Card End */
+
+.date-picker-value.date_order {
+    margin-bottom: 12px;
+}
+
+.date-picker-value.date_order + .flex.title {
+    font-size: 13px;
+    line-height: 20px;
+    color: #151515;
+    margin-bottom: 12px;
+}
+
+.calendar-picker {
+    justify-content: unset;
+}
+
+.calendar-picker .picker {
+    height: 15px;
+    width: 20px;
+}
+
+.calendar-picker .picker + .input_date_picker {
+    font-size: 14px;
+    margin: 0 0.75rem 0 0.5rem;
+}
+
+.calendar-picker input {
+    width: 4rem;
+    margin: 0 0.25rem 0 0.5rem;
+    cursor: pointer;
+}
+
+.calendar-picker .arrow-down {
+    height: 10px;
+    width: 10px;
+}
+
+.title.backbtn {
+    margin-bottom: 20px;
+}

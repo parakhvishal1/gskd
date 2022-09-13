@@ -1,0 +1,128 @@
+
+.client_list {
+    padding: 0 16px;
+    margin-top: 20px;
+}
+
+.client_list .space-bw {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.client_list .space-bw .label{
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #151515;
+    overflow-y: auto;
+}
+
+.client_list .space-bw .icon {
+
+}
+
+.client_list ul{
+    margin-top: 5px;
+}
+
+.client_list ul .item {
+    list-style-type: none;
+    border-bottom: 0.5px solid #E6E6E6;
+}
+
+.client_list ul .item .icon{
+    font-size: 16px;
+}
+
+.client_list ul .detail {
+    font-size: 12px;
+    line-height: 24px;
+    margin: 12px 0;
+}
+
+.client_list ul .detail .span {
+    font-weight: 400;
+}
+
+.client_list ul .detail span.bold {
+    font-weight: 700;
+}
+
+
+
+
+.counter__wrapper {
+    width: 100%;
+}
+
+.counter__wrapper .counter__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    position: relative;
+    justify-content: flex-end;
+}
+
+.counter__wrapper .counter__container {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.counter__wrapper .counter__container.checkout {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.counter__box__container {
+    padding: 5px 0px;
+}
+
+.counter__container .addmore__qty{
+    display: flex;
+    right: 26%;
+    height: auto;
+    height: 18px;
+    width: 18px;
+    font-size: 5px;
+    border-radius: 50%;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    animation-name: slideToRight;
+    animation-duration: 3s;
+    animation-delay: 0ms;
+    opacity: 0;
+    display: none;
+}
+
+.counter__container .counter__minus,
+.counter__container .counter__plus,
+.counter__container .counter__minus-brand,
+.counter__container .counter__plus-brand {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #151515;
+    cursor: pointer;
+}
+
+.counter__container .counter__input {
+    padding: 2px 4px;
+    text-align: center;
+    margin: 5px 10px;
+    color: #151515;
+    font-size: 14px;
+    background: #E6E6E6;
+    border: none;
+    border-radius: 4px;
+}
+
+.counter__container .counter__input.home {
+    padding: 2px 4px;
+    margin: 6px 10px;
+}

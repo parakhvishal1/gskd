@@ -1,0 +1,54 @@
+/* Header Start */
+.header {
+    height: 76px;
+}
+
+.header .header_icon_wrapper {
+    text-align: left;
+    padding: 16px 20px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.header .header_icon_wrapper .header_bar {
+    display: flex;
+    justify-content: space-between;
+    height: 44px;
+}
+
+.header .header_icon_wrapper .header_bar .svg_icon_wrapper {
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+}
+
+.header .header_icon_wrapper .header_bar .svg_icon_wrapper svg {
+    width: 44px;
+    height: 44px;
+}
+
+.header .header_icon_wrapper .header_bar .profile_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4px 0;
+    cursor: pointer;
+}
+
+.header .header_icon_wrapper .header_bar .profile_section .block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .header_icon_wrapper .header_bar .profile_section .email,
+.header .header_icon_wrapper .header_bar .profile_section .block .name,
+.header .header_icon_wrapper .header_bar .profile_section .block .icon {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #151515;
+}
+
+.header .header_icon_wrapper .header_bar .profile_section .block .name {
+    font-weight: 700;
+}
+/* Header End */

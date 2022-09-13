@@ -1,0 +1,85 @@
+/* Terms of use Start */
+.termsofuse {
+    height: 100%;
+    width: 100%;
+}
+
+.termsofuse .main_content {
+    height: calc(75% - 40px);
+    width: 100%;
+}
+
+.termsofuse .heading {
+    color: #151515;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.termsofuse .termsofuse_content {
+    font-size: 12px;
+    color: #151515;
+    line-height: 18px;
+    height: 90%;
+    overflow: scroll;
+}
+
+.termsofuse .termsofuse_content .block {
+    margin: 10px 0;
+    padding: 0 20px;
+}
+
+.termsofuse .termsofuse_content .block .title {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.termsofuse .termsofuse_content .block .detail {
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.bottom .btn_wrapper {
+    height: 25%;
+    position: relative;
+}
+
+.bottom .btn_wrapper .btnbox {
+    position: absolute;
+    bottom: 30px;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom .btn_wrapper .btnbox .place_new_order {
+    text-decoration: none;
+}
+
+.bottom .btn_wrapper .btnbox .btn {
+    padding: 12px 20px;
+    outline: none;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: auto 9px;
+    border: 1.5px solid #f36633;
+    text-decoration: none;
+}
+
+.bottom .btn_wrapper .btnbox .btn .icon {
+    margin-right: 10px;
+}
+
+.bottom .btn_wrapper .btnbox .btn.outline {
+    background: #fff;
+    color: #f36633;
+}
+
+.bottom .btn_wrapper .btnbox .btn.solid {
+    color: #fff;
+    background: #f36633;
+}
+/* Terms of use End */
