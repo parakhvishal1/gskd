@@ -57,6 +57,8 @@ window.addEventListener('message', function (eventData) {
             event_code: 'welcome-screen',
             data: parsedData.data.data
         }), '*');
+        console.log("welcome-screen")
+        console.log('Event Data-->>',parsedData.data.data)
         return;
     }
 
