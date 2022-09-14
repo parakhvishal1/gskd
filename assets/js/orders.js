@@ -50,18 +50,18 @@ function loadUserWelcomeUI(data) {
         <div class="order_card last_order" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
             <div class="title backbtn hide">
                 <div class="arrow name flex back_button" style="font-weight: 400; font-size: 14px; color: #151515;">
-                    <img src="/assets/images/svg/right.svg" style="transform: rotate(180deg);" />
+                    <img src="/gsk/assets/images/svg/right.svg" style="transform: rotate(180deg);" />
                     <span style="margin-left: 5px;">Back</span>
                 </div>
                 <div class="arrow">
-                    <img src="/assets/images/svg/edit.svg" style="height: 20px; width: 20px;"/>
+                    <img src="/gsk/assets/images/svg/edit.svg" style="height: 20px; width: 20px;"/>
                 </div>
             </div>
             <div class="card_click" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
                 <div class="title">
                     <div class="name">${lastOrder["account_no"]}</div>
                     <div class="arrow">
-                        <img src="/assets/images/svg/right.svg" />
+                        <img src="/gsk/assets/images/svg/right.svg" />
                     </div>
                 </div>
                 <div class="info">Order No: ${lastOrder["order_no"]}</div>
@@ -132,7 +132,7 @@ function loadUserWelcomeUI(data) {
                             <div class="title">
                                 <div class="name">${orderData["account_no"]}</div>
                                 <div class="arrow">
-                                    <img src="/assets/images/svg/right.svg" />
+                                    <img src="/gsk/assets/images/svg/right.svg" />
                                 </div>
                             </div>
                             <div class="info">Order No: ${orderData["order_no"]}</div>
@@ -181,10 +181,10 @@ function loadUserWelcomeUI(data) {
                                 <div class="title">
                                     <div class="name" skudata=${item["sku"]}>${item["name"]}</div>
                                     <div class="arrow edit quantityEdit">
-                                        <img src="/assets/images/svg/edit.svg" key=${index} />
+                                        <img src="/gsk/assets/images/svg/edit.svg" key=${index} />
                                     </div>
                                     <div class="arrow edit quantitySave hide">
-                                        <img src="/assets/images/svg/save.svg" key=${index} />
+                                        <img src="/gsk/assets/images/svg/save.svg" key=${index} />
                                     </div>
                                 </div>
                             </td>
@@ -262,10 +262,10 @@ function loadUserWelcomeUI(data) {
                                 <div class="title">
                                     <div class="name">${item["name"]}</div>
                                     <div class="arrow edit quantityEdit hide">
-                                        <img src="/assets/images/svg/edit.svg" key=${index} />
+                                        <img src="/gsk/assets/images/svg/edit.svg" key=${index} />
                                     </div>
                                     <div class="arrow edit quantitySave hide">
-                                        <img src="/assets/images/svg/save.svg" />
+                                        <img src="/gsk/assets/images/svg/save.svg" />
                                     </div>
                                 </div>
                             </td>
@@ -306,7 +306,7 @@ function loadBrandSelectionUI(data) {
             <div class="menu_header">
                 <div class="label">Choose Brands</div>
                 <div class="icon">
-                    <img src="/assets/images/svg/basket.svg" />
+                    <img src="/gsk/assets/images/svg/basket.svg" />
                     <div class="count_wrapper hide"></div>
                 </div>
             </div>

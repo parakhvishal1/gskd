@@ -194,7 +194,7 @@
 }
 
 .place_order.checkout .btn::before {
-   content: url("/assets/images/svg/basket_white.svg");
+   content: url("/gsk/assets/images/svg/basket_white.svg");
    position: absolute;
    left: 10px;
    transform: translate(0%, 10%);

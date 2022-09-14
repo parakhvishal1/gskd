@@ -21,7 +21,7 @@ function loadClientList(data) {
                         <span>${clientList.name}</span>
                     </div>
                     <div class="icon">
-                        <img src="/assets/images/svg/edit.svg" />
+                        <img src="/gsk/assets/images/svg/edit.svg" />
                     </div>
                 </div>
             </li>

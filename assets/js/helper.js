@@ -71,9 +71,9 @@ function showHeader(data) {
 function showDatePicker() {
     return `
         <div class="flex calendar-picker">
-            <img class="picker" src="/assets/images/svg/calendar.svg" />
+            <img class="picker" src="/gsk/assets/images/svg/calendar.svg" />
             <input type='text' id='tbDate' placeholder='select a date' readonly="readonly" />
-            <img class="arrow-down" src="/assets/images/svg/down.svg" />
+            <img class="arrow-down" src="/gsk/assets/images/svg/down.svg" />
         </div>
     `;
 }
