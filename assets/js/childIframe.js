@@ -37,8 +37,11 @@ window.addEventListener('message', function (eventData) {
             event_code: 'welcome-screen',                                                // added new event name
             data: parsedEventData.data
         }), '*');
-        console.log("welcome-screen")
-        console.log('Event Data-->>',parsedEventData.data)
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName)
+        console.log('Event Data---',data)
+        ToApp(eventName,data);
     }
 
     
