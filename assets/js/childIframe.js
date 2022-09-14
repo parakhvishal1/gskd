@@ -37,25 +37,28 @@ window.addEventListener('message', function (eventData) {
         console.log('Event Data---',data);
     }
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "termsui-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'termsui-screen',
-            data: parsedData.data.data
+    if (parsedEventData.event_code === "termsui-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'termsui-screen',                                                // added new event name
+            data: parsedEventData.data
         }), '*');
-        console.log("termsui-screen")
-        console.log('Event Data-->>',parsedData.data.data)
-        return;
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
     }
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'userwelcome-screen',
-            data: parsedData.data.data
+
+    if (parsedEventData.event_code === "userwelcome-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'userwelcome-screen',                                                // added new event name
+            data: parsedEventData.data
         }), '*');
-        console.log("userwelcome-screen")
-        console.log('Event Data-->>',parsedData.data.data)
-        return;
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
     }
-    
+
 
 });
