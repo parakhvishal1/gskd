@@ -65,9 +65,9 @@ function getAccordianAccounts(data) {
                         <div class="accordion-item-body-content" style="height: 300px; overflow: auto;">
                             <div class="date-picker-value date_order ${order["ordered_date"] ? "" : "hide"}">
                                 <div class="flex calendar-picker">
-                                    <img class="picker" src="/assets/images/svg/calendar.svg" />
+                                    <img class="picker" src="/gsk/assets/images/svg/calendar.svg" />
                                     <div class="input_date_picker" readonly="readonly">${order["ordered_date"]}</div>
-                                    <img class="arrow-down" src="/assets/images/svg/down.svg" />
+                                    <img class="arrow-down" src="/gsk/assets/images/svg/down.svg" />
                                 </div>
                             </div>
                             <div class="flex title">PRODUCTS</div>
@@ -102,7 +102,7 @@ function getAccordianAccountsData(data) {
                     <div class="title paddingTop">
                         <div class="name">${item["name"]}</div>
                         <div class="arrow hide">
-                            <img src="/assets/images/svg/edit.svg" />
+                            <img src="/gsk/assets/images/svg/edit.svg" />
                         </div>
                     </div>
                 </td>
