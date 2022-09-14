@@ -6,15 +6,15 @@
     5 -> Client List Screen
 */
 
-(function () {
-    setTimeout(() => {
-        window.orderCartData = {};
-        window.updateCartData = {};
-        window.cartData = {};
-        // CallScreen(1);
-        CallScreen(4);
-    }, 500);
-})();
+// (function () {
+//     setTimeout(() => {
+//         window.orderCartData = {};
+//         window.updateCartData = {};
+//         window.cartData = {};
+//         // CallScreen(1);
+//         CallScreen(4);
+//     }, 500);
+// })();
 
 
 
