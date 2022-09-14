@@ -198,23 +198,46 @@ function ToApp(eventName, data, orgData) {
 }
 
 
+
 window.addEventListener('message', function (eventData) {
-    let parsedData = JSON.parse(eventData.data);
-
-    console.log("parsedData in caller.js", parsedData)
-
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'welcome-screen',
-            data: parsedData.data.data
+    let parsedEventData = JSON.parse(eventData.data);
+  
+    if (parsedEventData.event_code === "welcome-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'welcome-screen',                                                // added new event name
+            data: parsedEventData.data
         }), '*');
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
         console.log('Event Data---',data);
-        ToApp(eventName,data)
-        return;
+        ToApp(eventName,data);
+    }
+
+    if (parsedEventData.event_code === "termsui-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'termsui-screen',                                                // added new event name
+            data: parsedEventData.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
+        ToApp(eventName,data);
     }
 
 
-}, false);
+    if (parsedEventData.event_code === "userwelcome-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'userwelcome-screen',                                                // added new event name
+            data: parsedEventData.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
+        ToApp(eventName,data);
+    }
+
+
+});
