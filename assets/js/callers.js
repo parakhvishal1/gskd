@@ -16,7 +16,17 @@
     }, 500);
 })();
 
-
+if (parsedEventData.event_code === "welcome-screen" && parsedEventData.data) {
+    document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+        event_code: 'welcome-screen',                                                // added new event name
+        data: parsedEventData.data
+    }), '*');
+    let eventName = parsedEventData.event_code;
+    let data = parsedEventData.data;
+    console.log("eventName---", eventName)
+    console.log('Event Data---',data)
+    ToApp(eventName,data);
+}
 
 function ToBot(eventName, data) {
     switch (eventName) {
