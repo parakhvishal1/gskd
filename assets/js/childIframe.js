@@ -32,6 +32,17 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
+    if (parsedEventData.event_code === "welcome-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'welcome-screen-child',
+            data: parsedEventData.data
+        }), '*');
+        console.log("welcome-screen")
+        console.log('Event Data-->>',parsedEventData.data)
+    }
+
+    
+
     if (parsedEventData.event_code === "terms_and_conditions" && parsedEventData.data) {
         document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
             event_code: 'termsui-screen-child',
