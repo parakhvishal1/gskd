@@ -196,3 +196,25 @@ function ToApp(eventName, data, orgData) {
             break;
     }
 }
+
+
+window.addEventListener('message', function (eventData) {
+    let parsedData = JSON.parse(eventData.data);
+
+    console.log("parsedData in caller.js", parsedData)
+
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'welcome-screen',
+            data: parsedData.data.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
+        ToApp(eventName,data)
+        return;
+    }
+
+
+}, false);
