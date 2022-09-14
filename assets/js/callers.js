@@ -6,15 +6,15 @@
     5 -> Client List Screen
 */
 
-(function () {
-    setTimeout(() => {
-        window.orderCartData = {};
-        window.updateCartData = {};
-        window.cartData = {};
-        // CallScreen(1);
-        CallScreen(2);
-    }, 500);
-})();
+// (function () {
+//     setTimeout(() => {
+//         window.orderCartData = {};
+//         window.updateCartData = {};
+//         window.cartData = {};
+//         // CallScreen(1);
+//         CallScreen(2);
+//     }, 500);
+// })();
 
 
 
@@ -203,10 +203,10 @@ window.addEventListener('message', function (eventData) {
     let parsedEventData = JSON.parse(eventData.data);
   
     if (parsedEventData.event_code === "welcome-screen" && parsedEventData.data) {
-        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
-            event_code: 'welcome-screen',                                                // added new event name
-            data: parsedEventData.data
-        }), '*');
+        // document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+        //     event_code: 'welcome-screen',                                                // added new event name
+        //     data: parsedEventData.data
+        // }), '*');
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
@@ -215,10 +215,10 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedEventData.event_code === "termsui-screen" && parsedEventData.data) {
-        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
-            event_code: 'termsui-screen',                                                // added new event name
-            data: parsedEventData.data
-        }), '*');
+        // document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+        //     event_code: 'termsui-screen',                                                // added new event name
+        //     data: parsedEventData.data
+        // }), '*');
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
@@ -228,10 +228,10 @@ window.addEventListener('message', function (eventData) {
 
 
     if (parsedEventData.event_code === "userwelcome-screen" && parsedEventData.data) {
-        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
-            event_code: 'userwelcome-screen',                                                // added new event name
-            data: parsedEventData.data
-        }), '*');
+        // document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+        //     event_code: 'userwelcome-screen',                                                // added new event name
+        //     data: parsedEventData.data
+        // }), '*');
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
