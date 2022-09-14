@@ -42,15 +42,9 @@ function injectDynamicCssToParent() {
 window.addEventListener('message', function (eventData) {
     let parsedData = JSON.parse(eventData.data);
 
-    // console.log("parsedData", parsedData)
+    console.log("parsedData", parsedData)
     
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'welcome',
-            data: parsedData.data.data
-        }), '*');
-        return;
-    }
+   
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
@@ -62,12 +56,26 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "terms_and_conditions") {
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "termsui-screen") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'terms_and_conditions',
+            event_code: 'termsui-screen',
             data: parsedData.data.data
         }), '*');
+        console.log("termsui-screen")
+        console.log('Event Data-->>',parsedData.data.data)
         return;
     }
+
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'userwelcome-screen',
+            data: parsedData.data.data
+        }), '*');
+        console.log("userwelcome-screen")
+        console.log('Event Data-->>',parsedData.data.data)
+        return;
+    }
+
+  
 
 }, false);
