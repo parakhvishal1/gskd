@@ -41,7 +41,6 @@ window.addEventListener('message', function (eventData) {
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
         console.log('Event Data---',data);
-        ToApp(eventName,data)
     }
 
     
