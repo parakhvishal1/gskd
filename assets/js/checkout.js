@@ -5,7 +5,7 @@ function loadOrderCart(data) {
         <div class="order_details_container choosebrands">
             <div class="menu_header">
                 <div class="label">Order Details</div>
-                <div class="icon goToBrandLevel cursor"><img src="/assets/images/svg/plus.svg" /></div>
+                <div class="icon goToBrandLevel cursor"><img src="/gsk/assets/images/svg/plus.svg" /></div>
             </div>
             ${getAccordianAccounts(data["new_orders"]["orders"])}
         </div>
@@ -130,7 +130,7 @@ function loadOrderFinalCart(data) {
         <div class="order_details_container choosebrands">
             <div class="menu_header">
                 <div class="label">Order Details</div>
-                <div class="icon"><img src="/assets/images/svg/plus.svg" /></div>
+                <div class="icon"><img src="/gsk/assets/images/svg/plus.svg" /></div>
             </div>
             ${loadProgressCards({"brands": filteredBrand}, true, true)}
             ${getAccordianAccounts(data["new_orders"]["orders"])}
