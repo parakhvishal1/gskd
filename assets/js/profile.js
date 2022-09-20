@@ -195,7 +195,7 @@ function loadProfileOptions() {
         $("#profile_setting_card").removeClass("active");
         $("#profile_setting_card").empty();
     } else {
-        console.log('---In Else LPO---')
+        console.log('---In Else LPO---');
         $("#profile_setting_card").addClass("active");
         $("#profile_setting_card").append(`
             <div class="order_card menu">

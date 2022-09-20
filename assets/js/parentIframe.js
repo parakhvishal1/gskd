@@ -88,6 +88,20 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
+
+
+    // Sender 
+
+    if (parsedData?.event_code == 'logout') {
+        console.log("\n\n\n <--- Fetch recent orders received in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "logout",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
   
 
 }, false);

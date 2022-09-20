@@ -71,6 +71,15 @@ window.addEventListener('message', function (eventData) {
         console.log('Event Data---',data);
     }
 
-    
+
+
+
+    // sender
+    if(parsedEventData.event_code === "logout") {
+        parent.postMessage(JSON.stringify({
+            event_code: 'logout',
+            data: parsedEventData.data
+        }), '*');
+    }
 
 });
