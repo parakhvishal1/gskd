@@ -71,6 +71,15 @@ window.addEventListener('message', function (eventData) {
             event_code: 'userwelcome-screen',
             data: parsedData.data.data
         }), '*');
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'user-login',
+            data: {
+                isLoggedIn: true,
+                name: "Valentin Buteler",
+                email: "valentinbuteler@gmail.com",
+                phone: "4455668899"
+            }
+        }), '*');
         console.log("userwelcome-screen")
         console.log('Event Data-->>',parsedData.data.data)
         return;
