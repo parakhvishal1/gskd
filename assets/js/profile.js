@@ -189,10 +189,13 @@ function loadUserProfile(data) {
 
 function loadProfileOptions() {
     let elementIsActive = $("#profile_setting_card").hasClass("active");
+    console.log('---In load Profile Option---')
     if (elementIsActive) {
+        console.log('---In If LPO---')
         $("#profile_setting_card").removeClass("active");
         $("#profile_setting_card").empty();
     } else {
+        console.log('---In Else LPO---')
         $("#profile_setting_card").addClass("active");
         $("#profile_setting_card").append(`
             <div class="order_card menu">
