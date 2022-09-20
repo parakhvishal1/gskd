@@ -3,13 +3,6 @@
     /* margin-top: 20px; */
 }
 
-.content__box .splash_screen .branding {
-    height: 75%;
-    background: url("/gsk/assets/images/png/blob.png");
-    background-repeat: no-repeat;
-    background-color: #fff;
-    background-position: 0px -35px;
-
 .header.hide + .bodyContent {
     margin-top: 0px;
 }
