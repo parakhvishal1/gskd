@@ -202,8 +202,14 @@ function loadProfileOptions() {
                 <div class="title">
                     <div class="name" onclick="loadEditProfile()">Profile Settings</div>
                 </div>
-                <div class="info cta">Logout</div>
+                <div id="logout" class="info cta">Logout</div>
             </div>
         `);
     }
+
+    $("#logout").click(function(e) {
+        ToBot("logout", {
+            "timestamp": new Date().getTime(),
+        });
+    });
 }
