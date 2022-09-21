@@ -30,7 +30,7 @@ function showHeader(data) {
             <div class="profile_section" onclick="loadProfileOptions()">
                 <div class="block">
                     <div class="name">${user.name}</div>
-                    <div class="icon"><i class="fa fa-angle-down"></i></div>
+                    <div class="icon"><img class="arrow-down" src="/gsk/assets/images/svg/down.svg" /></div>
                 </div>
                 <div class="email">${user.email}</div>
             </div>

@@ -194,9 +194,11 @@ function loadProfileOptions() {
         console.log('---In If LPO---')
         $("#profile_setting_card").removeClass("active");
         $("#profile_setting_card").empty();
+        $("#profile_setting_card").hide();
     } else {
         console.log('---In Else LPO---');
         $("#profile_setting_card").addClass("active");
+        $("#profile_setting_card").show();
         $("#profile_setting_card").append(`
             <div class="order_card menu">
                 <div class="title">
@@ -208,6 +210,8 @@ function loadProfileOptions() {
     }
 
     $("#logout").click(function(e) {
+        removeHeader();
+        $("#profile_setting_card").hide();
         ToBot("logout", {
             "timestamp": new Date().getTime(),
         });

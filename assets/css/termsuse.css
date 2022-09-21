@@ -5,7 +5,8 @@
 }
 
 .termsofuse .main_content {
-    height: calc(75% - 40px);
+    /* height: calc(75% - 40px); */
+    height: calc(95% - 40px);
     width: 100%;
 }
 

@@ -39,7 +39,7 @@
 }
 .order_section .tabs [class^="tab"] [type="radio"],
 .order_section .tabs [class*=" tab"] [type="radio"] {
-    border-bottom: 3px solid transparent;
+    border-bottom: 3px solid #E6E6E6;
 }
 
 .order_section .tabs [class^="tab"] [type="radio"]:checked ~ #label {

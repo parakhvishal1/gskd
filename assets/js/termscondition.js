@@ -8,12 +8,6 @@ function loadTermsUI(data) {
                 <div class="heading">${data["heading"]}</div>
                 <div class="termsofuse_content" id="termsofuse_content"></div>
             </div>
-            <div class="btn_wrapper">
-                <div class="btnbox">
-                    <button class="btn outline" id="terms_decline">${data["decline"]}</button>
-                    <button class="btn solid" id="terms_accept">${data["accept"]}</button>
-                </div>
-            </div>
         </div>
     `);
 
@@ -26,15 +20,22 @@ function loadTermsUI(data) {
         `);
     });
 
-    $("#terms_accept").click(function(e) {
+    {/* <div class="btn_wrapper">
+        <div class="btnbox">
+            <button class="btn outline" id="terms_decline">${data["decline"]}</button>
+            <button class="btn solid" id="terms_accept">${data["accept"]}</button>
+        </div>
+    </div> */}
+
+    /* $("#terms_accept").click(function(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         ToBot("terms-conditions", {
             "opted": "accept"
         });
-    });
+    }); */
 
-    $("#terms_decline").click(function(e) {
+    /* $("#terms_decline").click(function(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         CallScreen(2);
@@ -42,5 +43,5 @@ function loadTermsUI(data) {
         ToBot("terms-conditions", {
             "opted": "decline"
         });
-    });
+    }); */
 }

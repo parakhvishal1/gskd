@@ -85,6 +85,7 @@
     /* background-color: #f36633; */
     background-color: #f36633;
     /* opacity: 0.9; */
+    border-radius: 6px;
     z-index: 2;
 }
 
@@ -102,7 +103,7 @@
 .progressbar .progressbar_ratio .ratio {
     position: absolute;
     height: 100%;
-    right: 10px;
+    right: 20px;
     margin: auto 0;
     display: flex;
     align-items: center;
@@ -127,7 +128,7 @@
 .main {
     background: #ffffff;
     border: 1px solid #959595;
-    box-shadow: 0px 3px 12px rgba(84, 79, 64, 0.1);
+    /* box-shadow: 0px 3px 12px rgba(84, 79, 64, 0.1); */
     border-radius: 5px;
     width: 100%;
     height: 32px;
@@ -145,8 +146,8 @@
     /* background-color: #f36633; */
     width: 20%;
     height: -webkit-fill-available;
-    border-left: 2px;
-    border-right: 2px;
+    border-left: 1px;
+    border-right: 1px;
     border-right-style: solid;
     color: #fff;
     display: flex;

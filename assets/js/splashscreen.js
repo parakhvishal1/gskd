@@ -14,7 +14,6 @@ function loadGeneralWelcome(data) {
             <div class="legal_tnc">
                 <div class="legal_tnc_title">Legal Terms & Conditions</div>
                 <div class="legal_tnc_body">${data["tnc"]}</div>
-                <div class="readmore">Read More</div>
             </div>
         </div>
     `);
