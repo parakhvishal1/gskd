@@ -8,6 +8,7 @@ function loadOrderCart(data) {
                 <div class="icon goToBrandLevel cursor"><img src="/gsk/assets/images/svg/plus.svg" /></div>
             </div>
             ${getAccordianAccounts(data["new_orders"]["orders"])}
+            ${data["rebates_orders"] && data["rebates_orders"]["orders"] && getAccordianAccounts(data["rebates_orders"]["orders"])}
         </div>
         <div class="bottom">
             <div class="btn_wrapper">

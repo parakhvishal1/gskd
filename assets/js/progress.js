@@ -102,7 +102,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
         <div class="progressbar flex">
             <div class="wrapper_brand_progress" style="width: ${detailed ? '5' : '0'}%;"></div>
             <div class="wrapper_brand_progress" style="width: ${detailed ? '75' : basicProgress ? '100' : '90'}%;">
-                <label class="${detailed ? "abs" : ""}">${!hideAdd ? item["name"] : ""}</label>
+                <label class="${detailed ? "abs" : ""} ${!hideAdd ? "" : "hide"}">${!hideAdd ? item["name"] : ""}</label>
                 ${detailed ? getProgressHeaderFooterLabels(item, "header") : ""}
                 <div class="progressbar_wrapper">
                     <div class="main">
@@ -122,7 +122,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                 </div>
                 ${detailed ? getProgressHeaderFooterLabels(item, "footer") : ""}
             </div>
-            <div class="wrapper_brand_progress" style="width: ${detailed ? '10' : basicProgress ? '0' : '5'}%; padding-right: ${hideAdd ? "0px" : basicProgress ? '0px' : "12px"}; font-size: 12px;">
+            <div class="wrapper_brand_progress" style="width: ${detailed ? '10' : basicProgress ? '0' : '10'}%; padding-left: ${hideAdd ? "0px" : basicProgress ? '0px' : "5%"}; font-size: 12px;">
                 ${hideAdd ? `<div><div style='margin-top: -20px;'>On Invoice</div><div style='margin-top: 10px;'><strong> ${parseInt(item["purchased"]) + parseInt(item["selected"])}</strong></div></div>` : addBtn}
             </div>
         </div>

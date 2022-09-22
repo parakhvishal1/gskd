@@ -118,7 +118,7 @@ function CallScreen(caseNum) {
                     "orders": [
                         {
                             "account_no": "Wholesaler A - Accoount: A0001",
-                            "order_no": "Order No: 6921030003",
+                            "order_no": "6921030003",
                             "sku": "GSK-ACCOUNT_NO-A0001",
                             "product_details" : [
                                 {
@@ -170,7 +170,7 @@ function CallScreen(caseNum) {
                         },
                         {
                             "account_no": "Wholesaler A - Accoount: A0002",
-                            "order_no": "Order No: 6921030003",
+                            "order_no": "6921030003",
                             "sku": "GSK-ACCOUNT_NO-A0002",
                             "product_details" : [
                                 {
@@ -222,7 +222,7 @@ function CallScreen(caseNum) {
                         },
                         {
                             "account_no": "Wholesaler A - Accoount: A0003",
-                            "order_no": "Order No: 6921030003",
+                            "order_no": "6921030003",
                             "sku": "GSK-ACCOUNT_NO-A0003",
                             "product_details" : [
                                 {
@@ -278,9 +278,10 @@ function CallScreen(caseNum) {
                     "orders": [
                         {
                             "account_no": "Wholesaler A - Accoount: A0001",
-                            "order_no": "Order No: 6921030003",
+                            "order_no": "6921030003",
                             "status": "Cancelled",
                             "delivery_date": "May 30 22",
+                            "ordered_date": "Jan 01, 22",
                             "sku": "GSK-ACCOUNT_NO-A0001",
                             "product_details" : [
                                 {
@@ -332,9 +333,10 @@ function CallScreen(caseNum) {
                         },
                         {
                             "account_no": "Wholesaler A - Accoount: A0002",
-                            "order_no": "Order No: 6921030003",
+                            "order_no": "6921030003",
                             "status": "Sent",
                             "delivery_date": "May 30 22",
+                            "ordered_date": "Jan 01, 22",
                             "sku": "GSK-ACCOUNT_NO-A0002",
                             "product_details" : [
                                 {
@@ -386,9 +388,10 @@ function CallScreen(caseNum) {
                         },
                         {
                             "account_no": "Wholesaler A - Accoount: A0003",
-                            "order_no": "Order No: 6921030003",
+                            "order_no": "6921030003",
                             "status": "Invoiced",
                             "delivery_date": "May 30 22",
+                            "ordered_date": "Jan 01, 22",
                             "sku": "GSK-ACCOUNT_NO-A0003",
                             "product_details" : [
                                 {
@@ -435,6 +438,63 @@ function CallScreen(caseNum) {
                                     "discount": "40",
                                     "payterm": "30",
                                     "sku": "GSK-PRODUCT-A0003-5"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "rebates_orders": {
+                    "orders": [
+                        {
+                            "account_no": "Period Eligible / Rebates",
+                            "order_no": "6921030003",
+                            "sku": "GSK-REBATES-A0001",
+                            "ordered_date": "Jan 01, 22",
+                            "product_details" : [
+                                {
+                                    "name" : "Augmentin 25mcg Tabs",
+                                    "price": "4.01",
+                                    "units": "25",
+                                    "free_goods": "2",
+                                    "discount": "40",
+                                    "payterm": "30",
+                                    "sku": "GSK-REBATES-PRODUCT-A0001-1"
+                                },
+                                {
+                                    "name" : "Augmentin 50mcg Tabs",
+                                    "price": "4.01",
+                                    "units": "25",
+                                    "free_goods": "2",
+                                    "discount": "40",
+                                    "payterm": "30",
+                                    "sku": "GSK-REBATES-PRODUCT-A0001-2"
+                                },
+                                {
+                                    "name" : "Augmentin 75mcg Tabs",
+                                    "price": "4.01",
+                                    "units": "25",
+                                    "free_goods": "2",
+                                    "discount": "40",
+                                    "payterm": "30",
+                                    "sku": "GSK-REBATES-PRODUCT-A0001-3"
+                                },
+                                {
+                                    "name" : "Augmentin 100mcg Tabs",
+                                    "price": "4.01",
+                                    "units": "25",
+                                    "free_goods": "2",
+                                    "discount": "40",
+                                    "payterm": "30",
+                                    "sku": "GSK-REBATES-PRODUCT-A0001-4"
+                                },
+                                {
+                                    "name" : "Augmentin 125mcg Tabs-5",
+                                    "price": "4.01",
+                                    "units": "25",
+                                    "free_goods": "2",
+                                    "discount": "40",
+                                    "payterm": "30",
+                                    "sku": "GSK-REBATES-PRODUCT-A0001-5"
                                 }
                             ]
                         }

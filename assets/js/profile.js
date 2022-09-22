@@ -90,10 +90,19 @@ function loadUserProfile(data) {
                     </div>
                 `);
                 associated_accounts["accounts"].map(account => {
+                    let className = "";
+                    if(account["active_status"] === "active") {
+                        className = "success"
+                    }
                     $(".accordian_upperwrapper").append(`
-                        <div class="accordion">
+                        <div class="accordion associated_accounts">
                             <div class="accordion-item">
-                                <div class="accordion-item-header inner" data=${encodeURIComponent(JSON.stringify(account))}>${account["name"]}</div>
+                                <div class="accordion-item-header inner" data=${encodeURIComponent(JSON.stringify(account))}>
+                                    <div class="flex" style="width: calc(100% - 50px);">
+                                        <div class="account_name">${account["name"]}</div>
+                                        <div class="account_status ${className}">${account["active_status"] ? account["active_status"] : "Active"}</div>
+                                    </div>
+                                </div>
                                 <div class="accordion-item-body inner">
                                     <div class="accordion-item-body-content inner">
                                         
@@ -117,7 +126,7 @@ function loadUserProfile(data) {
                         bodyContentNodeInner.append(`
                             <table class="accordian table">
                                 <thead>
-                                    <tr class="info_row">
+                                    <tr class="info_row bordered">
                                         <td class="info_data title" colspan="4">Account <br/>Number</td>
                                         <td class="info_data title" colspan="2">Legal <br/>ID</td>
                                         <td class="info_data title" colspan="1">Attach <br/>Invoice</td>
@@ -140,7 +149,7 @@ function loadUserProfile(data) {
                                 classValue = "warning";
                             }
                             $(".accordian_account_detailed").append(`
-                                <tr class="info_row">
+                                <tr class="info_row bordered">
                                     <td class="info_data" colspan="4">
                                         <span class="inline_block top">
                                             <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">

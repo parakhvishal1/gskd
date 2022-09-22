@@ -35,6 +35,7 @@ function ToBot(eventName, data) {
                         "accounts": [
                             {
                                 "name": "Wholesaler A",
+                                "active_status": "active",
                                 "account_data": [
                                     {
                                         "account_no": "A00000001",
@@ -58,6 +59,7 @@ function ToBot(eventName, data) {
                             },
                             {
                                 "name": "Wholesaler B",
+                                "active_status": "",
                                 "account_data": [
                                     {
                                         "account_no": "A00000001",
@@ -81,6 +83,7 @@ function ToBot(eventName, data) {
                             },
                             {
                                 "name": "Wholesaler C",
+                                "active_status": "active",
                                 "account_data": [
                                     {
                                         "account_no": "A00000001",

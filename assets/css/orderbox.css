@@ -3,6 +3,14 @@
     margin: 10px 20px 20px 20px;
     display: none;
     position: relative;
+    animation: unset;
+}
+
+.profile_setting_card.active > .order_card.menu {
+    position: fixed;
+    top: 64px;
+    width: calc(100% - 40px);
+    z-index: 19;
 }
 
 .order_card {
@@ -125,5 +133,47 @@
 }
 
 .title.backbtn {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+}
+
+.title.backbtn.hide + .card_click .flex .order_on_date {
+    display: none;
+}
+
+.title.backbtn + .card_click .flex .order_on_date .info:first-child {
+    font-weight: 500;
+}
+
+.title.backbtn.hide + .card_click .flex .order_status .info:first-child {
+    font-weight: 400;
+}
+
+.title.backbtn + .card_click .flex .order_status .info:first-child {
+    font-weight: 500;
+}
+
+.title.backbtn.hide + .card_click .title .arrow {
+    display: block;
+}
+
+.title.backbtn + .card_click .title .arrow{
+    display: none;
+}
+
+.title.backbtn.hide + .card_click + .order_cart.history > .title {
+    border-top: none;
+    padding-top: none;
+    width: unset;
+    margin-left: unset;
+    margin-right: unset;
+}
+
+
+.title.backbtn + .card_click + .order_cart.history > .title {
+    border-top: 1px solid #E6E6E6;
+    padding-top: 12px;
+    padding-left: 0;
+    width: calc(100% - 32px);
+    margin-left: auto;
+    margin-right: auto;
 }

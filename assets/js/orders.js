@@ -64,8 +64,16 @@ function loadUserWelcomeUI(data) {
                         <img src="/gsk/assets/images/svg/right.svg" />
                     </div>
                 </div>
-                <div class="info">Order No: ${lastOrder["order_no"]}</div>
-                <div class="info">${lastOrder["status"]}${lastOrder["delivery_date"] ? " | Delivery On: " : ""}${lastOrder["delivery_date"]}</div>
+                <div class="flex">
+                    <div class="order_status">
+                        <div class="info">Order No: ${lastOrder["order_no"]}</div>
+                        <div class="info">${lastOrder["status"]}${lastOrder["delivery_date"] ? " &nbsp;|&nbsp; Delivery On: " : ""}${lastOrder["delivery_date"]}</div>
+                    </div>
+                    <div class="order_on_date">
+                        <div class="info">Ordered On:</div>
+                        <div class="info">${lastOrder["ordered_date"]}</div>
+                    </div>
+                </div>
             </div>
             <div class="order_cart history hide">
                 <div class="title">
@@ -98,6 +106,7 @@ function loadUserWelcomeUI(data) {
         siblingElement.addClass("hide");
         $(this).parent().addClass("hide");
         siblingElement.siblings(".card_click")
+        $("#progress_plan_main").removeClass("hide");
         siblingElement.siblings(".card_click").css("pointer-events", "unset");
     });
 
@@ -132,7 +141,7 @@ function loadUserWelcomeUI(data) {
                             <div class="title">
                                 <div class="name">${orderData["account_no"]}</div>
                                 <div class="arrow">
-                                    <img src="/gsk/assets/images/svg/right.svg" />
+                                    <img src="/assets/images/svg/right.svg" />
                                 </div>
                             </div>
                             <div class="info">Order No: ${orderData["order_no"]}</div>
@@ -172,6 +181,7 @@ function loadUserWelcomeUI(data) {
             let getTableBodyChildElement = $(childElement).children().children().children("#order_card_tablebody");
             if (childElement.hasClass("hide")) {
                 childElement.removeClass("hide");
+                $("#progress_plan_main").addClass("hide");
                 $(this).siblings(".title.backbtn").removeClass("hide");
                 getTableBodyChildElement.empty();
                 additionalDetails && additionalDetails.map((item, index) => {
@@ -310,13 +320,13 @@ function loadBrandSelectionUI(data) {
                     <div class="count_wrapper hide"></div>
                 </div>
             </div>
-            <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span></span> <strong>End:</strong> ${data["last_date"]}</div>
+            <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
             ${loadProgressCards(data["plan_progress"])}
         </div> 
         <div class="bottom">
             <div class="btn_wrapper hide">
                 <div class="place_order checkout">
-                    <button class="btn solid checkout" id="view_checkout">Checkout</button>
+                    <button class="btn solid checkout view_checkout">Checkout</button>
                 </div>
             </div>
         </div>
@@ -326,13 +336,16 @@ function loadBrandSelectionUI(data) {
     if(total) {
         $(".count_wrapper").removeClass("hide");
         $(".place_order.checkout").parent().removeClass("hide");
+        $(".count_wrapper").parent(".icon").addClass("cursor");
         $(".count_wrapper").text(total);
     }
 
-    $("#view_checkout").click(function (e) {
+    $(".view_checkout").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        loadOrderCart(data);
+        if(total) {
+            loadOrderCart(data);
+        }
     });
 
     $(".progressbar_wrapper.addproduct").click(function (e) {

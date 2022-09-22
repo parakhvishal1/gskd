@@ -154,7 +154,7 @@ function showBrandLevelDetails(data, currentSku) {
                 <div class="icon"><i class="fa fa-shopping-cart"></i></div>
             </div>
             <div class="sub_detail_wrapper">
-                <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span></span> <strong>End:</strong> ${data["last_date"]}</div>
+                <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
                 <div class="sub_detail highlight">Additional Discount</div>
             </div>
             <div class="brand_level_progress">${loadProgressCards({"brands": filteredBrand}, true, true)}</div>
@@ -191,20 +191,29 @@ function showBrandLevelDetails(data, currentSku) {
         $(".account_list").append(`<div class="item" skudata=${order["sku"]}>${order["account_no"]}</div>`);
     })
     
-    let lastOrder = data && data["order_history"] && data["order_history"] && data["order_history"]["orders"][0]
+    let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0]
     lastOrder &&[lastOrder].map((order, index) => {
         $("#previous-orders-accordion").append(`
             <div class="accordion">
                 <div class="accordion-item inverted">
-                    <div class="accordion-item-header account_detail">${order["account_no"]}</div>
+                    <div class="accordion-item-header account_detail white">${order["account_no"]}</div>
                     <div class="accordion-item-body parent">
                         <div class="accordion-item-body-content" style="height: 300px; overflow: auto;">
                             <div class="date-picker-value pointernone">
-                                ${showDatePicker()}
+                                ${showDatePickerWhite()}
                             </div>
+                            <div class="flex">
+                                <div class="order_status">
+                                    <div class="info">Order No: ${lastOrder["order_no"]}</div>
+                                </div>
+                                <div class="order_on_date">
+                                    <div class="info">Status: ${lastOrder["ordered_date"]}</div>
+                                </div>
+                            </div>
+                            <div class="title">PRODUCTS</div>
                             <table class="accordian table">
                                 <thead>
-                                    <tr class="info_row">
+                                    <tr class="info_row bordered">
                                         <td class="info_data" colspan="1">Est. Price</td>
                                         <td class="info_data" colspan="1">Units</td>
                                         <td class="info_data" colspan="1">Free Goods</td>
@@ -213,7 +222,7 @@ function showBrandLevelDetails(data, currentSku) {
                                     </tr>
                                 </thead>
                                 <tbody id="previous_order_body">
-                                    ${getPreviousOrderTableData(order["additional_details"]["product_details"])}
+                                    ${getPreviousOrderTableData(order["product_details"])}
                                 </tbody>
                             </table>
                         </div>
@@ -322,7 +331,7 @@ function getPreviousOrderTableData(data) {
                     </div>
                 </td>
             </tr>
-            <tr class="info_row">
+            <tr class="info_row bordered">
                 <td class="info_data" colspan="1">£ ${item.price}</td>
                 <td class="info_data" colspan="1">${item.units}</td>
                 <td class="info_data" colspan="1">+${item.free_goods}</td>
@@ -340,7 +349,7 @@ function addnewOrder(data) {
             <div class="accordion-item">
                 <div class="accordion-item-header orderdetail">${data["account_no"]}</div>
                 <div class="accordion-item-body parent">
-                    <div class="accordion-item-body-content" style="height: 300px; overflow: auto;">
+                    <div class="accordion-item-body-content" style="height: 270px; overflow: auto;">
                         <div class="date-picker-value">
                             ${showDatePicker()}
                         </div>
@@ -359,8 +368,8 @@ function addnewOrder(data) {
         let uuid = create_UUID();
         $("#new_order_body").append(`
             <tr class="info_row">
-                <td class="info_data">${productData["name"]}</td>
-                <td class="info_data">
+                <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;">${productData["name"]}</td>
+                <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;">
                     <div class="counter__wrapper">
                         <div class="counter__container" skudata="${productData["sku"]}" parentskudata=${data["sku"]} >
                             <div class="counter__box__container sub">
@@ -474,7 +483,7 @@ function updateCounter(counterInput, type) {
             if(order["sku"] === parentSkuData) {
                 order["product_details"].forEach(product => {
                     if(product["sku"] === skuData) {
-                        order["ordered_date"] = formattedDate;
+                        order["ordered_date"] = formattedDate ? formattedDate : new Date();
                         product["quantity"] = $input.val();
                         window.cartData[parentSkuData][skuData] = $input.val() - Number(product["units"]);
                     }
