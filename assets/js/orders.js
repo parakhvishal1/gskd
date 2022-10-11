@@ -53,7 +53,7 @@ function loadUserWelcomeUI(data) {
                     <img src="/gsk/assets/images/svg/right.svg" style="transform: rotate(180deg);" />
                     <span style="margin-left: 5px;">Back</span>
                 </div>
-                <div class="arrow">
+                <div class="arrow hide">
                     <img src="/gsk/assets/images/svg/edit.svg" style="height: 20px; width: 20px;"/>
                 </div>
             </div>
@@ -316,7 +316,7 @@ function loadBrandSelectionUI(data) {
             <div class="menu_header">
                 <div class="label">Choose Brands</div>
                 <div class="icon">
-                    <img src="/gsk/assets/images/svg/basket.svg" />
+                    <img src="/gsk/assets/images/svg/basket.svg" class="view_checkout" />
                     <div class="count_wrapper hide"></div>
                 </div>
             </div>
@@ -352,7 +352,6 @@ function loadBrandSelectionUI(data) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         let currentElementSkuData = $(this).attr("skudata");
-        console.log("currentElementSkuData -> ", currentElementSkuData);
         let data = localStorage.getItem("data");
         let parsedData = JSON.parse(data);
         parsedData["selected_brand"] = currentElementSkuData;
@@ -362,7 +361,7 @@ function loadBrandSelectionUI(data) {
             // return product["name"] === parsedCurrentElementData["name"];
         // })
         // data["brands"]["products"] = filteredProducts;
-        
-        !parsedData["isSku"] ? showSkuLevelDetails(parsedData, currentElementSkuData) : showBrandLevelDetails(parsedData, currentElementSkuData);
+
+        !parsedData["isSku"] ? showSkuLevelDetailsBrand(parsedData, currentElementSkuData) : showBrandLevelDetails(parsedData, currentElementSkuData);
     });
 }

@@ -27,7 +27,7 @@ function showHeader(data) {
     $(".header").empty();
     function showUserCreds(user) {
         return `
-            <div class="profile_section" onclick="loadProfileOptions()">
+            <div class="profile_section" tabindex=0>
                 <div class="block">
                     <div class="name">${user.name}</div>
                     <div class="icon"><img class="arrow-down" src="/gsk/assets/images/svg/down.svg" /></div>
@@ -65,6 +65,25 @@ function showHeader(data) {
         e.stopImmediatePropagation();
         let parsedData = JSON.parse(localStorage.getItem("data"));
         ToApp("userwelcome-screen", parsedData)
+    });
+
+    $(".profile_section").click(function(e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        loadProfileOptions();
+    });
+
+    $(document).on("click", ".order_card",function(e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+    });
+
+    $(document).on("click",function(e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        $("#profile_setting_card").removeClass("active");
+        $("#profile_setting_card").empty();
+        $("#profile_setting_card").hide();
     });
 }
 
@@ -115,4 +134,24 @@ function PosEnd(end) {
         t.moveStart('character', len);
         t.select();
     }
+}
+
+function getParsedData() {
+    return JSON.parse(localStorage.getItem("data"));
+}
+
+function saveParsedData() {
+
+}
+
+function calculateSumAmount(data) {
+    let sum = 0;
+    let sumValues = obj => Object.values(obj).reduce((a, b) => {
+        return Number(a) + Number(b);
+    });
+
+    for (let key in data) {
+        sum = sum + Number(sumValues(data[key]));
+    }
+    return sum;
 }

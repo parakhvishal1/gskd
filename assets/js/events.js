@@ -72,16 +72,14 @@ function CallScreen(caseNum) {
                     "brands": [
                         {
                             "name": "Augmentin",
-                            "purchased" : "125",
+                            "purchased": "125",
                             "selected": "0",
-                            "max_limit": "300",
+                            "max_limit": "260",
                             "sku": "GSK-BRAND-1",
                             "discount_range": [
-                                {"discount": "5"},
-                                {"discount": "10"},
-                                {"discount": "15"},
-                                {"discount": "20"},
-                                {"discount": "25"},
+                                { "discount": "5" },
+                                { "discount": "10" },
+                                { "discount": "15" },
                             ]
                         },
                         {
@@ -124,7 +122,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 25mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -133,7 +131,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 50mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -142,7 +140,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 75mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -151,7 +149,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 100mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -160,7 +158,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 125mcg Tabs-5",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -176,7 +174,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 25mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -185,7 +183,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 50mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -194,7 +192,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 75mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -203,7 +201,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 100mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -212,7 +210,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 125mcg Tabs-5",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -228,7 +226,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 25mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -237,7 +235,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 50mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -246,7 +244,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 75mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -255,7 +253,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 100mcg Tabs",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",
@@ -264,7 +262,7 @@ function CallScreen(caseNum) {
                                 {
                                     "name" : "Augmentin 125mcg Tabs-5",
                                     "price": "4.01",
-                                    "units": "25",
+                                    "units": "0",
                                     "free_goods": "2",
                                     "discount": "40",
                                     "payterm": "30",

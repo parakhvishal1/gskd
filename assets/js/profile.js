@@ -10,6 +10,7 @@ function loadUserProfile(data) {
     let notification = data["notification"];
 
     $("#content_box").append(`
+        <div class="profile_section_container">
         <div class="accordion">
             <div class="accordion-item">
                 <div class="accordion-item-header parent">Profile Details</div>
@@ -42,6 +43,7 @@ function loadUserProfile(data) {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     `);
 
@@ -198,18 +200,15 @@ function loadUserProfile(data) {
 
 function loadProfileOptions() {
     let elementIsActive = $("#profile_setting_card").hasClass("active");
-    console.log('---In load Profile Option---')
     if (elementIsActive) {
-        console.log('---In If LPO---')
         $("#profile_setting_card").removeClass("active");
         $("#profile_setting_card").empty();
         $("#profile_setting_card").hide();
     } else {
-        console.log('---In Else LPO---');
         $("#profile_setting_card").addClass("active");
         $("#profile_setting_card").show();
         $("#profile_setting_card").append(`
-            <div class="order_card menu">
+            <div class="order_card menu" tabindex=0>
                 <div class="title">
                     <div class="name" onclick="loadEditProfile()">Profile Settings</div>
                 </div>

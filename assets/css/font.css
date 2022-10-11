@@ -1,0 +1,121 @@
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-Thin.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-Thin.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-Thin.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-Thin.otf') format('opentype');
+    font-style: normal;
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-ThinItalic.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-ThinItalic.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-ThinItalic.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-ThinItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-Thin.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-Thin.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-Thin.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-Thin.otf') format('opentype');
+    font-style: normal;
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-ThinItalic.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-ThinItalic.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-ThinItalic.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-ThinItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-Light.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-Light.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-Light.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-Light.otf') format('opentype');
+    font-style: normal;
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-LightItalic.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-LightItalic.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-LightItalic.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-LightItalic.otf') format('opentype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-Regular.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-Regular.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-Regular.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-Regular.otf') format('opentype');
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-RegularItalic.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-RegularItalic.woff2') format('woff'),
+         url('/assets/fonts/GSKPrecision-RegularItalic.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-RegularItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-Bold.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-Bold.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-Bold.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-Bold.otf') format('opentype');
+    font-style: normal;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-BoldItalic.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-BoldItalic.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-BoldItalic.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-BoldItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: 500;
+}
+
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-Bold.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-Bold.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-Bold.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-Bold.otf') format('opentype');
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "GSK";
+    src: url('/assets/fonts/GSKPrecision-BoldItalic.woff2') format('woff2'),
+         url('/assets/fonts/GSKPrecision-BoldItalic.woff') format('woff'),
+         url('/assets/fonts/GSKPrecision-BoldItalic.ttf') format('truetype'),
+         url('/assets/fonts/GSKPrecision-BoldItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: 600;
+}

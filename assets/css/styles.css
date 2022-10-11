@@ -161,7 +161,8 @@
 .progressbar .detail_bar .sub-block  {
     color: #111;
     border: none;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
+    justify-content: center;
 }
 
 .sub-block:first-child {
@@ -652,6 +653,10 @@ table {
     color: #959595;
 }
 
+.accordion-item-body.opened {
+    max-height: fit-content;
+}
+
 .accordion-item-body.parent .accordion-item-body-content .accordion {
     width: 100%;
     margin: 0;
@@ -712,6 +717,51 @@ table {
     /* border-bottom: 0.5px solid #e6e6e6; */
 }
 
+.accordian.table .info_row.brandscreen .info_data .counter__wrapper .counter__container {
+    padding-right: 0px;
+    /* border-bottom: 0.5px solid #e6e6e6; */
+}
+
+.accordian.table .info_row.paddingTop {
+    height: 12px;
+    border-top: 1px solid #E6E6E6;
+}
+
+.accordian.table .info_row.paddingBottom {
+    height: 36px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.accordian.table .info_row.brandscreen td .progress_card {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    border: none;
+    padding: 4px 0 0 0;
+    box-shadow: none;
+}
+.accordian.table .info_row.brandscreen td .progress_card .progress_plan .grouped .progressbar{
+    margin-bottom: 0;
+}
+
+.accordian.table .info_row.brandscreen td .progress_card .progress_plan .grouped .progressbar .wrapper_brand_progress:nth-child(1){
+    width: 5% !important;
+}
+
+.accordian.table .info_row.brandscreen td .progress_card .progress_plan .grouped .progressbar .wrapper_brand_progress:nth-child(2){
+    width: 94% !important;
+    padding-left: 20px;
+}
+
+.accordian.table .info_row.brandscreen td .progress_card .progress_plan .grouped .progressbar .wrapper_brand_progress:nth-child(3){
+    display: none;
+    width: 0 !important;
+}
+
+.accordian.table .info_row {
+    padding: 20px;
+}
+
 .accordian.table .info_row.bordered {
     border-bottom: 1px solid #e6e6e6;
 }
@@ -737,6 +787,7 @@ table {
 .accordian.table tbody tr .title .arrow {
     height: 16px;
     width: 20px;
+    cursor: pointer;
 }
 
 .accordian.table tbody .info_row:last-child {
@@ -913,4 +964,9 @@ table {
 .frame .sub-frame-block {
     width: 20%;
     height: -webkit-fill-available;
+}
+
+.profile_section_container {
+    height: 85%;
+    overflow-y: auto;
 }

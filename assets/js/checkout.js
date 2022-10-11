@@ -61,8 +61,10 @@ function getAccordianAccounts(data) {
         return `
             <div class="accordion">
                 <div class="accordion-item">
-                    <div class="accordion-item-header account_detail">${order["account_no"]}</div>
-                    <div class="accordion-item-body parent">
+                    <div class="accordion-item-header account_detail active">
+                        ${order["account_no"]}
+                    </div>
+                    <div class="accordion-item-body parent opened">
                         <div class="accordion-item-body-content" style="height: 300px; overflow: auto;">
                             <div class="date-picker-value date_order ${order["ordered_date"] ? "" : "hide"}">
                                 <div class="flex calendar-picker">
@@ -96,14 +98,14 @@ function getAccordianAccounts(data) {
 }
 
 function getAccordianAccountsData(data) {
-    let accordianAccountsData = data.map(item => {
+    let accordianAccountsData = data.map((item, index) => {
         return `
             <tr>
                 <td colspan="5">
                     <div class="title paddingTop">
                         <div class="name">${item["name"]}</div>
-                        <div class="arrow hide">
-                            <img src="/gsk/assets/images/svg/edit.svg" />
+                        <div class="arrow edit quantityEdit">
+                            <img src="/gsk/assets/images/svg/edit.svg" key=${index} onclick="goBack()" />
                         </div>
                     </div>
                 </td>
@@ -177,3 +179,8 @@ function loadOrderFinalCart(data) {
         }
     });
 }
+
+function goBack() {
+    let parsedData = JSON.parse(localStorage.getItem("data"));
+    !parsedData["isSku"] ? showSkuLevelDetailsBrand(parsedData, parsedData["selected_brand"]) : showBrandLevelDetails(parsedData, parsedData["selected_brand"]);
+};
