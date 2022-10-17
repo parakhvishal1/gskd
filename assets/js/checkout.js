@@ -132,6 +132,7 @@ function getAccordianAccountsData(data, rebates) {
                 <td class="info_data" colspan="1">${item["payterm"]} D</td>
             </tr>
         `
+        }
     });
     return accordianAccountsData.join("");
 }
