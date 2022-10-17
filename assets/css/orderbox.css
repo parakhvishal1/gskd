@@ -104,6 +104,7 @@
 
 .calendar-picker {
     justify-content: unset;
+    padding-top: 12px;
 }
 
 .calendar-picker .picker {

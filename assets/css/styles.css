@@ -65,6 +65,10 @@
     animation: unset;
 }
 
+.progressbar .detail_bar {
+    margin-bottom: 10px;
+}
+
 .progressbar .detail_bar,
 .progressbar .progressbar_wrapper {
     position: relative;
@@ -142,6 +146,17 @@
     box-shadow: none;
 }
 
+.progressbar .quantity_total {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: -35px;
+    color: #151515;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+}
+
 .sub-block {
     /* background-color: #f36633; */
     width: 20%;
@@ -177,6 +192,16 @@
     position: absolute;
     top: 10px;
     left: -40px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f26633;
+}
+
+.progressbar .detail_bar .progress_header_label.right {
+    position: absolute;
+    top: -2px;
+    left: unset;
+    right: -50px;
     font-size: 12px;
     font-weight: 600;
 }
@@ -356,7 +381,7 @@
     display: flex;
     flex-flow: column;
     width: 100%;
-    height: 300px;
+    max-height: 300px;
 }
 
 .order_cart.history tbody {
@@ -544,6 +569,7 @@ table {
 }
 
 .accordion-item {
+    padding: 12px 0;
     background-color: #fff;
     color: #111;
     margin: 1rem 0;
@@ -557,7 +583,7 @@ table {
 }
 
 .accordion-item-header {
-    padding: 12px;
+    padding: 0 12px 0 12px;
     font-weight: 600;
     font-size: 14px;
     color: #151515;

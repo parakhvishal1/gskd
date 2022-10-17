@@ -8,7 +8,7 @@ function loadOrderCart(data) {
                 <div class="icon goToBrandLevel cursor"><img src="/gsk/assets/images/svg/plus.svg" /></div>
             </div>
             ${getAccordianAccounts(data["new_orders"]["orders"])}
-            ${data["rebates_orders"] && data["rebates_orders"]["orders"] && getAccordianAccounts(data["rebates_orders"]["orders"])}
+            ${data["rebates_orders"] && data["rebates_orders"]["orders"] && getAccordianAccounts(data["rebates_orders"]["orders"], true)}
         </div>
         <div class="bottom">
             <div class="btn_wrapper">
@@ -37,7 +37,20 @@ function loadOrderCart(data) {
     $("#confirm").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        ToApp("ordercart-final-screen", data);
+        let data = getParsedData();
+        let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === data["selected_brand"]);
+        if(filteredBrand && filteredBrand[0] && filteredBrand[0]["total_invoice_range"]) {
+            ToApp("ordercart-final-screen", data);
+        } else {
+            loadUserWelcomeUI(data);
+            data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true);
+        }
+        /* data["plan_progress"]["brands"].map(progress => {
+            progress["purchased"] = Number(progress["purchased"]) + Number(progress["selected"]);
+        }); */
+        // ToApp('userwelcome-screen', data);
+        // ToApp("ordercart-final-screen", data);
+        
     });
 
     $(".accordion-item-header.account_detail").click(function (e) {
@@ -56,7 +69,7 @@ function loadOrderCart(data) {
     });
 }
 
-function getAccordianAccounts(data) {
+function getAccordianAccounts(data, rebates) {
     let accordianAccounts = data.map(order => {
         return `
             <div class="accordion">
@@ -65,7 +78,7 @@ function getAccordianAccounts(data) {
                         ${order["account_no"]}
                     </div>
                     <div class="accordion-item-body parent opened">
-                        <div class="accordion-item-body-content" style="height: 300px; overflow: auto;">
+                        <div class="accordion-item-body-content" style="max-height: 300px; overflow: auto;">
                             <div class="date-picker-value date_order ${order["ordered_date"] ? "" : "hide"}">
                                 <div class="flex calendar-picker">
                                     <img class="picker" src="/gsk/assets/images/svg/calendar.svg" />
@@ -85,7 +98,7 @@ function getAccordianAccounts(data) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${getAccordianAccountsData(order["product_details"])}
+                                    ${getAccordianAccountsData(order["product_details"], rebates)}
                                 </tbody>
                             </table>
                         </div>
@@ -97,8 +110,9 @@ function getAccordianAccounts(data) {
     return accordianAccounts.join("");
 }
 
-function getAccordianAccountsData(data) {
+function getAccordianAccountsData(data, rebates) {
     let accordianAccountsData = data.map((item, index) => {
+        if(rebates || item["quantity"]) {
         return `
             <tr>
                 <td colspan="5">

@@ -1,20 +1,19 @@
 function showSkuLevelDetailsBrand(data, currentSku) {
     let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
     let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
-    let brandData = filteredBrand[0];
-    
+
     $("#content_box").empty();
     $("#content_box").append(`
         <div class="order_details_container choosebrands">
             <div class="menu_header">
-                <div class="label">${brandData["name"]}</div>
+                <div class="label">${filteredBrand[0]["name"]}</div>
                 <div class="icon"><i class="fa fa-shopping-cart"></i></div>
             </div>
             <div class="sub_detail_wrapper">
                 <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
                 <div class="sub_detail highlight">Additional Discount</div>
             </div>
-            <div class="brand_level_progress">${loadProgressCards({"brands": filteredBrand}, true, true)}</div>
+            <div class="brand_level_progress">${loadProgressCards({ "brands": filteredBrand }, true, true)}</div>
             <div class="new_orders"></div>
 
             <div class="place_order">
@@ -44,7 +43,7 @@ function showSkuLevelDetailsBrand(data, currentSku) {
                 <div class="accordion-item inverted">
                     <div class="accordion-item-header account_detail white active">${order["account_no"]}</div>
                     <div class="accordion-item-body parent opened orderbrandselection">
-                        <div class="accordion-item-body-content" style="height: 300px; overflow: auto;">
+                        <div class="accordion-item-body-content" style="max-height: 300px; overflow: auto;">
                             <div class="date-picker-value pointernone">
                                 ${showDatePickerWhite()}
                             </div>
@@ -165,20 +164,19 @@ function showSkuLevelDetailsBrand(data, currentSku) {
 
     let parseData = getParsedData();
     parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map(ordr => {
-        addnewOrderBrand(ordr);
+        // addnewOrderBrand(ordr);
     })
 }
 
 function showBrandLevelDetails(data, currentSku) {
     let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
     let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
-    let brandData = filteredBrand[0];
 
     $("#content_box").empty();
     $("#content_box").append(`
         <div class="order_details_container choosebrands">
             <div class="menu_header">
-                <div class="label">${brandData["name"]}</div>
+                <div class="label">${filteredBrand[0]["name"]}</div>
                 <div class="icon"><i class="fa fa-shopping-cart"></i></div>
             </div>
             <div class="sub_detail_wrapper">
@@ -215,7 +213,7 @@ function showBrandLevelDetails(data, currentSku) {
                 <div class="accordion-item inverted">
                     <div class="accordion-item-header account_detail white active">${order["account_no"]}</div>
                     <div class="accordion-item-body parent opened orderbrandselection">
-                        <div class="accordion-item-body-content" style="height: 300px; overflow: auto;">
+                        <div class="accordion-item-body-content" style="max-height: 300px; overflow: auto;">
                             <div class="date-picker-value pointernone">
                                 ${showDatePickerWhite()}
                             </div>
@@ -239,7 +237,7 @@ function showBrandLevelDetails(data, currentSku) {
                                     </tr>
                                 </thead>
                                 <tbody id="previous_order_body">
-                                    ${getPreviousOrderTableData(order["product_details"])}
+                                    ${getPreviousOrderTableData(order["product_details"], currentSku)}
                                 </tbody>
                             </table>
                         </div>
@@ -261,13 +259,14 @@ function showBrandLevelDetails(data, currentSku) {
         loadBrandSelectionUI(parseData);
     });
 
-    $("#continue").click(function(e) {
+    $("#continue").click(function (e) {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
         let parseData = getParsedData();
         if (parseData && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].length > 0) {
-            ToApp("ordercart-screen", parseData)
+            loadBrandSelectionUI(parseData);
+            // ToApp("ordercart-screen", parseData)
         }
     });
 
@@ -291,11 +290,11 @@ function showBrandLevelDetails(data, currentSku) {
     $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
     $('input[id$=tbDate]').datepicker("setDate", "today");
 
-    $(".accordion-item-header.account_detail").click(function(e) {
+    $(".accordion-item-header.account_detail").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         let scrollHeightAccordion = "";
-        let accordionItemBody =  $(this).siblings(".accordion-item-body");
+        let accordionItemBody = $(this).siblings(".accordion-item-body");
         if (!$(this).hasClass("active")) {
             $(this).addClass("active");
             scrollHeightAccordion = accordionItemBody.prop('scrollHeight') + "px";
@@ -315,28 +314,26 @@ function showBrandLevelDetails(data, currentSku) {
         let orderData = filteredData[0];
         if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0) {
             window.wholesalerAccountData.map(v => {
-                console.log("first ", orderData["sku"]);
-                console.log("second ", v["sku"]);
-                if (orderData["sku"] !== v["sku"]) {
+                // if (orderData["sku"] !== v["sku"]) {
                     window.wholesalerAccountData.push(orderData);
-                    addWholeSalerAccordion(data, orderData);
+                    addWholeSalerAccordion(data, orderData, currentSku);
                     return;
-                }
+                // }
             });
         } else {
             window.wholesalerAccountData.push(orderData);
-            addWholeSalerAccordion(data, orderData);
+            addWholeSalerAccordion(data, orderData, currentSku);
             return;
         }
     });
 
-    let parseData = getParsedData();
+    /* let parseData = getParsedData();
     parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map(ordr => {
-        addnewOrder(ordr);
-    })
+        addnewOrder(ordr, currentSku);
+    }) */
 }
 
-function addWholeSalerAccordion(data, orderData) {
+function addWholeSalerAccordion(data, orderData, currentSku) {
     data["new_orders"] = {};
     data["new_orders"]["orders"] = window.wholesalerAccountData;
     localStorage.setItem("data", JSON.stringify(data));
@@ -344,33 +341,35 @@ function addWholeSalerAccordion(data, orderData) {
         let openedAccContainers = [...$(".accordion-item-body.orderbrandselection")];
         openedAccContainers.forEach(openAcc => { $(openAcc).removeClass("opened") });
     }
-    addnewOrder(orderData);
+    addnewOrder(orderData, currentSku);
 }
 
-function getPreviousOrderTableData(data) {
+function getPreviousOrderTableData(data, currentSku) {
     let previousTableData = data && data.map((item, index) => {
-        return `
-            <tr>
-                <td colspan="5">
-                    <div class="title">
-                        <div class="name">${item.name}</div>
-                        <div class="arrow"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-                    </div>
-                </td>
-            </tr>
-            <tr class="info_row bordered">
-                <td class="info_data" colspan="1">£ ${item.price}</td>
-                <td class="info_data" colspan="1">${item.units}</td>
-                <td class="info_data" colspan="1">+${item.free_goods}</td>
-                <td class="info_data" colspan="1">${item.discount}%</td>
-                <td class="info_data" colspan="1">${item.payterm} D</td>
-            </tr>
-        `;
+        if(item["brand"] === currentSku) {
+            return `
+                <tr>
+                    <td colspan="5">
+                        <div class="title">
+                            <div class="name">${item.name}</div>
+                            <div class="arrow"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="info_row bordered">
+                    <td class="info_data" colspan="1">£ ${item.price}</td>
+                    <td class="info_data" colspan="1">${item.units}</td>
+                    <td class="info_data" colspan="1">+${item.free_goods}</td>
+                    <td class="info_data" colspan="1">${item.discount}%</td>
+                    <td class="info_data" colspan="1">${item.payterm} D</td>
+                </tr>
+            `;
+        }
     });
     return previousTableData.join("");
 }
 
-function addnewOrder(data) {
+function addnewOrder(data, currentSku) {
     $(".new_orders").prepend(`
         <div class="accordion">
             <div class="accordion-item">
@@ -383,7 +382,7 @@ function addnewOrder(data) {
                     </div>
                 </div>
                 <div class="accordion-item-body parent opened orderbrandselection">
-                    <div class="accordion-item-body-content" style="height: 270px; overflow: auto;">
+                    <div class="accordion-item-body-content" style="max-height: 270px; overflow: auto;">
                         <div class="date-picker-value">
                             ${showDatePicker()}
                         </div>
@@ -400,67 +399,69 @@ function addnewOrder(data) {
 
     data["product_details"].map((productData, index) => {
         let uuid = create_UUID();
-        $("#new_order_body").append(`
-            <tr class="info_row">
-                <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;">${productData["name"]}</td>
-                <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;">
-                    <div class="counter__wrapper">
-                        <div class="counter__container" skudata="${productData["sku"]}" parentskudata=${data["sku"]} >
-                            <div class="counter__box__container sub">
-                                <div class="counter__minus key${uuid}" id="minus" >
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_138_2417)">
-                                        <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#FDE0D6"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_138_2417">
-                                            <rect width="18" height="18" fill="white"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>
+        if(productData["brand"] === currentSku) {
+            $("#new_order_body").append(`
+                <tr class="info_row">
+                    <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;">${productData["name"]}</td>
+                    <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;">
+                        <div class="counter__wrapper">
+                            <div class="counter__container" skudata="${productData["sku"]}" parentskudata=${data["sku"]} >
+                                <div class="counter__box__container sub">
+                                    <div class="counter__minus key${uuid}" id="minus" >
+                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_138_2417)">
+                                            <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#FDE0D6"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_138_2417">
+                                                <rect width="18" height="18" fill="white"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
                                 </div>
-                            </div>
-                        
-                            <input id="counter_input_${index}" class="counter__input home" type="text" value=${productData["units"]} size="4" maxlength="4" autocomplete="off" previous-value="1" />
-                            <div class="counter__box__container add">
-                                <div class="counter__plus key${uuid}" id="plus">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_138_2422)">
-                                        <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H9.75V11.25C9.75 11.4489 9.67099 11.6397 9.53033 11.7803C9.38968 11.921 9.19892 12 9 12C8.80109 12 8.61033 11.921 8.46967 11.7803C8.32902 11.6397 8.25 11.4489 8.25 11.25V9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H8.25V6.75C8.25 6.55109 8.32902 6.36032 8.46967 6.21967C8.61033 6.07902 8.80109 6 9 6C9.19892 6 9.38968 6.07902 9.53033 6.21967C9.67099 6.36032 9.75 6.55109 9.75 6.75V8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#F36633"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_138_2422">
-                                            <rect width="18" height="18" fill="white"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>
+                            
+                                <input id="counter_input_${index}" class="counter__input home" type="text" value=${productData["units"]} size="4" maxlength="4" autocomplete="off" previous-value="1" />
+                                <div class="counter__box__container add">
+                                    <div class="counter__plus key${uuid}" id="plus">
+                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_138_2422)">
+                                            <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H9.75V11.25C9.75 11.4489 9.67099 11.6397 9.53033 11.7803C9.38968 11.921 9.19892 12 9 12C8.80109 12 8.61033 11.921 8.46967 11.7803C8.32902 11.6397 8.25 11.4489 8.25 11.25V9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H8.25V6.75C8.25 6.55109 8.32902 6.36032 8.46967 6.21967C8.61033 6.07902 8.80109 6 9 6C9.19892 6 9.38968 6.07902 9.53033 6.21967C9.67099 6.36032 9.75 6.55109 9.75 6.75V8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#F36633"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_138_2422">
+                                                <rect width="18" height="18" fill="white"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        `);
-
+                    </td>
+                </tr>
+            `);
+        }
+        
         $(`.counter__minus.key${uuid}`).click(function (e) {
-            updateCounter(this, "minus");
+            updateCounter(this, "minus", currentSku);
         });
-    
+
         $(`.counter__plus.key${uuid}`).click(function (e) {
-            updateCounter(this, "add");
+            updateCounter(this, "add", currentSku);
             let parsedata = JSON.parse(localStorage.getItem("data"));
             let filteredBrand = parsedata["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedata["selected_brand"]);
 
-            let progressCards = loadProgressCards({"brands": filteredBrand}, true, true)
+            let progressCards = loadProgressCards({ "brands": filteredBrand }, true, true)
             $(".brand_level_progress").append(progressCards);
         });
     });
 
-    $(".accordion-item-header.orderdetail").click(function(e) {
+    $(".accordion-item-header.orderdetail").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         let scrollHeightAccordion = "";
-        let accordionItemBody =  $(this).siblings(".accordion-item-body");
+        let accordionItemBody = $(this).siblings(".accordion-item-body");
         if (!$(this).hasClass("active")) {
             $(this).addClass("active");
             scrollHeightAccordion = accordionItemBody.prop('scrollHeight') + "px";
@@ -483,7 +484,7 @@ function addnewOrderBrand(data) {
             <div class="accordion-item">
                 <div class="accordion-item-header orderdetail active">${data["account_no"]}</div>
                 <div class="accordion-item-body parent opened orderbrandselection">
-                    <div class="accordion-item-body-content" style="height: 270px; overflow: auto;">
+                    <div class="accordion-item-body-content" style="max-height: 270px; overflow: auto;">
                         <div class="date-picker-value">
                             ${showDatePicker()}
                         </div>
@@ -589,18 +590,16 @@ function addnewOrderBrand(data) {
 
     $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
     $('input[id$=tbDate]').datepicker("setDate", "today");
-
- 
 }
 
-function updateCounter(counterInput, type) {
+function updateCounter(counterInput, type, currentSku) {
     let storeddata = localStorage.getItem("data");
     let parseStoredData = JSON.parse(storeddata);
     let siblingWrapper = $(counterInput).parent().siblings(".counter__input");
     if (type === "add") {
         var $input = $(siblingWrapper);
         siblingWrapper.siblings(".counter__box__container.sub").children().children().children().children().css("fill", "#f36633");
-        let datepickedElement =  $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
+        let datepickedElement = $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
         let formattedDate = datepickedElement.datepicker({ dateFormat: 'M dd, y' }).val();
         $input.val(parseInt($input.val()) + 1);
         $input.change();
@@ -611,26 +610,34 @@ function updateCounter(counterInput, type) {
             ...window.cartData,
             [parentSkuData]: {
                 ...window.cartData[parentSkuData],
-                [skuData] : $input.val()
+                [skuData]: $input.val()
             }
         };
 
         parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach(order => {
-            if(order["sku"] === parentSkuData) {
+            if (order["sku"] === parentSkuData) {
                 order["product_details"].forEach(product => {
-                    if(product["sku"] === skuData) {
+                    /* if(currentSku === product["brand"]) {
+                        
+                    } */
+                    if (product["sku"] === skuData) {
                         order["ordered_date"] = formattedDate ? formattedDate : new Date();
                         product["quantity"] = $input.val();
-                        window.cartData[parentSkuData][skuData] = $input.val() - Number(product["units"]);
+                        product["units"] = $input.val();
+                        // window.cartData[parentSkuData][skuData] = $input.val() - Number(product["units"]);
                     }
                 });
             }
         });
 
-        let total = calculateSumAmount(window.cartData);
+        let total = calculateSumAmount({
+            [parentSkuData]: {
+                ...window.cartData[parentSkuData]
+            }
+        });
 
         parseStoredData && parseStoredData["plan_progress"] && parseStoredData["plan_progress"]["brands"].map(brandDataItem => {
-            if(brandDataItem["sku"] === parseStoredData["selected_brand"]) {
+            if (brandDataItem["sku"] === parseStoredData["selected_brand"]) {
                 brandDataItem["selected"] = total;
             }
         })

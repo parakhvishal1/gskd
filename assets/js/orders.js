@@ -1,6 +1,5 @@
 function loadUserWelcomeUI(data) {
-    let lastOrder = data["previous_orders"]["orders"][data["previous_orders"]["orders"].length - 1];
-    
+    let lastOrder = data["previous_orders"]["orders"][0];
     $(".header").removeClass('hide');
     $("#content_box").empty();
 
@@ -308,7 +307,6 @@ function loadUserWelcomeUI(data) {
 
 function loadBrandSelectionUI(data) {
     let orginalData = JSON.parse(JSON.stringify(data));
-    console.log(window.cartData);
     $(".header").removeClass('hide');
     $("#content_box").empty();
     $("#content_box").append(`
@@ -351,10 +349,10 @@ function loadBrandSelectionUI(data) {
     $(".progressbar_wrapper.addproduct").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        let currentElementSkuData = $(this).attr("skudata");
-        let data = localStorage.getItem("data");
-        let parsedData = JSON.parse(data);
+        const currentElementSkuData = $(this).attr("skudata");
+        const parsedData = getParsedData();
         parsedData["selected_brand"] = currentElementSkuData;
+        saveParsedData(parsedData);
         // let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
         // let products = data["brands"]["products"];
         // let filteredProducts = products.filter(product => {

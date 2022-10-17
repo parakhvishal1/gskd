@@ -24,12 +24,47 @@ body {
     overflow-y: hidden;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    line-height: 1.5;
+    position: relative;
+    isolation: isolate;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
 .bodyContent,
 .container__box {
     width: 100%;
 }
 
-/* height: calc(100% - 14px - 76px - 20px); */
 #bodyCasontent .header + .bodyContent {
     height: calc(100% - 14px - 76px - 20px);
 }
@@ -38,21 +73,8 @@ body {
     height: calc(100% - 14px);
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    max-width: 100%;
-    position: relative;
-}
-
 input:focus {
     outline: 0;
-}
-
-img,
-embed {
-    width: 100%;
-    height: 100%;
 }
 
 button {
@@ -240,7 +262,7 @@ input[id$="tbDate"] {
     display: flex;
     flex-flow: column;
     width: 100%;
-    height: 300px;
+    max-height: 300px;
 }
 
 .tableLayoutBody {

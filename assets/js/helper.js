@@ -140,18 +140,24 @@ function getParsedData() {
     return JSON.parse(localStorage.getItem("data"));
 }
 
-function saveParsedData() {
-
+function saveParsedData(data) {
+    return localStorage.setItem("data", JSON.stringify(data));
 }
-
 function calculateSumAmount(data) {
     let sum = 0;
+    
     let sumValues = obj => Object.values(obj).reduce((a, b) => {
         return Number(a) + Number(b);
     });
+    
+    
 
     for (let key in data) {
         sum = sum + Number(sumValues(data[key]));
     }
     return sum;
+}
+
+function orderCalculate() {
+    
 }
