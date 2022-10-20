@@ -117,6 +117,7 @@ function loadUserWelcomeUI(data) {
         // let currentElementData = $(this).parent().attr("data");
         // let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
         ToApp("choosebrands-screen", parsedData);
+        ToBot("place-new-order", {});
     });
 
     data && data["previous_orders"] && data["previous_orders"]["orders"] && data["previous_orders"]["orders"].map((orderData, index) => {
@@ -343,6 +344,7 @@ function loadBrandSelectionUI(data) {
         e.stopImmediatePropagation();
         if(total) {
             loadOrderCart(data);
+            ToBot("view-checkout", data);
         }
     });
 
@@ -359,7 +361,9 @@ function loadBrandSelectionUI(data) {
             // return product["name"] === parsedCurrentElementData["name"];
         // })
         // data["brands"]["products"] = filteredProducts;
-
-        !parsedData["isSku"] ? showSkuLevelDetailsBrand(parsedData, currentElementSkuData) : showBrandLevelDetails(parsedData, currentElementSkuData);
+        const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentElementSkuData);
+        const isBrandSku = filteredBrand[0]["isSku"];
+        ToBot("select-brand", parsedData);
+        !isBrandSku ? showSkuLevelDetailsBrand(parsedData, currentElementSkuData) : showBrandLevelDetails(parsedData, currentElementSkuData);
     });
 }

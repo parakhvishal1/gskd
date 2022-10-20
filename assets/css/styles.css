@@ -107,7 +107,7 @@
 .progressbar .progressbar_ratio .ratio {
     position: absolute;
     height: 100%;
-    right: 20px;
+    right: 5px;
     margin: auto 0;
     display: flex;
     align-items: center;
@@ -161,16 +161,51 @@
     /* background-color: #f36633; */
     width: 20%;
     height: -webkit-fill-available;
-    border-left: 1px;
-    border-right: 1px;
-    border-right-style: solid;
-    color: #fff;
+    /* border-left: 1px; */
+    /* border-right: 1px; */
+    /* border-right-style: solid; */
+    /* color: #fff; */
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     margin: 6px 0;
     z-index: 1;
+    position: relative;
+}
+
+
+.sub-block.withmarkings:not(:last-child)::before ,
+.sub-block.withoutmarkings:not(:last-child)::before,
+.sub-block.withmarkings:not(:last-child)::after,
+.sub-block.withoutmarkings:not(:last-child)::after  {
+    content: "";
+    position: absolute;
+    height: 5px;
+    width: 1.5px;
+    border-radius: 2px;
+    background: #959595;
+}
+.sub-block.withmarkings::before ,
+.sub-block.withoutmarkings::before {
+    top: -6px;
+    right: -1px;
+}
+
+.sub-block.withmarkings::after ,
+.sub-block.withoutmarkings::after {
+    bottom: -6px;
+    right: -1px;
+}
+
+.sub-block.withoutmarkings:not(:last-child)::before,
+.sub-block.withoutmarkings:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    width: 1.5px;
+    border-radius: 2px;
+    background: #fff;
 }
 
 .progressbar .detail_bar .sub-block  {
@@ -873,7 +908,7 @@ table {
     font-size: 13px;
     line-height: 20px;
     color: #f36633;
-    padding: 12px 0;
+    padding: 12px 4px 12px 0;
     padding-top: 0;
     text-align: left;
     vertical-align: top;

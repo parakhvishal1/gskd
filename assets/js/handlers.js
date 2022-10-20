@@ -1,6 +1,7 @@
 function showSkuLevelDetailsBrand(data, currentSku) {
     let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
     let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
+    const isAdditionDiscountEligible = filteredBrand[0]["additional_discount"];
 
     $("#content_box").empty();
     $("#content_box").append(`
@@ -11,7 +12,7 @@ function showSkuLevelDetailsBrand(data, currentSku) {
             </div>
             <div class="sub_detail_wrapper">
                 <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
-                <div class="sub_detail highlight">Additional Discount</div>
+                <div class="sub_detail highlight">${isAdditionDiscountEligible ? "Additional Discount" : ""}</div>
             </div>
             <div class="brand_level_progress">${loadProgressCards({ "brands": filteredBrand }, true, true)}</div>
             <div class="new_orders"></div>
@@ -96,6 +97,7 @@ function showSkuLevelDetailsBrand(data, currentSku) {
         let parseData = getParsedData();
         if (parseData && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].length > 0) {
             ToApp("ordercart-screen", parseData);
+            ToBot("ordercart-continue", parseData);
         }
     });
 
@@ -163,14 +165,23 @@ function showSkuLevelDetailsBrand(data, currentSku) {
     });
 
     let parseData = getParsedData();
-    parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map(ordr => {
-        // addnewOrderBrand(ordr);
-    })
+    parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+        window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
+        ordr["product_details"].map(product => {
+            let parentSku = window.cartData[ordr["sku"]];
+            let skuproduct = parentSku[product["sku"]];
+            if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku)) {
+                addnewOrder(ordr, currentSku);
+                window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
+            }
+        });
+    });
 }
 
 function showBrandLevelDetails(data, currentSku) {
     let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
     let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
+    const isAdditionDiscountEligible = filteredBrand[0]["additional_discount"];
 
     $("#content_box").empty();
     $("#content_box").append(`
@@ -181,7 +192,7 @@ function showBrandLevelDetails(data, currentSku) {
             </div>
             <div class="sub_detail_wrapper">
                 <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
-                <div class="sub_detail highlight">Additional Discount</div>
+                <div class="sub_detail highlight">${isAdditionDiscountEligible ? "Additional Discount" : ""}</div>
             </div>
             <div class="brand_level_progress">${loadProgressCards({ "brands": filteredBrand }, true, true)}</div>
             <div class="new_orders"></div>
@@ -314,11 +325,11 @@ function showBrandLevelDetails(data, currentSku) {
         let orderData = filteredData[0];
         if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0) {
             window.wholesalerAccountData.map(v => {
-                // if (orderData["sku"] !== v["sku"]) {
+                if (orderData["sku"] !== v["sku"]) {
                     window.wholesalerAccountData.push(orderData);
                     addWholeSalerAccordion(data, orderData, currentSku);
                     return;
-                // }
+                }
             });
         } else {
             window.wholesalerAccountData.push(orderData);
@@ -327,10 +338,18 @@ function showBrandLevelDetails(data, currentSku) {
         }
     });
 
-    /* let parseData = getParsedData();
-    parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map(ordr => {
-        addnewOrder(ordr, currentSku);
-    }) */
+    let parseData = getParsedData();
+    parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+        window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
+        ordr["product_details"].map(product => {
+            let parentSku = window.cartData[ordr["sku"]];
+            let skuproduct = parentSku[product["sku"]];
+            if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku)) {
+                addnewOrder(ordr, currentSku);
+                window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
+            }
+        });
+    });
 }
 
 function addWholeSalerAccordion(data, orderData, currentSku) {

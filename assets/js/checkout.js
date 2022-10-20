@@ -31,6 +31,7 @@ function loadOrderCart(data) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         let parseData = JSON.parse(localStorage.getItem("data"));
+        ToBot("cancel-order", parseData);
         showBrandLevelDetails(parseData, parseData["selected_brand"]);
     });
 
@@ -39,6 +40,7 @@ function loadOrderCart(data) {
         e.stopImmediatePropagation();
         let data = getParsedData();
         let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === data["selected_brand"]);
+        ToBot("confirm-order", data);
         if(filteredBrand && filteredBrand[0] && filteredBrand[0]["total_invoice_range"]) {
             ToApp("ordercart-final-screen", data);
         } else {
@@ -112,6 +114,7 @@ function getAccordianAccounts(data, rebates) {
 
 function getAccordianAccountsData(data, rebates) {
     let accordianAccountsData = data.map((item, index) => {
+        
         if(rebates || item["quantity"]) {
         return `
             <tr>
@@ -171,12 +174,14 @@ function loadOrderFinalCart(data) {
     $("#backFinalCheckout").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
+        ToBot("cancel-order-total-invoice", data);
     });
 
     $("#continueFinalCheckout").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         ToApp("choosebrands-screen-from-cart", data);
+        ToBot("confirm-order-total-invoice", data);
     });
 
     $(".accordion-item-header.account_detail").click(function (e) {
@@ -197,5 +202,7 @@ function loadOrderFinalCart(data) {
 
 function goBack() {
     let parsedData = JSON.parse(localStorage.getItem("data"));
-    !parsedData["isSku"] ? showSkuLevelDetailsBrand(parsedData, parsedData["selected_brand"]) : showBrandLevelDetails(parsedData, parsedData["selected_brand"]);
+    const filteredBrand = parsedData["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedData["selected_brand"]);
+    const isBrandSku = filteredBrand[0]["isSku"];
+    !isBrandSku ? showSkuLevelDetailsBrand(parsedData, parsedData["selected_brand"]) : showBrandLevelDetails(parsedData, parsedData["selected_brand"]);
 };
