@@ -90,10 +90,10 @@ window.addEventListener('message', function (eventData) {
 
 
 
-    // Sender 
+    // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
-        console.log("\n\n\n <--- Fetch recent orders received in parent iframe ---> \n\n\n", parsedData);
+        console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
                 code: "logout",
@@ -102,6 +102,93 @@ window.addEventListener('message', function (eventData) {
         }, true);
         return;
     }
-  
+
+    if (parsedData?.event_code == 'place-new-order') {
+        console.log("\n\n\n <--- place-new-order event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "place-new-order",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'view-checkout') {
+        console.log("\n\n\n <--- view-checkout event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "view-checkout",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'brand-select') {
+        console.log("\n\n\n <--- brand-select event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "brand-select",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'ordercart-continue') {
+        console.log("\n\n\n <--- ordercart-continue event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "ordercart-continue",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'confirm-order') {
+        console.log("\n\n\n <--- confirm-order event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "confirm-order",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'cancel-order') {
+        console.log("\n\n\n <--- cancel-order event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "cancel-order",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'confirm-order-total-invoice') {
+        console.log("\n\n\n <--- confirm-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "confirm-order-total-invoice",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'cancel-order-total-invoice') {
+        console.log("\n\n\n <--- cancel-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "cancel-order-total-invoice",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
 
 }, false);

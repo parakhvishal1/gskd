@@ -74,10 +74,75 @@ window.addEventListener('message', function (eventData) {
 
 
 
-    // sender
+    // send event to bot
     if(parsedEventData.event_code === "logout") {
+        console.log(' logout Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'logout',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "place-new-order") {
+        console.log('place-new-order Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'place-new-order',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "view-checkout") {
+        console.log('view-checkout Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'view-checkout',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "brand-select") {
+        console.log('brand-select Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'brand-select',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "ordercart-continue") {
+        console.log('ordercart-continue Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'ordercart-continue',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "confirm-order") {
+        console.log('confirm-order Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'confirm-order',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "cancel-order") {
+        console.log('cancel-order Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'cancel-order',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "confirm-order-total-invoice") {
+        console.log('confirm-order-total-invoice Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'confirm-order-total-invoice',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if(parsedEventData.event_code === "cancel-order-total-invoice") {
+        console.log('cancel-order-total-invoice Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'cancel-order-total-invoice',
             data: parsedEventData.data
         }), '*');
     }
