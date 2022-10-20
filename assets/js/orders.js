@@ -141,7 +141,7 @@ function loadUserWelcomeUI(data) {
                             <div class="title">
                                 <div class="name">${orderData["account_no"]}</div>
                                 <div class="arrow">
-                                    <img src="/assets/images/svg/right.svg" />
+                                    <img src="/gsk/assets/images/svg/right.svg" />
                                 </div>
                             </div>
                             <div class="info">Order No: ${orderData["order_no"]}</div>
