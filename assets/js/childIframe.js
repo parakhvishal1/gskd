@@ -99,10 +99,10 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if(parsedEventData.event_code === "brand-select") {
-        // console.log('brand-select Data in child Iframe~~~>>', parsedEventData.data)
+    if(parsedEventData.event_code === "select-brand") {
+        // console.log('select-brand Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
-            event_code: 'brand-select',
+            event_code: 'select-brand',
             data: parsedEventData.data
         }), '*');
     }

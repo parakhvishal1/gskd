@@ -148,7 +148,7 @@ function ToBot(eventName, data) {
                 data: data
             }), '*');
             break;
-        case "brand-select":
+        case "select-brand":
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data

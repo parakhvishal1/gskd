@@ -124,11 +124,11 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
-    if (parsedData?.event_code == 'brand-select') {
-        console.log("\n\n\n <--- brand-select event in parent iframe ---> \n\n\n", parsedData);
+    if (parsedData?.event_code == 'select-brand') {
+        console.log("\n\n\n <--- select-brand event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
-                code: "brand-select",
+                code: "select-brand",
                 data: parsedData
             }
         }, true);
