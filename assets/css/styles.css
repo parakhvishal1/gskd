@@ -68,6 +68,10 @@
 .progressbar .detail_bar {
     margin-bottom: 10px;
 }
+ 
+.progressbar .detail_bar:not(:last-child) {
+    margin: 0;
+}
 
 .progressbar .detail_bar,
 .progressbar .progressbar_wrapper {
@@ -789,8 +793,18 @@ table {
 }
 
 .accordian.table .info_row.paddingBottom {
-    height: 36px;
+    height: 20px;
     border-bottom: 1px solid #E6E6E6;
+}
+
+.accordian.table .info_row.brandscreen td.skuBrand_level_progress {
+    padding: 0;
+    margin: 0;
+}
+
+.accordian.table .info_row.brandscreen td.skuBrand_level_progress .progress_card {
+    padding: 0;
+    margin: 0;
 }
 
 .accordian.table .info_row.brandscreen td .progress_card {

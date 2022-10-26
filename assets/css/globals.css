@@ -93,6 +93,10 @@ button {
     color: #f36633 !important;
 }
 
+.nohighlight {
+    color: #151515 !important;
+}
+
 .cta {
     color: #f36633 !important;
     cursor: pointer;

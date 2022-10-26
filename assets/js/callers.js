@@ -12,6 +12,8 @@
         window.updateCartData = {};
         window.cartData = {};
         window.wholesalerAccountData = [];
+        window.dataStore = {};
+        window.discountData = {};
         // CallScreen(1);
         // CallScreen(2);
     }, 500);
@@ -20,6 +22,7 @@
 
 
 function ToBot(eventName, data) {
+    console.log("to bot called --> ", eventName);
     switch (eventName) {
         case "fetch-user-details":
             delete data["isLoggedIn"];
@@ -139,6 +142,7 @@ function ToBot(eventName, data) {
             }), '*');
             break;
         case "view-checkout":
+            console.log("data ", data);
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data

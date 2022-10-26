@@ -6,10 +6,11 @@
 
 .content__box .splash_screen .branding {
     height: 75%;
-    background: url("/gsk/assets/images/png/blob.png");
+    background: url("/gsk/assets/images/svg/banner.svg");
     background-repeat: no-repeat;
     background-color: #fff;
-    background-position: 0px -35px;
+    background-size: cover;
+    /* background-position: 0px -35px; */
 }
 
 .content__box .splash_screen .branding .branding_info {

@@ -47,6 +47,13 @@
     position: relative;
 }
 
+.bottom .btn_wrapper.disabled .place_order.checkout .btn {
+    color: #fff;
+    pointer-events: none;
+    background-color: #959595;
+    border: 1.5px solid #959595;
+}
+
 .bottom .btn_wrapper .btnbox {
     position: absolute;
     bottom: 30px;

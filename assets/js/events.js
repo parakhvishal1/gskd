@@ -84,14 +84,14 @@ function CallScreen(caseNum) {
                                 { "discount": "15", "label": "90" },
                             ], 
                             "off_invoice_range": [
-                                { "discount": "5" },
-                                { "discount": "10" },
-                                { "discount": "15" },
+                                { "discount": "5", "label": "85" },
+                                { "discount": "10", "label": "85" },
+                                { "discount": "15", "label": "85" },
                             ], 
                             "total_invoice_range": [
-                                { "discount": "10" },
-                                { "discount": "11" },
-                                { "discount": "12" },
+                                { "discount": "10", "label": "85" },
+                                { "discount": "11", "label": "85" },
+                                { "discount": "12", "label": "85" },
                             ]
                         },
                         {
@@ -110,18 +110,18 @@ function CallScreen(caseNum) {
                                 { "discount": "45", "label": "40"},
                             ],
                             "off_invoice_range": [
-                                { "discount": "15" },
-                                { "discount": "20" },
-                                { "discount": "35" },
-                                { "discount": "40" },
-                                { "discount": "45" },
+                                { "discount": "15", "label": "40" },
+                                { "discount": "20", "label": "40" },
+                                { "discount": "35", "label": "40" },
+                                { "discount": "40", "label": "40" },
+                                { "discount": "45", "label": "40" },
                             ],
                             "total_invoice_range": [
-                                { "discount": "10" },
-                                { "discount": "11" },
-                                { "discount": "12" },
-                                { "discount": "13" },
-                                { "discount": "14" },
+                                { "discount": "10", "label": "40" },
+                                { "discount": "11", "label": "40" },
+                                { "discount": "12", "label": "40" },
+                                { "discount": "13", "label": "40" },
+                                { "discount": "14", "label": "40" },
                             ]
                         },
                         {
@@ -140,18 +140,18 @@ function CallScreen(caseNum) {
                                 { "discount": "45", "label": "80"},
                             ],
                             "off_invoice_range": [
-                                { "discount": "15" },
-                                { "discount": "20" },
-                                { "discount": "35" },
-                                { "discount": "40" },
-                                { "discount": "45" },
+                                { "discount": "15", "label": "80" },
+                                { "discount": "20", "label": "80" },
+                                { "discount": "35", "label": "80" },
+                                { "discount": "40", "label": "80" },
+                                { "discount": "45", "label": "80" },
                             ], 
                             "total_invoice_range": [
-                                { "discount": "10" },
-                                { "discount": "11" },
-                                { "discount": "12" },
-                                { "discount": "13" },
-                                { "discount": "14" },
+                                { "discount": "10", "label": "80" },
+                                { "discount": "11", "label": "80" },
+                                { "discount": "12", "label": "80" },
+                                { "discount": "13", "label": "80" },
+                                { "discount": "14", "label": "80" },
                             ]
                         }
                     ]
@@ -176,6 +176,30 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Augmentin",
+                                        "isSku": !true,
+                                        "additional_discount": true,
+                                        "purchased": "125",
+                                        "selected": "0",
+                                        "max_limit": "260",
+                                        "sku": "GSK-BRAND-AUGMENTIN",
+                                        "on_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "90" },
+                                        ], 
+                                        "off_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "85" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "11", "label": "85" },
+                                            { "discount": "12", "label": "85" },
+                                        ]
                                     }
                                 },
                                 {
@@ -191,6 +215,30 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Augmentin",
+                                        "isSku": !true,
+                                        "additional_discount": true,
+                                        "purchased": "125",
+                                        "selected": "0",
+                                        "max_limit": "260",
+                                        "sku": "GSK-BRAND-AUGMENTIN",
+                                        "on_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "90" },
+                                        ], 
+                                        "off_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "85" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "11", "label": "85" },
+                                            { "discount": "12", "label": "85" },
+                                        ]
                                     }
                                 },
                                 {
@@ -206,6 +254,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Ventolin",
+                                        "isSku": true,
+                                        "additional_discount": true,
+                                        "purchased": "45",
+                                        "selected": "0",
+                                        "max_limit": "200",
+                                        "sku": "GSK-BRAND-VENTOLIN",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40" },
+                                        ],
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "40" },
+                                            { "discount": "11", "label": "40" },
+                                            { "discount": "12", "label": "40" },
+                                            { "discount": "13", "label": "40" },
+                                            { "discount": "14", "label": "40" },
+                                        ]
                                     }
                                 },
                                 {
@@ -221,6 +299,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Ventolin",
+                                        "isSku": true,
+                                        "additional_discount": true,
+                                        "purchased": "45",
+                                        "selected": "0",
+                                        "max_limit": "200",
+                                        "sku": "GSK-BRAND-VENTOLIN",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40" },
+                                        ],
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "40" },
+                                            { "discount": "11", "label": "40" },
+                                            { "discount": "12", "label": "40" },
+                                            { "discount": "13", "label": "40" },
+                                            { "discount": "14", "label": "40" },
+                                        ]
                                     }
                                 },
                                 {
@@ -236,6 +344,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Seretide",
+                                        "isSku": true,
+                                        "additional_discount": false,
+                                        "purchased": "75",
+                                        "selected": "0",
+                                        "max_limit": "400",
+                                        "sku": "GSK-BRAND-SERETIDE",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "80" },
+                                            { "discount": "11", "label": "80" },
+                                            { "discount": "12", "label": "80" },
+                                            { "discount": "13", "label": "80" },
+                                            { "discount": "14", "label": "80" },
+                                        ]
                                     }
                                 },
                                 {
@@ -251,6 +389,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Seretide",
+                                        "isSku": true,
+                                        "additional_discount": false,
+                                        "purchased": "75",
+                                        "selected": "0",
+                                        "max_limit": "400",
+                                        "sku": "GSK-BRAND-SERETIDE",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "80" },
+                                            { "discount": "11", "label": "80" },
+                                            { "discount": "12", "label": "80" },
+                                            { "discount": "13", "label": "80" },
+                                            { "discount": "14", "label": "80" },
+                                        ]
                                     }
                                 }
                             ]
@@ -273,6 +441,30 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Augmentin",
+                                        "isSku": !true,
+                                        "additional_discount": true,
+                                        "purchased": "125",
+                                        "selected": "0",
+                                        "max_limit": "260",
+                                        "sku": "GSK-BRAND-AUGMENTIN",
+                                        "on_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "90" },
+                                        ], 
+                                        "off_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "85" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "11", "label": "85" },
+                                            { "discount": "12", "label": "85" },
+                                        ]
                                     }
                                 },
                                 {
@@ -288,6 +480,30 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Augmentin",
+                                        "isSku": !true,
+                                        "additional_discount": true,
+                                        "purchased": "125",
+                                        "selected": "0",
+                                        "max_limit": "260",
+                                        "sku": "GSK-BRAND-AUGMENTIN",
+                                        "on_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "90" },
+                                        ], 
+                                        "off_invoice_range": [
+                                            { "discount": "5", "label": "85" },
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "15", "label": "85" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "85" },
+                                            { "discount": "11", "label": "85" },
+                                            { "discount": "12", "label": "85" },
+                                        ]
                                     }
                                 },
                                 {
@@ -303,6 +519,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Ventolin",
+                                        "isSku": true,
+                                        "additional_discount": true,
+                                        "purchased": "45",
+                                        "selected": "0",
+                                        "max_limit": "200",
+                                        "sku": "GSK-BRAND-VENTOLIN",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40" },
+                                        ],
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "40" },
+                                            { "discount": "11", "label": "40" },
+                                            { "discount": "12", "label": "40" },
+                                            { "discount": "13", "label": "40" },
+                                            { "discount": "14", "label": "40" },
+                                        ]
                                     }
                                 },
                                 {
@@ -318,6 +564,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Ventolin",
+                                        "isSku": true,
+                                        "additional_discount": true,
+                                        "purchased": "45",
+                                        "selected": "0",
+                                        "max_limit": "200",
+                                        "sku": "GSK-BRAND-VENTOLIN",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "40" },
+                                            { "discount": "20", "label": "40" },
+                                            { "discount": "35", "label": "40" },
+                                            { "discount": "40", "label": "40" },
+                                            { "discount": "45", "label": "40" },
+                                        ],
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "40" },
+                                            { "discount": "11", "label": "40" },
+                                            { "discount": "12", "label": "40" },
+                                            { "discount": "13", "label": "40" },
+                                            { "discount": "14", "label": "40" },
+                                        ]
                                     }
                                 },
                                 {
@@ -333,6 +609,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Seretide",
+                                        "isSku": true,
+                                        "additional_discount": false,
+                                        "purchased": "75",
+                                        "selected": "0",
+                                        "max_limit": "400",
+                                        "sku": "GSK-BRAND-SERETIDE",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "80" },
+                                            { "discount": "11", "label": "80" },
+                                            { "discount": "12", "label": "80" },
+                                            { "discount": "13", "label": "80" },
+                                            { "discount": "14", "label": "80" },
+                                        ]
                                     }
                                 },
                                 {
@@ -348,6 +654,36 @@ function CallScreen(caseNum) {
                                     "free_goods_range": {
                                         "limit": "40",
                                         "eligible_goods": "4"
+                                    },
+                                    "discount": {
+                                        "name": "Seretide",
+                                        "isSku": true,
+                                        "additional_discount": false,
+                                        "purchased": "75",
+                                        "selected": "0",
+                                        "max_limit": "400",
+                                        "sku": "GSK-BRAND-SERETIDE",
+                                        "on_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80"},
+                                        ],
+                                        "off_invoice_range": [
+                                            { "discount": "15", "label": "80" },
+                                            { "discount": "20", "label": "80" },
+                                            { "discount": "35", "label": "80" },
+                                            { "discount": "40", "label": "80" },
+                                            { "discount": "45", "label": "80" },
+                                        ], 
+                                        "total_invoice_range": [
+                                            { "discount": "10", "label": "80" },
+                                            { "discount": "11", "label": "80" },
+                                            { "discount": "12", "label": "80" },
+                                            { "discount": "13", "label": "80" },
+                                            { "discount": "14", "label": "80" },
+                                        ]
                                     }
                                 }
                             ]
@@ -363,6 +699,7 @@ function CallScreen(caseNum) {
                             "delivery_date": "May 30 22",
                             "ordered_date": "Jan 01, 22",
                             "sku": "GSK-ACCOUNT_NO-A0001",
+                            "on_invoice": false,
                             "product_details": [
                                 {
                                     "name": "Augmentin 25mcg Tabs",
@@ -463,6 +800,7 @@ function CallScreen(caseNum) {
                             "delivery_date": "May 30 22",
                             "ordered_date": "Jan 01, 22",
                             "sku": "GSK-ACCOUNT_NO-A0002",
+                            "on_invoice": false,
                             "product_details": [
                                 {
                                     "name": "Augmentin 25mcg Tabs",

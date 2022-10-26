@@ -85,7 +85,7 @@ function loadUserWelcomeUI(data) {
                                 <td class="info_data" colspan="1">Est. Price</td>
                                 <td class="info_data" colspan="1">Units</td>
                                 <td class="info_data" colspan="1">Free Goods</td>
-                                <td class="info_data" colspan="1">On Invoice Discount</td>
+                                <td class="info_data" colspan="1">${Boolean(lastOrder["on_invoice"]) ? "On Invoice Discount" : "Off Invoice Discount"}</td>
                                 <td class="info_data" colspan="1">Pay Term</td>
                             </tr>
                         </thead>
@@ -160,7 +160,7 @@ function loadUserWelcomeUI(data) {
                                     <td class="info_data" colspan="1">Est. Price</td>
                                     <td class="info_data" colspan="1">Units</td>
                                     <td class="info_data" colspan="1">Free Goods</td>
-                                    <td class="info_data" colspan="2">On Invoice Discount</td>
+                                    <td class="info_data" colspan="2">${Boolean(lastOrder["on_invoice"]) ? "On Invoice Discount" : "Off Invoice Discount"}</td>
                                     <td class="info_data" colspan="1">Pay Term</td>
                                 </tr>
                             </thead>
@@ -323,7 +323,7 @@ function loadBrandSelectionUI(data) {
             ${loadProgressCards(data["plan_progress"])}
         </div> 
         <div class="bottom">
-            <div class="btn_wrapper hide">
+            <div class="btn_wrapper disabled">
                 <div class="place_order checkout">
                     <button class="btn solid checkout view_checkout">Checkout</button>
                 </div>
@@ -334,7 +334,7 @@ function loadBrandSelectionUI(data) {
     let total = calculateSumAmount(window.cartData);
     if(total) {
         $(".count_wrapper").removeClass("hide");
-        $(".place_order.checkout").parent().removeClass("hide");
+        $(".place_order.checkout").parent().removeClass("disabled");
         $(".count_wrapper").parent(".icon").addClass("cursor");
         $(".count_wrapper").text(total);
     }

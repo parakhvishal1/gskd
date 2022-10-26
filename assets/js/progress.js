@@ -39,15 +39,29 @@ function loadProgressCards(data, detailed, hideAdd) {
 }
 
 function getProgressHeaderFooterLabels(data, sourceContainer) {
-    let discount_range = data["on_invoice_range"];
+    let discount_range = data["on_invoice_range"] ? data["on_invoice_range"] : data["off_invoice_range"];
     let limit = Math.floor(Number(data["max_limit"]) / discount_range.length);
 
 
     function getRange(rangeData) {
-        let rangeDataWidth = 100 / rangeData.length;
-        let rangeDataDivs = rangeData.map(range => {
+        // let rangeDataWidth = 100 / rangeData.length;
+        let progressPercent = Math.ceil(((Number(data["purchased"]) + Number(data["selected"])) / Number(data["max_limit"])) * 100);
+        let labelObj = { prevprogress: 0, progessMade: 0 };
+        let temp = false;
+        let rangeDataDivs = rangeData.map((range, index) => {
+            let rangeDataWidth = (range["label"]/data["max_limit"]) * 100;
+            labelObj["prevprogress"] = Number(labelObj["progessMade"]);
+            labelObj["progessMade"] = Number(labelObj["progessMade"]) + Number(range["label"]);
+            let currentProgressPercent = ((Number(labelObj["progessMade"])/Number(data["max_limit"])) * 100);
+
+            if(progressPercent > ((index) * (rangeDataWidth)) &&  progressPercent <= ((index + 1) * (rangeDataWidth))) {
+                temp = true;
+                data["eligible_discount"] = range["discount"];
+            } else {
+                temp = false;
+            }
             return `
-                <div class="sub-block" style="width: ${rangeDataWidth}%;border-color: #fff;">${range["discount"]}%</div>
+                <div class="sub-block ${temp ? 'highlight' : ''}" style="width: ${rangeDataWidth}%;border-color: #fff;">${range["discount"]}%</div>
             `;
         })
         return rangeDataDivs.join("");
@@ -58,7 +72,7 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             return `
                 <div class="detail_bar">
                     <div class="main">
-                        ${getRange(data["on_invoice_range"])}
+                        ${getRange(discount_range)}
                     </div>
                     ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
                     ${sourceContainer === "header" ? '<div class="progress_header_label right">Off <br/> Invoice</div>' : ""}
@@ -74,7 +88,7 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             return `
                 <div class="detail_bar">
                     <div class="main">
-                        ${getRange(data["on_invoice_range"])}
+                        ${getRange(discount_range)}
                     </div>
                     ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
                     ${sourceContainer === "header" ? '<div class="progress_header_label right">On <br/> Invoice</div>' : ""}
@@ -112,10 +126,9 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
 }
 
 function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme, hideSelectedProgress) {
-
+    let discount_range = item["on_invoice_range"] ? item["on_invoice_range"] : item["off_invoice_range"];
     let progressPercent = Math.ceil((item["purchased"] / item["max_limit"]) * 100);
-    let progressPercentSelected = Math.ceil(( (parseInt(item["purchased"]) + parseInt(item["selected"])) / item["max_limit"]) * 100);
-
+    let progressPercentSelected = Math.ceil(((parseInt(item["purchased"]) + parseInt(item["selected"])) / item["max_limit"]) * 100);
     let addBtn = `
         ${basicProgress ?
             ""
@@ -124,14 +137,14 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                 <label style="font-size: 12px;">${parseInt(item["purchased"]) + parseInt(item["selected"])}</label>
                 <div class="progressbar_wrapper addproduct" skudata=${`${item["sku"]}`} >
                     <div class="main reset" style="cursor: pointer;">
-                        <img src="/gsk/assets/images/svg/plus.svg" class="icon_add"/>
+                        <img src="/assets/images/svg/plus.svg" class="icon_add"/>
                     </div>
                 </div>
             `
         }
     `;
 
-    let rangeDataDivs = item["on_invoice_range"].map((range, index) => {
+    let rangeDataDivs = discount_range.map((range, index) => {
         let newRangeDataDivsWidth = (range["label"]/item["max_limit"]) * 100;
         return `
             <div class="sub-block ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "withmarkings" : "withoutmarkings"}" style="width: ${newRangeDataDivsWidth}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>
