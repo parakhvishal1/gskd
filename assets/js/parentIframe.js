@@ -15,7 +15,7 @@
 
 
 function injectDynamicCssToChild() {
-     let isMobile = false; 
+    let isMobile;
     console.error('injectDynamicCssToChild ~')
     window.addEventListener('message', function (eventData) {
         let parsedData = JSON.parse(eventData.data);
@@ -33,7 +33,7 @@ function injectDynamicCssToChild() {
 
             if(parsedData.data.data == 'Mobile') {
                 isMobile= true
-                console('in if condition is Mobile value:', isMobile)
+              console.error('isMobile1 ~',isMobile)
             }
             return;
         }
@@ -53,7 +53,7 @@ function injectDynamicCssToChild() {
         }
         ymFrameHead.appendChild(modularStyles);
    }else {
-        console.log('isMobile false', isMobile)
+        console.log('isMobile', isMobile)
         var ymFrameHead = window.frames["ymIframe"].document.getElementsByTagName("head")[0];
         var modularStyles = document.createElement('style');
         modularStyles.type = 'text/css';
@@ -97,6 +97,7 @@ window.addEventListener('message', function (eventData) {
         console.error("get-source")
         console.log('Event Data-->>',parsedData.data.data);
         injectDynamicCssToChild();
+        console.error('calling injectDynamicCssToChild function')
         return;
         
     }
