@@ -96,7 +96,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
         console.error("get-source")
         console.log('Event Data-->>',parsedData.data.data);
-        injectJS();
+        injectDynamicCssToChild();
         return;
         
     }
