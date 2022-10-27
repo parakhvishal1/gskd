@@ -5,7 +5,7 @@ function loadOrderCart(data) {
         <div class="order_details_container choosebrands">
             <div class="menu_header">
                 <div class="label">Order Details</div>
-                <div class="icon goToBrandLevel cursor"><img src="/gsk/assets/images/svg/plus.svg" /></div>
+                <div class="icon goToBrandLevel cursor"><img src="/gskd/assets/images/svg/plus.svg" /></div>
             </div>
             ${getAccordianAccounts(data["new_orders"]["orders"])}
             ${data["rebates_orders"] && data["rebates_orders"]["orders"] && getAccordianAccounts(data["rebates_orders"]["orders"], true)}
@@ -86,9 +86,9 @@ function getAccordianAccounts(data, rebates) {
                         <div class="accordion-item-body-content" style="max-height: 300px; overflow: auto;">
                             <div class="date-picker-value date_order ${order["ordered_date"] ? "" : "hide"}">
                                 <div class="flex calendar-picker">
-                                    <img class="picker" src="/gsk/assets/images/svg/calendar.svg" />
+                                    <img class="picker" src="/gskd/assets/images/svg/calendar.svg" />
                                     <div class="input_date_picker" readonly="readonly">${order["ordered_date"]}</div>
-                                    <img class="arrow-down" src="/gsk/assets/images/svg/down.svg" />
+                                    <img class="arrow-down" src="/gskd/assets/images/svg/down.svg" />
                                 </div>
                             </div>
                             <div class="flex title">PRODUCTS</div>
@@ -136,7 +136,7 @@ function getAccordianAccountsData(data, rebates) {
                     <div class="title paddingTop">
                         <div class="name">${item["name"]}</div>
                         <div class="arrow edit quantityEdit">
-                            <img src="/gsk/assets/images/svg/edit.svg" key=${index} onclick="goBack()" />
+                            <img src="/gskd/assets/images/svg/edit.svg" key=${index} onclick="goBack()" />
                         </div>
                     </div>
                 </td>
@@ -165,7 +165,7 @@ function loadOrderFinalCart(data) {
         <div class="order_details_container choosebrands">
             <div class="menu_header">
                 <div class="label">Order Details</div>
-                <div class="icon"><img src="/gsk/assets/images/svg/plus.svg" /></div>
+                <div class="icon"><img src="/gskd/assets/images/svg/plus.svg" /></div>
             </div>
             ${loadProgressCards({"brands": filteredBrand}, true, true)}
             ${getAccordianAccounts(data["new_orders"]["orders"])}

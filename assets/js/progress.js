@@ -6,7 +6,7 @@ function loadPlanProgress(data, basicProgress, hideSelectedProgress) {
             <div class="name">${data["title"]}</div>
             <div class="arrow calendar">
                 <span>
-                    <img src="/gsk/assets/images/svg/calendar.svg" />
+                    <img src="/gskd/assets/images/svg/calendar.svg" />
                 </span>
                 Last Date: ${data["last_date"]}
             </div>
@@ -137,7 +137,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                 <label style="font-size: 12px;">${parseInt(item["purchased"]) + parseInt(item["selected"])}</label>
                 <div class="progressbar_wrapper addproduct" skudata=${`${item["sku"]}`} >
                     <div class="main reset" style="cursor: pointer;">
-                        <img src="/gsk/assets/images/svg/plus.svg" class="icon_add"/>
+                        <img src="/gskd/assets/images/svg/plus.svg" class="icon_add"/>
                     </div>
                 </div>
             `

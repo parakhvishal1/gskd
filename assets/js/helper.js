@@ -30,7 +30,7 @@ function showHeader(data) {
             <div class="profile_section" tabindex=0>
                 <div class="block">
                     <div class="name">${user.name}</div>
-                    <div class="icon"><img class="arrow-down" src="/gsk/assets/images/svg/down.svg" /></div>
+                    <div class="icon"><img class="arrow-down" src="/gskd/assets/images/svg/down.svg" /></div>
                 </div>
                 <div class="email">${user.email}</div>
             </div>
@@ -90,9 +90,9 @@ function showHeader(data) {
 function showDatePicker() {
     return `
         <div class="flex calendar-picker">
-            <img class="picker" src="/gsk/assets/images/svg/calendar.svg" />
+            <img class="picker" src="/gskd/assets/images/svg/calendar.svg" />
             <input type='text' id='tbDate' placeholder='select a date' readonly="readonly" />
-            <img class="arrow-down" src="/gsk/assets/images/svg/down.svg" />
+            <img class="arrow-down" src="/gskd/assets/images/svg/down.svg" />
              </div>
     `;
 }
@@ -100,9 +100,9 @@ function showDatePicker() {
 function showDatePickerWhite() {
     return `
         <div class="flex calendar-picker">
-            <img class="picker" src="/gsk/assets/images/svg/calendar-white.svg" />
+            <img class="picker" src="/gskd/assets/images/svg/calendar-white.svg" />
             <input type='text' id='tbDate' placeholder='select a date' readonly="readonly" />
-            <img class="arrow-down" src="/gsk/assets/images/svg/down-white.svg" />
+            <img class="arrow-down" src="/gskd/assets/images/svg/down-white.svg" />
         </div>
     `;
 }

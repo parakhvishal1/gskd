@@ -411,7 +411,7 @@ function addnewOrder(data, currentSku) {
                     <div class="flex">
                         <!-- 
                         <div class="edit switchWholesalerAccount" style="height: auto; width: 16px; margin-right: 10px;" skudata=${data["sku"]}>
-                            <img src="/gsk/assets/images/svg/edit.svg" />
+                            <img src="/gskd/assets/images/svg/edit.svg" />
                         </div>
                         -->
                         ${data["account_no"]}
