@@ -33,14 +33,15 @@ function injectDynamicCssToChild() {
 
             if(parsedData.data.data == 'Mobile') {
                 isMobile= true
+                console('in if condition is Mobile value:', isMobile)
             }
             return;
         }
     
     }, false);
    
-   if(isMobile == 'true' || isMobile == true) {
-    console.log('isMobile true')
+   if(isMobile == true || isMobile == 'true') {
+    console.log('isMobile true',isMobile)
         var ymFrameHead = window.frames["ymIframe"].document.getElementsByTagName("head")[0];
         var modularStyles = document.createElement('style');
         modularStyles.type = 'text/css';
@@ -52,7 +53,7 @@ function injectDynamicCssToChild() {
         }
         ymFrameHead.appendChild(modularStyles);
    }else {
-        console.log('isMobile false')
+        console.log('isMobile false', isMobile)
         var ymFrameHead = window.frames["ymIframe"].document.getElementsByTagName("head")[0];
         var modularStyles = document.createElement('style');
         modularStyles.type = 'text/css';
