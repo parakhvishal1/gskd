@@ -95,8 +95,10 @@ window.addEventListener('message', function (eventData) {
             data: parsedData.data.data
         }), '*');
         console.error("get-source")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>',parsedData.data.data);
+        injectJS();
         return;
+        
     }
    
 
