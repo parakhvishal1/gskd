@@ -119,6 +119,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
+        injectDynamicCssForMobileUI();
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'userwelcome-screen',
             data: parsedData.data.data
