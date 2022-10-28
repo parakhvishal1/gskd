@@ -70,6 +70,7 @@ function injectDynamicCssToChild() {
 }
 
 function injectDynamicCssForMobile() {
+    console.log('In Mobile View------')
     var ymFrameHead = window.frames["ymIframe"].document.getElementsByTagName("head")[0];
     var modularStyles = document.createElement('style');
     modularStyles.type = 'text/css';
