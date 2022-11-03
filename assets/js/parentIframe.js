@@ -131,6 +131,7 @@ window.addEventListener('message', function (eventData) {
     }
     
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
+        injectDynamicCssForMobileUI();
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'user-login',
             data:  parsedData.data.data
@@ -145,6 +146,7 @@ window.addEventListener('message', function (eventData) {
     // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
+        injectDynamicCssForMobileBot
         console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
