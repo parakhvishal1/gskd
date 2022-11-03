@@ -146,7 +146,7 @@ window.addEventListener('message', function (eventData) {
     // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
-        injectDynamicCssForMobileBot
+        injectDynamicCssForMobileBot();
         console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
@@ -169,6 +169,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'view-checkout') {
+        injectDynamicCssForMobileBot();
         console.log("\n\n\n <--- view-checkout event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
