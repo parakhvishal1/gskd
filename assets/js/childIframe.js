@@ -7,13 +7,37 @@
         document.getElementById('player').style.width = '0px'
         document.querySelector('#chatContainer').insertAdjacentHTML(
             'afterbegin',
-            `
-            <div class="mod-head-side-bar-container">
-                <div class="overflow-container-sidebar">
-                    <ul class="sidebar-wrapper">
-                        <iframe style="width:100%; height:100%; border: none;"  src="https://aporve.github.io/gsk/index.html"></iframe>
-                    </ul>
-                </div>
+            `<div class="mod-head-side-bar-container">
+            <div class="overflow-container-sidebar">
+                <ul class="sidebar-wrapper">
+                    <div style="text-decoration: none; color: #fff; width: 100%; padding: 10px; cursor: pointer; display: flex;"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/LS9XYE9urVcj1605084428877.png"/ style="width: 44px; height: auto;" >
+                    </div>
+                    <div id="e1" onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="Active Passive"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/4dnzmSDugrwW1622800597860.png"/>
+                    </div>
+                    <div  id="e2"onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="Asset Allocation"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/peOgkPdE8n0A1622800752931.png"/>
+                        </div>
+                    <div id="e3" onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="Economics"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/FPloPRu3LmfA1622800812350.png"/>
+                    </div>
+                    <div id="e4" onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="Investor Behaviour"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/sULHcUPQH5RL1622800858305.png"/>
+                    </div>
+                    <div id="e5" onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="ISG"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/GnxBWRVeIm6i1622800692538.png"/>
+                    </div>
+                    <div id="e6" onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="Retirement Planning"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/o2BBDya1HiQT1622800956549.png"/>
+                    </div>
+                    <div id="e7" onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="Strategic Communications"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/GnxBWRVeIm6i1622800692538.png"/>
+                    </div>
+                    <div id="e8" onclick="dynamicHeaderTitle(event)" class="side-bar-icon-box" title="VCMM Capital Markets"> 
+                        <img class="sidebar-img-icon" src="https://cdn.yellowmessenger.com/g6Fdrr5NeUj01622800983140.png"/>
+                    </div>
+                </ul>
             </div>
             <div class="overflow-container-header">
                 <ul class="header-wrapper">
@@ -31,8 +55,7 @@
                     </div>
                 </ul>
             </div>
-            </div>
-           `
+            </div> `
         );
     }
     catch (e) {
