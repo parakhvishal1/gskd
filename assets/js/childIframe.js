@@ -15,7 +15,7 @@
             </div>
             <div class="overflow-container-header">
                 <ul class="header-wrapper">
-                    <div class="header-title" id="main-header-title" style="font-weight: 700; font-size: large;color: black;">EMA</div>
+                    <div class="header-title" id="main-header-title" style="font-weight: 700; font-size: large;color: black;">Ema 2.0</div>
                 </ul>
             </div>
             </div> `
