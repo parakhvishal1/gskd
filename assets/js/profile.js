@@ -209,7 +209,7 @@ function loadProfileOptions() {
         $("#profile_setting_card").show();
         $("#profile_setting_card").append(`
             <div class="order_card menu" tabindex=0>
-                <div class="title">
+                <div class="title hide">
                     <div class="name" onclick="loadEditProfile()">Profile Settings</div>
                 </div>
                 <div id="logout" class="info cta">Logout</div>
@@ -218,10 +218,8 @@ function loadProfileOptions() {
     }
 
     $("#logout").click(function(e) {
-        removeHeader();
-        $("#profile_setting_card").hide();
-        ToBot("logout", {
-            "timestamp": new Date().getTime(),
-        });
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        logoutApp();
     });
 }

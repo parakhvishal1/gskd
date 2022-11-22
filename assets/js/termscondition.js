@@ -20,6 +20,12 @@ function loadTermsUI(data) {
         `);
     });
 
+    $(".termsofuse_content").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: true },
+        autoHideScrollbar: true
+    });
+
     {/* <div class="btn_wrapper">
         <div class="btnbox">
             <button class="btn outline" id="terms_decline">${data["decline"]}</button>

@@ -6,7 +6,8 @@
 
 .content__box .splash_screen .branding {
     height: 75%;
-    background: url("/gskd/assets/images/svg/banner.svg");
+    /* background: url("/gsk/assets/images/svg/banner.svg"); */
+    background: url("https://cdn.yellowmessenger.com/xcp1wyrVSFih1668751719553.jpg");
     background-repeat: no-repeat;
     background-color: #fff;
     background-size: cover;

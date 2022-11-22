@@ -60,12 +60,12 @@ function showHeader(data) {
         </div>
     `);
 
-    $(".svg_icon_wrapper").click(function(e) {
+    /* $(".svg_icon_wrapper").click(function(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         let parsedData = JSON.parse(localStorage.getItem("data"));
         ToApp("userwelcome-screen", parsedData)
-    });
+    }); */
 
     $(".profile_section").click(function(e) {
         e.stopPropagation();
@@ -160,4 +160,28 @@ function calculateSumAmount(data) {
 
 function orderCalculate() {
     
+}
+
+function getMonthName(data) {
+    const monthNumber = new Date(data).getMonth() + 1;
+    if (isNaN(monthNumber)) {
+         console.error('Invalid month name.');
+    }
+  
+    const months = {
+        '1' : 'Jan',
+        '2' : 'Feb',
+        '3' : 'Mar',
+        '4' : 'Apr',
+        '5' : 'May',
+        '6' : 'Jun',
+        '7' : 'Jul',
+        '8' : 'Aug',
+        '9' : 'Sep',
+        '10' : 'Oct',
+        '11' : 'Nov',
+        '12' : 'Dec',
+    }
+
+    return months[monthNumber];
 }

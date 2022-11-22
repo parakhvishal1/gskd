@@ -7,10 +7,12 @@
 }
 
 .profile_setting_card.active > .order_card.menu {
-    position: fixed;
+    /* position: fixed; */
     top: 64px;
-    width: calc(100% - 40px);
+    /* width: calc(100% - 40px); */
+    width: calc(100% - 0px);
     z-index: 19;
+    margin-top: 16px;
 }
 
 .order_card {
@@ -74,6 +76,12 @@
     padding: 0 16px;
 }
 
+.profile_setting_card.active .order_card .info::before {
+    content: '>';
+    margin-right: 10px;
+    font-weight: 600;
+}
+
 .order_card .info.outer {
     padding: 0 20px;
 }
@@ -135,6 +143,14 @@
 
 .title.backbtn {
     margin-bottom: 22px;
+}
+
+.title.backbtn + .card_click .flex .order_status:nth-child(2) {
+    display: none;
+}
+
+.title.backbtn.hide + .card_click .flex .order_status:nth-child(2) {
+    display: block;
 }
 
 .title.backbtn.hide + .card_click .flex .order_on_date {

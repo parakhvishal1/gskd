@@ -1,4 +1,5 @@
 function showSkuLevelDetailsBrand(data, currentSku) {
+    window.dataStore = JSON.parse(JSON.stringify(data));
     let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
     let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
     const isAdditionDiscountEligible = filteredBrand[0]["additional_discount"];
@@ -42,9 +43,9 @@ function showSkuLevelDetailsBrand(data, currentSku) {
         $("#previous-orders-accordion").append(`
             <div class="accordion">
                 <div class="accordion-item inverted">
-                    <div class="accordion-item-header account_detail white active">${order["account_no"]}</div>
-                    <div class="accordion-item-body parent opened orderbrandselection">
-                        <div class="accordion-item-body-content" style="max-height: 300px; overflow: auto;">
+                    <div class="accordion-item-header account_detail white">${order["account_no"]}</div>
+                    <div class="accordion-item-body parent orderbrandselection">
+                        <div class="accordion-item-body-content" style="max-height: 300px; overflow-y: auto;">
                             <div class="date-picker-value pointernone">
                                 ${showDatePickerWhite()}
                             </div>
@@ -97,8 +98,26 @@ function showSkuLevelDetailsBrand(data, currentSku) {
         localStorage.setItem("data", JSON.stringify(window.dataStore));
         let parseData = getParsedData();
         if (parseData && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].length > 0) {
-            loadBrandSelectionUI(parseData);
-            ToBot("ordercart-continue", parseData);
+            let totalSelectedQuantity = 0;
+            parseData?.["new_orders"]?.["orders"].map(order => {
+                order["product_details"].map(product => {
+                    if(filteredBrand[0]["sku"] === product["brand"]) {
+                        if(product["quantity"]) {
+                            totalSelectedQuantity = totalSelectedQuantity + Number(product["quantity"]);
+                        }
+                    }
+
+                });
+            });
+            
+            window.dataStore["plan_progress"]["brands"].map(brand => {
+                if(brand["sku"] === currentSku) {
+                    brand["selected"] = totalSelectedQuantity;
+                }
+            });
+            localStorage.setItem("data", JSON.stringify(window.dataStore));
+            loadBrandSelectionUI(window.dataStore);
+            ToBot("ordercart-continue", window.dataStore);
         }
     });
 
@@ -118,9 +137,6 @@ function showSkuLevelDetailsBrand(data, currentSku) {
         e.stopImmediatePropagation();
         $(".account_select").removeClass("hide");
     });
-
-    $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
-    $('input[id$=tbDate]').datepicker("setDate", "today");
 
     $(".accordion-item-header.account_detail").click(function (e) {
         e.stopPropagation();
@@ -160,22 +176,26 @@ function showSkuLevelDetailsBrand(data, currentSku) {
     });
 
     let parseData = getParsedData();
-    parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
-        window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
-        ordr["product_details"].map(product => {
-            let parentSku = window.cartData[ordr["sku"]];
-            let skuproduct = parentSku[product["sku"]];
-            if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku)) {
-                addnewOrderBrand(ordr, currentSku, true);
-                window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
-            }
+
+    if(window.cartData && Object.keys(window.cartData).length !== 0) {
+        parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+            window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
+            ordr["product_details"].map(product => {
+                let parentSku = window.cartData[ordr["sku"]];
+                let skuproduct = parentSku[product["sku"]];
+                if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku  && ordr["brandsku"].includes(currentSku))) {
+                    addnewOrderBrand(ordr, currentSku, true);
+                    window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
+                }
+            });
         });
-    });
+    }
 }
 
 function showBrandLevelDetails(data, currentSku) {
-    let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
-    let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
+    window.dataStore = JSON.parse(JSON.stringify(data));
+    const lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
+    const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
     const isAdditionDiscountEligible = filteredBrand[0]["additional_discount"];
 
     $("#content_box").empty();
@@ -211,24 +231,30 @@ function showBrandLevelDetails(data, currentSku) {
             <div class="account_list"></div>
         </div>
     `);
+
+    /* $(".order_details_container.choosebrands").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: true },
+        autoHideScrollbar: true
+    }); */
     
     $("#previous-orders-accordion").empty();
     lastOrder && [lastOrder].map((order) => {
         $("#previous-orders-accordion").append(`
             <div class="accordion">
                 <div class="accordion-item inverted">
-                    <div class="accordion-item-header account_detail white active">${order["account_no"]}</div>
-                    <div class="accordion-item-body parent opened orderbrandselection">
-                        <div class="accordion-item-body-content" style="max-height: 300px; overflow: auto;">
+                    <div class="accordion-item-header account_detail white">${order["account_no"]}</div>
+                    <div class="accordion-item-body parent orderbrandselection">
+                        <div class="accordion-item-body-content" style="max-height: 300px; overflow-y: auto;">
                             <div class="date-picker-value pointernone">
                                 ${showDatePickerWhite()}
                             </div>
                             <div class="flex">
                                 <div class="order_status">
-                                    <div class="info">Order No: ${lastOrder["order_no"]}</div>
+                                    <div class="info"><span class="highlight">Order No:</span> ${lastOrder["order_no"]}</div>
                                 </div>
                                 <div class="order_on_date">
-                                    <div class="info">Status: ${lastOrder["ordered_date"]}</div>
+                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["ordered_date"]}</div>
                                 </div>
                             </div>
                             <div class="title">PRODUCTS</div>
@@ -272,6 +298,9 @@ function showBrandLevelDetails(data, currentSku) {
         localStorage.setItem("data", JSON.stringify(window.dataStore));
         let parseData = getParsedData();
         if (parseData && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].length > 0) {
+            if(!window.orderCartData.includes(filteredBrand[0]["sku"])) {
+                window.orderCartData.push(filteredBrand[0]["sku"]);
+            }
             loadBrandSelectionUI(parseData);
             ToBot("ordercart-continue", parseData);
             // ToApp("ordercart-screen", parseData)
@@ -295,9 +324,6 @@ function showBrandLevelDetails(data, currentSku) {
         $(".account_select").removeClass("hide");
     });
 
-    $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
-    $('input[id$=tbDate]').datepicker("setDate", "today");
-
     $(".accordion-item-header.account_detail").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -313,47 +339,76 @@ function showBrandLevelDetails(data, currentSku) {
         }
     });
 
+    if (window.wholesalerAccountData && window.wholesalerAccountData.length === 0) {
+        let orderData = data["available_orders"]["orders"][0];
+        if(!window.orderCartData.includes(filteredBrand[0]["sku"])) {
+            window.orderCartData.push(filteredBrand[0]["sku"]);
+        }
+        window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+        addWholeSalerAccordion(data, orderData, currentSku);
+    } else {
+        let orderData = data["available_orders"]["orders"][0];
+        if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
+            window.orderCartData.push(filteredBrand[0]["sku"]);
+            window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+            addWholeSalerAccordion(data, orderData, currentSku);
+        }
+    }
+
     $(".account_list .item").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         $(".account_select").addClass("hide");
         let currentElementData = $(this).attr("skudata");
-        let filteredData = data["available_orders"]["orders"].filter((order, index) => order["sku"] === currentElementData)
+        let updatedData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : JSON.parse(JSON.stringify(data));
+        let currentAvailableOrders = Object.keys(window.dataStore).length !== 0 ? window.dataStore["available_orders"]["orders"] : data["available_orders"]["orders"];
+        let filteredData = currentAvailableOrders.filter((order, index) => order["sku"] === currentElementData)
         let orderData = filteredData[0];
         if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0) {
             let shouldWholeSalerAccountAdd = false;
-            window.wholesalerAccountData.every(v => {
-                if (orderData["sku"] === v["sku"]) {
-                    shouldWholeSalerAccountAdd = false;
-                    return false;
-                } else {
-                    shouldWholeSalerAccountAdd = true;
-                    return true;
+            if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
+                window.orderCartData.push(filteredBrand[0]["sku"]);
+                window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                addWholeSalerAccordion(updatedData, orderData, currentSku);
+            } else {
+                window.wholesalerAccountData.every(v => {
+                    if (v["brandsku"] === `${orderData["sku"]}-${filteredBrand[0]["sku"]}`) {
+                        shouldWholeSalerAccountAdd = false;
+                        return false;
+                    } else {
+                        shouldWholeSalerAccountAdd = true;
+                        return true;
+                    }
+                });
+                if (shouldWholeSalerAccountAdd) {
+                    window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                    addWholeSalerAccordion(updatedData, orderData, currentSku);
                 }
-            });
-            if(shouldWholeSalerAccountAdd) {
-                window.wholesalerAccountData.push(orderData);
-                addWholeSalerAccordion(data, orderData, currentSku);
             }
         } else {
-            window.wholesalerAccountData.push(orderData);
-            addWholeSalerAccordion(data, orderData, currentSku);
+            if(!window.orderCartData.includes(filteredBrand[0]["sku"])) {
+                window.orderCartData.push(filteredBrand[0]["sku"]);
+            }
+            window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+            addWholeSalerAccordion(updatedData, orderData, currentSku);
             return;
         }
     });
 
-    let parseData = getParsedData();
-    parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
-        window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
-        ordr["product_details"].map(product => {
-            let parentSku = window.cartData[ordr["sku"]];
-            let skuproduct = parentSku[product["sku"]];
-            if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku)) {
-                addnewOrder(ordr, currentSku);
-                window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
-            }
+    if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0 && window.cartData && Object.keys(window.cartData).length !== 0) {
+        let parseData = getParsedData();
+        parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+            window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
+            ordr["product_details"].map(product => {
+                let parentSku = window.cartData[ordr["sku"]];
+                let skuproduct = parentSku[product["sku"]];
+                if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku && ordr["brandsku"].includes(currentSku))) {
+                    addnewOrder(ordr, currentSku);
+                    window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
+                }
+            });
         });
-    });
+    }
 }
 
 function addWholeSalerAccordionSku(data, orderData, currentSku) {
@@ -370,6 +425,8 @@ function addWholeSalerAccordionSku(data, orderData, currentSku) {
 function addWholeSalerAccordion(data, orderData, currentSku) {
     data["new_orders"] = {};
     data["new_orders"]["orders"] = window.wholesalerAccountData;
+    window.dataStore["new_orders"] = {};
+    window.dataStore["new_orders"]["orders"] = window.wholesalerAccountData;
     localStorage.setItem("data", JSON.stringify(data));
     if (window.wholesalerAccountData.length > 1) {
         let openedAccContainers = [...$(".accordion-item-body.orderbrandselection")];
@@ -418,8 +475,8 @@ function addnewOrder(data, currentSku) {
                     </div>
                 </div>
                 <div class="accordion-item-body parent opened orderbrandselection">
-                    <div class="accordion-item-body-content" style="max-height: 270px; overflow: auto;">
-                        <div class="date-picker-value">
+                    <div class="accordion-item-body-content" style="max-height: 270px; overflow-y: auto;">
+                        <div class="date-picker-value" id="dpicker-${data["sku"]}">
                             ${showDatePicker()}
                         </div>
                         <table class="accordian table">
@@ -432,6 +489,14 @@ function addnewOrder(data, currentSku) {
             </div>
         </div>
     `);
+
+    const getLocalDataForDate = getParsedData();
+    const startDate = getLocalDataForDate['start_date'];
+    const endDate = getLocalDataForDate['last_date'];
+    const minDate = `${getMonthName( new Date(startDate))} ${new Date(startDate).getDate()}, ${String(new Date(startDate).getFullYear()).substring(2)}`;
+    const maxDate = `${getMonthName( new Date(endDate))} ${new Date(endDate).getDate()}, ${String(new Date(endDate).getFullYear()).substring(2)}`;
+    $(`#dpicker-${data["sku"]} input[id$=tbDate]`).datepicker({ dateFormat: 'M dd, y', minDate: minDate, maxDate: maxDate });
+    $(`#dpicker-${data["sku"]} input[id$=tbDate]`).datepicker("setDate", data["ordered_date"] ? data["ordered_date"] : "today");
 
     data["product_details"].map((productData, index) => {
         let uuid = create_UUID();
@@ -480,11 +545,11 @@ function addnewOrder(data, currentSku) {
         }
         
         $(`.counter__minus.key${uuid}`).click(function (e) {
-            updateCounter(this, "minus", currentSku);
+            updateCounter(this, "minus", currentSku, false, data);
         });
 
         $(`.counter__plus.key${uuid}`).click(function (e) {
-            updateCounter(this, "add", currentSku);
+            updateCounter(this, "add", currentSku, false, data);
         });
     });
 
@@ -503,8 +568,8 @@ function addnewOrder(data, currentSku) {
         }
     });
 
-    $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
-    $('input[id$=tbDate]').datepicker("setDate", "today");
+    // $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
+    // $('input[id$=tbDate]').datepicker("setDate", "today");
 }
 
 function addnewOrderBrand(data, currentSku, skulevel) {
@@ -515,8 +580,8 @@ function addnewOrderBrand(data, currentSku, skulevel) {
             <div class="accordion-item">
                 <div class="accordion-item-header orderdetail active">${data["account_no"]}</div>
                 <div class="accordion-item-body parent opened orderbrandselection">
-                    <div class="accordion-item-body-content" style="max-height: 270px; overflow: auto;">
-                        <div class="date-picker-value">
+                    <div class="accordion-item-body-content" style="max-height: 270px; overflow-y: auto;">
+                        <div class="date-picker-value" id="dpicker-${data["sku"]}>
                             ${showDatePicker()}
                         </div>
                         
@@ -531,9 +596,15 @@ function addnewOrderBrand(data, currentSku, skulevel) {
         </div>
     `);
 
+    const getLocalDataForDate = getParsedData();
+    const startDate = getLocalDataForDate['start_date'];
+    const endDate = getLocalDataForDate['last_date'];
+    const minDate = `${getMonthName( new Date(startDate))} ${new Date(startDate).getDate()}, ${String(new Date(startDate).getFullYear()).substring(2)}`;
+    const maxDate = `${getMonthName( new Date(endDate))} ${new Date(endDate).getDate()}, ${String(new Date(endDate).getFullYear()).substring(2)}`;
+    $(`#dpicker-${data["sku"]} input[id$=tbDate]`).datepicker({ dateFormat: 'M dd, y', minDate: minDate, maxDate: maxDate });
+    $(`#dpicker-${data["sku"]} input[id$=tbDate]`).datepicker("setDate", data["ordered_date"] ? data["ordered_date"] : "today");
+
     data["product_details"].map((productData, index) => {
-        console.log(productData);
-        // console.log(completeData["plan_progress"]["brands"][0]);
         let uuid = create_UUID();
         $("#new_order_body").append(`
             <tr class="info_row">
@@ -593,11 +664,11 @@ function addnewOrderBrand(data, currentSku, skulevel) {
         `);
 
         $(`.counter__minus.key${uuid}`).click(function (e) {
-            updateCounter(this, "minus", currentSku, skulevel);
+            updateCounter(this, "minus", currentSku, skulevel, data);
         });
 
         $(`.counter__plus.key${uuid}`).click(function (e) {
-            updateCounter(this, "add", currentSku, skulevel);
+            updateCounter(this, "add", currentSku, skulevel, data);
             // let parsedata = getParsedData();
             // let filteredBrand = parsedata["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedata["selected_brand"]);
             // let progressCards = loadProgressCards({ "brands": filteredBrand }, true, true)
@@ -621,13 +692,14 @@ function addnewOrderBrand(data, currentSku, skulevel) {
         }
     });
 
-    $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
-    $('input[id$=tbDate]').datepicker("setDate", "today");
+    // $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
+    // $('input[id$=tbDate]').datepicker("setDate", "today");
 }
 
-function updateCounter(counterInput, type, currentSku, skulevel) {
+function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
     let storeddata = localStorage.getItem("data");
-    let parseStoredData = JSON.parse(storeddata);
+    /* check added: if counter is clicked for another medicine data should not reset */
+    let parseStoredData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : JSON.parse(storeddata);
     let siblingWrapper = $(counterInput).parent().siblings(".counter__input");
     if (type === "add") {
         var $input = $(siblingWrapper);
@@ -640,7 +712,8 @@ function updateCounter(counterInput, type, currentSku, skulevel) {
         let parentSkuData = $(counterInput).parent().parent().attr("parentskudata");
 
         let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
-        
+        let filteredProductDetails = brandData["product_details"].filter(data => data["sku"] === skuData);
+
         window.cartData = {
             ...window.cartData,
             [parentSkuData]: {
@@ -649,9 +722,10 @@ function updateCounter(counterInput, type, currentSku, skulevel) {
             }
         };
 
-        parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach(order => {
+        
+        parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach((order, mainIndex) => {
             if (order["sku"] === parentSkuData) {
-                order["product_details"].forEach(product => {
+                let productDetails = order["product_details"].map((product, index) => {
                     /* if(currentSku === product["brand"]) {
                         
                     } */
@@ -662,23 +736,42 @@ function updateCounter(counterInput, type, currentSku, skulevel) {
                         product["discount"]["selected"] = $input.val();
                         if(skulevel) {
                             // let currentItemValue = calculateSumAmount({[parentSkuData]: {...window.cartData[parentSkuData]}});
-                            console.log(product);
-                            console.log(`skulevelprogress-${product["sku"]}`);
                             let progressCards = loadProgressCards({ "brands": [product["discount"]] }, true, true)
                             $(`#skulevelprogress-${product["sku"]}`).empty();
                             $(`#skulevelprogress-${product["sku"]}`).append(progressCards);
                         }
+                        if(parseStoredData["available_orders"]["orders"][mainIndex]["sku"] === parentSkuData) {
+                            if(parseStoredData["available_orders"]["orders"][mainIndex]["product_details"][index]["sku"] === skuData) {
+                                parseStoredData["available_orders"]["orders"][mainIndex]["ordered_date"] = order["ordered_date"];
+                                parseStoredData["available_orders"]["orders"][mainIndex]["product_details"][index] = product;
+                            }
+                        }
+                        
                         // window.cartData[parentSkuData][skuData] = $input.val() - Number(product["units"]);
                     }
                 });
+                if(window.wholesalerAccountData[mainIndex]["sku"] === parentSkuData) {
+                    window.wholesalerAccountData[mainIndex]["ordered_date"] = parseStoredData["new_orders"]["orders"][mainIndex]["ordered_date"];
+                    window.wholesalerAccountData[mainIndex]["product_details"] = parseStoredData["new_orders"]["orders"][mainIndex]["product_details"];
+                }
             }
         });
 
-        let total = calculateSumAmount({
+        console.log("parseStoredData --> ", parseStoredData);
+
+        let totalCalculationTemporary = JSON.parse(JSON.stringify({
             [parentSkuData]: {
                 ...window.cartData[parentSkuData]
             }
-        });
+        }));
+
+        for(key in totalCalculationTemporary[parentSkuData]) {
+            if(brand[0]["sku"] !== filteredProductDetails[0]["brand"]) {
+                delete totalCalculationTemporary[parentSkuData][key];    
+            }
+        }
+
+        let total = calculateSumAmount(totalCalculationTemporary);
 
         parseStoredData && parseStoredData["plan_progress"] && parseStoredData["plan_progress"]["brands"].map(brandDataItem => {
             if (brandDataItem["sku"] === parseStoredData["selected_brand"]) {
@@ -717,6 +810,10 @@ function updateCounter(counterInput, type, currentSku, skulevel) {
                 $input.change();
                 $input.attr("previous-value", $input.val());
             }
+
+            let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
+            let filteredProductDetails = brandData["product_details"].filter(data => data["sku"] === skuData);
+
             window.cartData = {
                 ...window.cartData,
                 [parentSkuData]: {
@@ -724,6 +821,7 @@ function updateCounter(counterInput, type, currentSku, skulevel) {
                     [skuData]: $input.val()
                 }
             };
+            
             parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach(order => {
                 if (order["sku"] === parentSkuData) {
                     order["product_details"].forEach(product => {
@@ -737,8 +835,6 @@ function updateCounter(counterInput, type, currentSku, skulevel) {
                             product["discount"]["selected"] = $input.val();
                             if(skulevel) {
                                 // let currentItemValue = calculateSumAmount({[parentSkuData]: {...window.cartData[parentSkuData]}});
-                                console.log(product);
-                                console.log(`skulevelprogress-${product["sku"]}`);
                                 let progressCards = loadProgressCards({ "brands": [product["discount"]] }, true, true)
                                 $(`#skulevelprogress-${product["sku"]}`).empty();
                                 $(`#skulevelprogress-${product["sku"]}`).append(progressCards);
@@ -749,11 +845,19 @@ function updateCounter(counterInput, type, currentSku, skulevel) {
                 }
             });
 
-            let total = calculateSumAmount({
+            let totalCalculationTemporary = JSON.parse(JSON.stringify({
                 [parentSkuData]: {
                     ...window.cartData[parentSkuData]
                 }
-            });
+            }));
+    
+            for(key in totalCalculationTemporary[parentSkuData]) {
+                if(brand[0]["sku"] !== filteredProductDetails[0]["brand"]) {
+                    delete totalCalculationTemporary[parentSkuData][key];    
+                }
+            }
+    
+            let total = calculateSumAmount(totalCalculationTemporary);
     
             parseStoredData && parseStoredData["plan_progress"] && parseStoredData["plan_progress"]["brands"].map(brandDataItem => {
                 if (brandDataItem["sku"] === parseStoredData["selected_brand"]) {

@@ -15,6 +15,23 @@
                         </ul>
                     </div>
                 </div>
+                <div class="overflow-container-header">
+                <ul class="header-wrapper">
+                    <div class="header-title" id="main-header-title" style="font-weight: 700; font-size: large;color: black;">AskISG</div>
+                    <div style="display:flex;align-items:center;">
+                         <div id="e11" class="icons-box"> 
+                             <span class="header-bar-icon-box" title="minimize">-</span>
+                         </div>
+                         <div id="e10" style="cursor:pointer;"> 
+                         <span class="header-bar-icon-box" title="maxamize"><img src="https://cdn.yellowmessenger.com/m65zoVM7Si3s1624952263631.png" style="width: 1.7rem; height: 20px;" /></span>
+                         </div>
+                         <div id="e9" class="icons-box"> 
+                             <span class="header-bar-icon-box" title="Close">x</span>
+                         </div>
+                    </div>
+                </ul>
+            </div>
+            </div>
            `
         );
     }
@@ -22,6 +39,27 @@
         console.error("failing while trying to insert add frame script", e);
     }
 })();
+
+
+function show_image() {
+    console.error('---Blur Image---');
+    var img = document.createElement("img");
+    img.src = 'https://cdn.yellowmessenger.com/6B5g5HGSB9J91668583171295.jpg';
+    img.width = '10000';
+    img.height = '10000';
+    img.position = 'absolute;'
+
+    // This next line will just add it to the <body> tag
+    // document.body.appendChild(img);
+    document.getElementById('iframe').appendChild(img);
+    var element = document.getElementById("iframe");
+   element.classList.add("blur");
+}
+
+function remove_blur() {
+    var element = document.getElementById("iframe");
+   element.classList.remove("blur");
+}
 
 window.addEventListener('message', function (eventData) {
     let parsedEventData = JSON.parse(eventData.data);
@@ -71,11 +109,56 @@ window.addEventListener('message', function (eventData) {
         console.log('Event Data---',data);
     }
 
+    if (parsedEventData.event_code === "ordercart-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'ordercart-screen',                                                // added new event name
+            data: parsedEventData.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
+    }
+
+    if (parsedEventData.event_code === "load-userwelcome-screen" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'load-userwelcome-screen',                                                // added new event name
+            data: parsedEventData.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
+    }
+
+    if (parsedEventData.event_code === "show-brand-selection" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'show-brand-selection',                                                // added new event name
+            data: parsedEventData.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
+    }
+
+    if (parsedEventData.event_code === "show-brand-detailing" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'show-brand-detailing',                                                // added new event name
+            data: parsedEventData.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---',data);
+    }
+
 
 
 
     // send event to bot
     if(parsedEventData.event_code === "logout") {
+        // show_image()
         console.log(' logout Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'logout',

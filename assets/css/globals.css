@@ -289,3 +289,15 @@ thead .info_row .info_data {
     font-size: 13px;
     font-weight: 400;
 }
+
+.bold {
+    font-weight: 700;
+}
+
+.light-colored {
+    color: #959595;
+}
+
+.mCSB_inside>.mCSB_container {
+    margin-right: 0px !important;
+}

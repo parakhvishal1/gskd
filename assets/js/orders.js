@@ -1,5 +1,6 @@
 function loadUserWelcomeUI(data) {
-    let lastOrder = data["previous_orders"]["orders"][0];
+    const lastOrder = data["previous_orders"]["orders"][0];
+    const containsPrevOrder = data["previous_orders"]["orders"].length;
     $(".header").removeClass('hide');
     $("#content_box").empty();
 
@@ -7,7 +8,7 @@ function loadUserWelcomeUI(data) {
         <div class="order_section">
             <div class="tabs">
                 <div class="tab-2 active">
-                    <div class="block active">
+                    <div class="block active ${containsPrevOrder ? '' : 'hide'}">
                         <input id="tab21" name="tabs-two" type="radio" checked="checked">
                         <label for="tab21" id="label">Last Order</label>
                     </div>
@@ -23,7 +24,7 @@ function loadUserWelcomeUI(data) {
                     </div>
                 </div>
                 <div class="tab-2">
-                    <div class="block">
+                    <div class="block ${containsPrevOrder ? '' : 'hide'}">
                         <input id="tab22" name="tabs-two" type="radio">
                         <label for="tab22" id="label">Order History</label>
                     </div>
@@ -43,7 +44,8 @@ function loadUserWelcomeUI(data) {
         </div>
     `);
 
-    addInputEventListener();
+    if(containsPrevOrder) {
+        addInputEventListener();
 
     $("#last_order_history").append(`
         <div class="order_card last_order" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
@@ -58,67 +60,64 @@ function loadUserWelcomeUI(data) {
             </div>
             <div class="card_click" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
                 <div class="title">
-                    <div class="name">${lastOrder["account_no"]}</div>
+                        <div class="name highlight">${lastOrder["account_no"]}</div>
                     <div class="arrow">
                         <img src="/gskd/assets/images/svg/right.svg" />
                     </div>
                 </div>
                 <div class="flex">
-                    <div class="order_status">
+                        <!-- <div class="order_status">
                         <div class="info">Order No: ${lastOrder["order_no"]}</div>
                         <div class="info">${lastOrder["status"]}${lastOrder["delivery_date"] ? " &nbsp;|&nbsp; Delivery On: " : ""}${lastOrder["delivery_date"]}</div>
+                        </div> -->
+                        <div class="order_status">
+                            <div class="info"><span class="light-colored">Order No:</span> <span class="bold">${lastOrder["order_no"]}</span></div>
+                            <div class="info"><span class="light-colored">Status:</span> <span class="bold">${lastOrder["status"]}</span></div>
+                        </div>
+                        <div class="order_status">
+                            <div class="info"><span class="light-colored">Order No:</span> <span class="bold">${lastOrder["order_no"]}</span></div>
+                            <div class="info"><span class="light-colored">Status:</span> <span class="bold">${lastOrder["status"]}</span></div>
+                        </div>
+                        <div class="order_on_date">
+                            <div class="info">Ordered On:</div>
+                            <div class="info">${lastOrder["ordered_date"]}</div>
+                        </div>
                     </div>
-                    <div class="order_on_date">
-                        <div class="info">Ordered On:</div>
-                        <div class="info">${lastOrder["ordered_date"]}</div>
+                </div>
+                <div class="order_cart history hide">
+                    <div class="title">
+                        <div class="name">Order Details</div>
+                    </div>
+                    <div class="detail">
+                        <table class="ui very basic table" skudata=${lastOrder["sku"]}>
+                            <thead>
+                                <tr class="info_row">
+                                    <td class="info_data" colspan="1">Est. Price</td>
+                                    <td class="info_data" colspan="1">Units</td>
+                                    <td class="info_data" colspan="1">Free Goods</td>
+                                    <td class="info_data" colspan="1">${Boolean(lastOrder["on_invoice"]) ? "On Invoice Discount" : "Off Invoice Discount"}</td>
+                                    <td class="info_data" colspan="1">Pay Term</td>
+                                </tr>
+                            </thead>
+                            <tbody id="order_card_tablebody"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="order_cart history hide">
-                <div class="title">
-                    <div class="name">Order Details</div>
-                </div>
-                <div class="detail">
-                    <table class="ui very basic table" skudata=${lastOrder["sku"]}>
-                        <thead>
-                            <tr class="info_row">
-                                <td class="info_data" colspan="1">Est. Price</td>
-                                <td class="info_data" colspan="1">Units</td>
-                                <td class="info_data" colspan="1">Free Goods</td>
-                                <td class="info_data" colspan="1">${Boolean(lastOrder["on_invoice"]) ? "On Invoice Discount" : "Off Invoice Discount"}</td>
-                                <td class="info_data" colspan="1">Pay Term</td>
-                            </tr>
-                        </thead>
-                        <tbody id="order_card_tablebody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="progress_plan" id="progress_plan_main"></div>
-    `);
-
-    $(".back_button").click(function (e) {
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        let siblingElement = $(this).parent().siblings(".order_cart.history")
-        siblingElement.addClass("hide");
-        $(this).parent().addClass("hide");
-        siblingElement.siblings(".card_click")
-        $("#progress_plan_main").removeClass("hide");
-        siblingElement.siblings(".card_click").css("pointer-events", "unset");
-    });
-
-    $(".place_new_order").click(function (e) {
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        let data = localStorage.getItem("data");
-        let parsedData = JSON.parse(data);
-        // let currentElementData = $(this).parent().attr("data");
-        // let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
-        ToApp("choosebrands-screen", parsedData);
-        ToBot("place-new-order", {});
-    });
+    
+            <div class="progress_plan" id="progress_plan_main"></div>
+        `);
+    
+        $(".back_button").click(function (e) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            let siblingElement = $(this).parent().siblings(".order_cart.history")
+            siblingElement.addClass("hide");
+            $(this).parent().addClass("hide");
+            siblingElement.siblings(".card_click")
+            $("#progress_plan_main").removeClass("hide");
+            siblingElement.siblings(".card_click").css("pointer-events", "unset");
+        });
 
     data && data["previous_orders"] && data["previous_orders"]["orders"] && data["previous_orders"]["orders"].map((orderData, index) => {
         let classValue = "success";
@@ -313,13 +312,16 @@ function loadBrandSelectionUI(data) {
     $("#content_box").append(`
         <div class="choosebrands">
             <div class="menu_header">
-                <div class="label">Choose Brands</div>
+                <div class="label">
+                    <img class="back-arrow" src="/gskd/assets/images/svg/right.svg"/>
+                    Choose Brands
+                </div>
                 <div class="icon">
                     <img src="/gskd/assets/images/svg/basket.svg" class="view_checkout" />
                     <div class="count_wrapper hide"></div>
                 </div>
             </div>
-            <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
+            <div class="sub_detail"><span class="bold highlight">Start:</span> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="bold highlight">End:</span> ${data["last_date"]}</div>
             ${loadProgressCards(data["plan_progress"])}
         </div> 
         <div class="bottom">
@@ -332,7 +334,7 @@ function loadBrandSelectionUI(data) {
     `);
 
     let total = calculateSumAmount(window.cartData);
-    if(total) {
+    if (total) {
         $(".count_wrapper").removeClass("hide");
         $(".place_order.checkout").parent().removeClass("disabled");
         $(".count_wrapper").parent(".icon").addClass("cursor");
@@ -342,10 +344,16 @@ function loadBrandSelectionUI(data) {
     $(".view_checkout").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        if(total) {
-            loadOrderCart(data);
+        if (total) {
+            // loadOrderCart(data);
             ToBot("view-checkout", data);
         }
+    });
+
+    $(".back-arrow").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        ToApp('userwelcome-screen', data);
     });
 
     $(".progressbar_wrapper.addproduct").click(function (e) {
@@ -353,6 +361,9 @@ function loadBrandSelectionUI(data) {
         e.stopImmediatePropagation();
         const currentElementSkuData = $(this).attr("skudata");
         const parsedData = getParsedData();
+        if(window.dataStore && Object.keys(window.dataStore).length !== 0) {
+            window.dataStore["selected_brand"] = currentElementSkuData;
+        }
         parsedData["selected_brand"] = currentElementSkuData;
         saveParsedData(parsedData);
         // let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
@@ -364,6 +375,16 @@ function loadBrandSelectionUI(data) {
         const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentElementSkuData);
         const isBrandSku = filteredBrand[0]["isSku"];
         ToBot("select-brand", parsedData);
-        !isBrandSku ? showSkuLevelDetailsBrand(parsedData, currentElementSkuData) : showBrandLevelDetails(parsedData, currentElementSkuData);
+        isBrandSku ? showSkuLevelDetailsBrand(parsedData, currentElementSkuData) : showBrandLevelDetails(parsedData, currentElementSkuData);
     });
+}
+
+function loadBrandSelectionUIByBrandName(data, name) {
+    const currentElementSkuData = data["selected_brand"];
+    if(window.dataStore && Object.keys(window.dataStore).length !== 0) {
+        window.dataStore["selected_brand"] = currentElementSkuData;
+    }
+    const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentElementSkuData);
+    const isBrandSku = filteredBrand[0]["isSku"];
+    isBrandSku ? showSkuLevelDetailsBrand(data, currentElementSkuData) : showBrandLevelDetails(data, currentElementSkuData);
 }

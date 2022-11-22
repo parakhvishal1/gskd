@@ -8,7 +8,12 @@ function loadOrderCart(data) {
                 <div class="icon goToBrandLevel cursor"><img src="/gskd/assets/images/svg/plus.svg" /></div>
             </div>
             ${getAccordianAccounts(data["new_orders"]["orders"])}
-            ${data["rebates_orders"] && data["rebates_orders"]["orders"] && getAccordianAccounts(data["rebates_orders"]["orders"], true)}
+            <div>
+                ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? `<div class="menu_header"><div class="category_label">Period Eligible / Rebates</div></div>`: ""}
+                <div id="rebates_order">
+                    ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? getAccordianAccounts([data["rebates_orders"]["orders"][0]], true): ""}
+                </div>
+            </div>
         </div>
         <div class="bottom">
             <div class="btn_wrapper">
@@ -18,7 +23,14 @@ function loadOrderCart(data) {
                 </div>
             </div>
         </div>
+        <div class="periodrebates hide">
+            <div class="rebates_list"></div>
+        </div>
     `);
+
+    data && data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].map((rebates, index) => {
+        $(".rebates_list").append(`<div class="item" skudata=${rebates["sku"]}>${rebates["account_no"]}</div>`);
+    });
 
     $(".goToBrandLevel").click(function (e) {
         e.stopPropagation();
@@ -30,9 +42,10 @@ function loadOrderCart(data) {
     $("#cancel").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        let parseData = JSON.parse(localStorage.getItem("data"));
+        let parseData = JSON.parse(localStorage.getItem("init"));
         ToBot("cancel-order", parseData);
-        showBrandLevelDetails(parseData, parseData["selected_brand"]);
+        ToApp("userwelcome-screen", parseData);
+        // showBrandLevelDetails(parseData, parseData["selected_brand"]);
     });
 
     $("#confirm").click(function (e) {
@@ -40,12 +53,12 @@ function loadOrderCart(data) {
         e.stopImmediatePropagation();
         let data = getParsedData();
         let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === data["selected_brand"]);
-        ToBot("confirm-order", data);
         if(filteredBrand && filteredBrand[0] && filteredBrand[0]["total_invoice_range"]) {
             ToApp("ordercart-final-screen", data);
         } else {
-            loadUserWelcomeUI(data);
-            data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true);
+            ToBot("confirm-order", data);
+            /* loadUserWelcomeUI(data);
+            data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true); */
         }
         /* data["plan_progress"]["brands"].map(progress => {
             progress["purchased"] = Number(progress["purchased"]) + Number(progress["selected"]);
@@ -69,21 +82,66 @@ function loadOrderCart(data) {
             accordionItemBody.css("maxHeight", "0");
         }
     });
+
+    if(getAccordianAccounts(data["rebates_orders"]["orders"])) {
+        $(".periodrebates").click(function (e) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            $(".periodrebates").addClass("hide");
+        });
+
+        $(".rebates_list .item").click(function (e) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            $(".periodrebates").addClass("hide");
+            let currentElementData = $(this).attr("skudata");
+            let filteredRebates = data["rebates_orders"]["orders"].filter((rebates, index) => rebates["sku"] === currentElementData)
+            console.log("currentElementData checkout --> ", currentElementData);
+            $('#rebates_order').empty();
+            $('#rebates_order').append(getAccordianAccounts(filteredRebates, true));
+            $('.switchWholesalerAccount').click(function (e) {
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                $(".periodrebates").removeClass("hide");
+            });
+        });
+
+        $('.switchWholesalerAccount').click(function (e) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            $(".periodrebates").removeClass("hide");
+        });
+    }
 }
 
 function getAccordianAccounts(data, rebates) {
     let parsedData = getParsedData();
     let filteredBrand = parsedData["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedData["selected_brand"]);
-    console.log(filteredBrand)
+    const getRebatesSwitchOption = (rebates) => {
+        if(rebates) {
+            return `
+                <div class="edit switchWholesalerAccount" style="height: auto; width: 16px; margin-right: 10px;" skudata=${data["sku"]}>
+                    <img src="/assets/images/svg/edit.svg" />
+                </div>
+            `
+        } 
+        return "";
+    }
     let accordianAccounts = data.map(order => {
         return `
             <div class="accordion">
                 <div class="accordion-item">
-                    <div class="accordion-item-header account_detail active">
+                    <!--  <div class="accordion-item-header account_detail active">
                         ${order["account_no"]}
+                    </div> -->
+                    <div class="accordion-item-header account_detail active">
+                        <div class="flex">
+                            ${getRebatesSwitchOption(rebates)}
+                            ${order["account_no"]}
+                        </div>
                     </div>
                     <div class="accordion-item-body parent opened">
-                        <div class="accordion-item-body-content" style="max-height: 300px; overflow: auto;">
+                        <div class="accordion-item-body-content" style="max-height: 300px; overflow-y: auto;">
                             <div class="date-picker-value date_order ${order["ordered_date"] ? "" : "hide"}">
                                 <div class="flex calendar-picker">
                                     <img class="picker" src="/gskd/assets/images/svg/calendar.svg" />
@@ -119,14 +177,20 @@ function getAccordianAccountsData(data, rebates) {
     let parsedData = getParsedData();
     let brand = parsedData["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedData["selected_brand"]);
     let filteredBrand = brand[0];
-    console.log("filteredBrand --> ", filteredBrand);
-    
+    let eligibleFreeGoods = 0;
     let discount = 0;
     let accordianAccountsData = data.map((item, index) => {
         if(rebates) {
             discount = item["discount"];
         } else {
-            discount = filteredBrand["eligible_discount"] ? filteredBrand["eligible_discount"] : "-";
+            if(item["discount"]) {
+                discount = item["discount"]["eligible_discount"] ? `${item["discount"]["eligible_discount"]}%` : "-";
+            } else {
+                discount = filteredBrand["eligible_discount"] ? `${filteredBrand["eligible_discount"]}%` : "-";
+            }
+            if(item["quantity"]) {
+                eligibleFreeGoods = Number(item["quantity"]) > Number(item["free_goods_range"]["limit"]) ? `+${Number(item["free_goods_range"]["eligible_goods"])}` : '-';
+            }
         }
 
         if(rebates || item["quantity"]) {
@@ -144,11 +208,11 @@ function getAccordianAccountsData(data, rebates) {
             <tr class="info_row borderBottom">
                 <td class="info_data" colspan="1">£ ${item["price"]}</td>
                 <td class="info_data" colspan="1">${item["quantity"] || item["units"]}</td>
-                <td class="info_data" colspan="1">+${item["free_goods"]}</td>
-                    <td class="info_data" colspan="1">${discount}%</td>
-                <td class="info_data" colspan="1">${item["payterm"]} D</td>
-            </tr>
-        `
+                    <td class="info_data" colspan="1">${eligibleFreeGoods || +item["free_goods"]}</td>
+                    <td class="info_data" colspan="1">${discount}</td>
+                    <td class="info_data" colspan="1">${item["payterm"]} D</td>
+                </tr>
+            `
         }
     });
     return accordianAccountsData.join("");
@@ -188,13 +252,15 @@ function loadOrderFinalCart(data) {
     $("#backFinalCheckout").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
+        let parseData = JSON.parse(localStorage.getItem("init"));
         ToBot("cancel-order-total-invoice", data);
+        ToApp("userwelcome-screen", parseData);
     });
 
     $("#continueFinalCheckout").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        ToApp("choosebrands-screen-from-cart", data);
+        // ToApp("choosebrands-screen-from-cart", data);
         ToBot("confirm-order-total-invoice", data);
     });
 

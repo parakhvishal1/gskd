@@ -24,7 +24,7 @@
     color: #151515;
     line-height: 18px;
     height: 90%;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .termsofuse .termsofuse_content .block {
@@ -75,6 +75,12 @@
     margin: auto 9px;
     border: 1.5px solid #f36633;
     text-decoration: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* box-shadow: 2.5px 2.5px 0px 0px #b7b6b4; */
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .bottom .btn_wrapper .btnbox .btn .icon {
