@@ -15,7 +15,7 @@
             </div>
             <div class="overflow-container-header">
                 <ul class="header-wrapper">
-                    <div class="header-title" id="main-header-title" style="font-weight: 700; font-size: large;color: black;">Ema 2.0</div>
+                  <div><img src="https://cdn.yellowmessenger.com/v4JPE80JBwUO1667995652401.jpg" alt="Girl in a jacket" width="500" height="600"></div>
                 </ul>
             </div>
             </div> `

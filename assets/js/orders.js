@@ -75,8 +75,8 @@ function loadUserWelcomeUI(data) {
                             <div class="info"><span class="light-colored">Status:</span> <span class="bold">${lastOrder["status"]}</span></div>
                         </div>
                         <div class="order_status">
-                            <div class="info"><span class="light-colored">Order No:</span> <span class="bold">${lastOrder["order_no"]}</span></div>
-                            <div class="info"><span class="light-colored">Status:</span> <span class="bold">${lastOrder["status"]}</span></div>
+                            <div class="info"><span class="light-colored">Order Date:</span> <span class="bold">${lastOrder["ordered_date"]}</span></div>
+                            <div class="info"><span class="light-colored">Status Date:</span> <span class="bold">${lastOrder["delivery_date"]}</span></div>
                         </div>
                         <div class="order_on_date">
                             <div class="info">Ordered On:</div>
@@ -321,7 +321,7 @@ function loadBrandSelectionUI(data) {
                     <div class="count_wrapper hide"></div>
                 </div>
             </div>
-            <div class="sub_detail"><span class="bold highlight">Start:</span> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="bold highlight">End:</span> ${data["last_date"]}</div>
+            <div class="sub_detail"><span class="bold highlight">Start Date:</span> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="bold highlight">End Date:</span> ${data["last_date"]}</div>
             ${loadProgressCards(data["plan_progress"])}
         </div> 
         <div class="bottom">

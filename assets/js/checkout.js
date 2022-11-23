@@ -18,8 +18,8 @@ function loadOrderCart(data) {
         <div class="bottom">
             <div class="btn_wrapper">
                 <div class="place_order">
-                    <button class="btn solid inverted" id="cancel">Cancel</button>
-                    <button class="btn solid" id="confirm">Confirm</button>
+                    <button class="btn solid cancel" id="cancel">Cancel</button>
+                    <button class="btn solid confirm" id="confirm">Confirm</button>
                 </div>
             </div>
         </div>

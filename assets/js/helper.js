@@ -30,7 +30,7 @@ function showHeader(data) {
             <div class="profile_section" tabindex=0>
                 <div class="block">
                     <div class="name">${user.name}</div>
-                    <div class="icon"><img class="arrow-down" src="/gskd/assets/images/svg/down.svg" /></div>
+                    <!-- <div class="icon"><img class="arrow-down" src="/gskd/assets/images/svg/down.svg" /></div> -->
                 </div>
                 <div class="email">${user.email}</div>
             </div>

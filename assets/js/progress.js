@@ -3,12 +3,12 @@ function loadPlanProgress(data, basicProgress, hideSelectedProgress) {
     $("#progress_plan_main").empty();
     $("#progress_plan_main").prepend(`
         <div class="title">
-            <div class="name">${data["title"]}</div>
+            <div class="name highlight">${data["title"]}</div>
             <div class="arrow calendar">
-                <span>
+                <!-- <span>
                     <img src="/gskd/assets/images/svg/calendar.svg" />
-                </span>
-                Last Date: ${data["last_date"]}
+                </span> -->
+                <p style="color: #f36633;">End Date:&nbsp;&nbsp;</p> ${data["last_date"]}
             </div>
         </div>
         <div id="plan_items"></div>
@@ -26,7 +26,7 @@ function loadProgressCards(data, detailed, hideAdd) {
             <div class="progress_card ${detailed ? "transparent" : ""}">
                 <div class="progress_plan">
                     <div class="grouped">
-                        ${getProductsProgress(item, detailed, hideAdd, false, "#959595")}
+                        ${getProductsProgress(item, detailed, hideAdd, false, "#3f3f3f")}
                         <div class="quantity_inc">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
@@ -47,22 +47,48 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
         // let rangeDataWidth = 100 / rangeData.length;
         let progressPercent = Math.ceil(((Number(data["purchased"]) + Number(data["selected"])) / Number(data["max_limit"])) * 100);
         let labelObj = { prevprogress: 0, progessMade: 0 };
-        let temp = false;
+        let isLabelReached = false;
+
         let rangeDataDivs = rangeData.map((range, index) => {
             let rangeDataWidth = (range["label"]/data["max_limit"]) * 100;
             labelObj["prevprogress"] = Number(labelObj["progessMade"]);
             labelObj["progessMade"] = Number(labelObj["progessMade"]) + Number(range["label"]);
             let currentProgressPercent = ((Number(labelObj["progessMade"])/Number(data["max_limit"])) * 100);
 
-            if(progressPercent > ((index) * (rangeDataWidth)) &&  progressPercent <= ((index + 1) * (rangeDataWidth))) {
-                temp = true;
+            
+
+            if(index === 0) {
+                let diff = Number(rangeData[index]["label"]) - 0;
+                let blockWidthRatio = diff / Number(data["max_limit"]);
+                let blockWidthRatioPercent = blockWidthRatio * 100;
+                if((Number(data["purchased"]) + Number(data["selected"])) > rangeData[0]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) <= range["label"]) {
+                    isLabelReached = true;
+                    data["eligible_discount"] = range["discount"];
+                } else {
+                    isLabelReached = false;
+                }
+                return `<div class="sub-block ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff;">${range["discount"]}%</div>`;
+            }
+            if((Number(data["purchased"]) + Number(data["selected"])) > rangeData[index - 1]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) <= range["label"]) {
+                isLabelReached = true;
                 data["eligible_discount"] = range["discount"];
             } else {
-                temp = false;
+                isLabelReached = false;
             }
-            return `
+            if (index === rangeData.length - 1) {
+                let diff = Number(rangeData[index]["label"]) - Number(rangeData[index - 1]["label"]);
+                let blockWidthRatio = diff / Number(data["max_limit"]);
+                let blockWidthRatioPercent = blockWidthRatio * 100;
+                return `<div class="sub-block ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff;">${range["discount"]}%</div>`;
+            }
+            let diff = Number(rangeData[index]["label"]) - Number(rangeData[index - 1]["label"]);
+            let blockWidthRatio = diff / Number(data["max_limit"]);
+            let blockWidthRatioPercent = blockWidthRatio * 100;
+            return `<div class="sub-block ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff;">${range["discount"]}%</div>`;
+            
+            /* return `
                 <div class="sub-block ${temp ? 'highlight' : ''}" style="width: ${rangeDataWidth}%;border-color: #fff;">${range["discount"]}%</div>
-            `;
+            `; */
         })
         return rangeDataDivs.join("");
     }
@@ -106,7 +132,7 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
         `;
     }
 
-    let discountRangeData = discount_range.map((range, index) => {
+    /* let discountRangeData = discount_range.map((range, index) => {
         let newRangeDataDivsWidth = (range["label"]/data["max_limit"]) * 100;
         if (index === discount_range.length - 1) return;
         return `<div class="sub-block" style="width: ${newRangeDataDivsWidth}%;border-color: #fff;">${(index + 1) * range["label"]}</div>`
@@ -122,6 +148,42 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
             ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
         </div>
+    `; */
+    let discountRangeData = discount_range.map((range, index) => {
+        /* let newRangeDataDivsWidth = (range["label"]/data["max_limit"]) * 100; */
+        if(index === 0) {
+            let diff = Number(discount_range[index]["label"]) - 0;
+            let blockWidthRatio = diff / Number(data["max_limit"]);
+            let blockWidthRatioPercent = blockWidthRatio * 100;
+            return `<div class="sub-block initial" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; position: absolute; left: 0; top: 0;">${range["label"]}</div>`;
+        }
+        if (index === discount_range.length - 1) {
+            let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
+            let blockWidthRatio = diff / Number(data["max_limit"]);
+            let blockWidthRatioPercent = blockWidthRatio * 100;
+            return `<div class="sub-block" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; position: absolute; right: 0; top: 0;">${range["label"]}</div>`;
+        }
+        let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
+        let blockWidthRatio = diff / Number(data["max_limit"]);
+        let blockWidthRatioPercent = blockWidthRatio * 100;
+        return `<div class="sub-block" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;">${range["label"]}</div>`;
+    });
+    discountRangeData = discountRangeData.join("");
+    return `
+        <div class="detail_bar discount_range">
+            <!--
+            <div class="main" style="justify-content: center;">
+                <div class="sub-block" style="border-color: #fff; justify-content: left; position: absolute; left: 0; top: 0;">0</div>
+                ${discountRangeData}
+                <div class="sub-block" style="border-color: #fff; justify-content: right; position: absolute; right: 0; top: 0;">${Number(data["max_limit"])}</div>
+            </div>
+            -->
+            <div class="main" style="justify-content: center;">
+                ${discountRangeData}
+            </div>
+            ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
+            ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
+        </div>
     `;
 }
 
@@ -129,6 +191,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
     let discount_range = item["on_invoice_range"] ? item["on_invoice_range"] : item["off_invoice_range"];
     let progressPercent = Math.ceil((item["purchased"] / item["max_limit"]) * 100);
     let progressPercentSelected = Math.ceil(((parseInt(item["purchased"]) + parseInt(item["selected"])) / item["max_limit"]) * 100);
+    let isLabelReached = false;
     let addBtn = `
         ${basicProgress ?
             ""
@@ -136,8 +199,12 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
             `
                 <label style="font-size: 12px;">${parseInt(item["purchased"]) + parseInt(item["selected"])}</label>
                 <div class="progressbar_wrapper addproduct" skudata=${`${item["sku"]}`} >
-                    <div class="main reset" style="cursor: pointer;">
-                        <img src="/gskd/assets/images/svg/plus.svg" class="icon_add"/>
+                    <!--<div class="main reset" style="cursor: pointer;">
+                        <img src="/gsk/assets/images/svg/plus.svg" class="icon_add"/>
+                    </div>-->
+                    <div class="main reset rounded_btn">
+                        <div class="inner">
+                        </div>
                     </div>
                 </div>
             `
@@ -146,9 +213,36 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
 
     let rangeDataDivs = discount_range.map((range, index) => {
         let newRangeDataDivsWidth = (range["label"]/item["max_limit"]) * 100;
+        /* let newRangeDataDivsWidth = (range["label"]/item["max_limit"]) * 100;
         return `
             <div class="sub-block ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "withmarkings" : "withoutmarkings"}" style="width: ${newRangeDataDivsWidth}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>
-        `;
+        `; */
+        if(index === 0) {
+            let diff = Number(discount_range[index]["label"]) - 0;
+            let blockWidthRatio = diff / Number(item["max_limit"]);
+            let blockWidthRatioPercent = blockWidthRatio * 100;
+            if((Number(item["purchased"]) + Number(item["selected"])) <= range["label"]) {
+                isLabelReached = true;
+            } else {
+                isLabelReached = false;
+            }
+            return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${blockWidthRatioPercent}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>`;
+        }
+        if((Number(item["purchased"]) + Number(item["selected"])) <= range["label"]) {
+            isLabelReached = true;
+        } else {
+            isLabelReached = false;
+        }
+        if (index === discount_range.length - 1) {
+            let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
+            let blockWidthRatio = diff / Number(item["max_limit"]);
+            let blockWidthRatioPercent = blockWidthRatio * 100;
+            return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${blockWidthRatioPercent}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>`;
+        }
+        let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
+        let blockWidthRatio = diff / Number(item["max_limit"]);
+        let blockWidthRatioPercent = blockWidthRatio * 100;
+        return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${blockWidthRatioPercent}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>`;
     });
 
     rangeDataDivs = rangeDataDivs.join("");
@@ -174,7 +268,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                 </div>
                 ${detailed ? getProgressHeaderFooterLabels(item, "footer") : ""}
             </div>
-            <div class="wrapper_brand_progress" style="width: ${detailed ? '10' : basicProgress ? '0' : '10'}%; padding-left: ${hideAdd ? "0px" : basicProgress ? '0px' : "5%"}; font-size: 12px;">
+            <div class="wrapper_brand_progress" style="width: ${detailed ? '10' : basicProgress ? '0' : '10'}%; padding-left: ${hideAdd ? "0px" : basicProgress ? '0px' : "4%"}; font-size: 12px;">
                 ${hideAdd ? `` : addBtn}
             </div>
         </div>

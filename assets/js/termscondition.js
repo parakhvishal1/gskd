@@ -1,7 +1,7 @@
 function loadTermsUI(data) {
-    $(".header").removeClass('hide');
+    // $(".header").removeClass('hide');
+    $(`#bodyContent`).css("height", "calc(100% - 36px)");
     $("#content_box").empty();
-    
     $("#content_box").append(`
         <div class="termsofuse bottom">
             <div class="main_content">

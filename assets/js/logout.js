@@ -23,7 +23,8 @@ function logoutApp() {
         e.stopPropagation();
         e.stopImmediatePropagation();
         removeHeader();
-        $("#profile_setting_card").hide();
+        loadProfileOptions();
+        $("#logout_option").empty();
         ToBot("logout", {
             "timestamp": new Date().getTime(),
         });

@@ -215,7 +215,7 @@ function ToApp(eventName, data, orgData) {
             loadGeneralWelcome(data);
             break;
         case "termsui-screen":
-            showHeader();
+            // showHeader();
             loadTermsUI(data);
             break;
         case "userwelcome-screen":
