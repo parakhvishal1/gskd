@@ -1,10 +1,10 @@
 (function addFrames() {
     try {
-        window.onresize = function (event) {
-            var frameHeight = window.innerHeight - 104 - 48;
-            document.getElementById("chatBoxMainContainer").style.height = `${frameHeight}px`
-            console.error('frameHeight', frameHeight)
-        };
+        // window.onresize = function (event) {
+        //     var frameHeight = window.innerHeight - 104 - 48;
+        //     document.getElementById("chatBoxMainContainer").style.height = `${frameHeight}px`
+        //     console.error('frameHeight', frameHeight)
+        // };
         document.getElementById('player').style.width = '0px'
         document.querySelector('#chatContainer').insertAdjacentHTML(
             'afterbegin',
