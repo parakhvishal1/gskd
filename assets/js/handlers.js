@@ -1,7 +1,7 @@
 function showSkuLevelDetailsBrand(data, currentSku) {
     window.dataStore = JSON.parse(JSON.stringify(data));
-    let lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
-    let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
+    const lastOrder = data && data["previous_orders"] && data["previous_orders"] && data["previous_orders"]["orders"][0];
+    const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
     const isAdditionDiscountEligible = filteredBrand[0]["additional_discount"];
 
     $("#content_box").empty();
@@ -51,10 +51,10 @@ function showSkuLevelDetailsBrand(data, currentSku) {
                             </div>
                             <div class="flex">
                                 <div class="order_status">
-                                    <div class="info">Order No: ${lastOrder["order_no"]}</div>
+                                    <div class="info"><span class="highlight">Order No:</span> ${lastOrder["order_no"]}</div>
                                 </div>
                                 <div class="order_on_date">
-                                    <div class="info">Status: ${lastOrder["ordered_date"]}</div>
+                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["ordered_date"]}</div>
                                 </div>
                             </div>
                             <div class="title">PRODUCTS</div>
@@ -89,6 +89,7 @@ function showSkuLevelDetailsBrand(data, currentSku) {
         e.stopImmediatePropagation();
         let parseData = getParsedData();
         loadBrandSelectionUI(parseData);
+        ToBot("ordercart-back", parseData);
     });
 
     $("#continue").click(function (e) {
@@ -115,6 +116,9 @@ function showSkuLevelDetailsBrand(data, currentSku) {
                     brand["selected"] = totalSelectedQuantity;
                 }
             });
+            if(!window.orderCartData.includes(filteredBrand[0]["sku"])) {
+                window.orderCartData.push(filteredBrand[0]["sku"]);
+            }
             localStorage.setItem("data", JSON.stringify(window.dataStore));
             loadBrandSelectionUI(window.dataStore);
             ToBot("ordercart-continue", window.dataStore);
@@ -289,6 +293,7 @@ function showBrandLevelDetails(data, currentSku) {
         e.stopImmediatePropagation();
         let parseData = getParsedData();
         loadBrandSelectionUI(parseData);
+        ToBot("ordercart-back", parseData);
     });
 
     $("#continue").click(function (e) {

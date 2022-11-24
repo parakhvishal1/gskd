@@ -163,7 +163,19 @@ function ToBot(eventName, data) {
                 data: data
             }), '*');
             break;
+        case "back-brand-select":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+            break;
         case "ordercart-continue":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+            break;
+        case "ordercart-back":
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data
@@ -195,6 +207,12 @@ function ToBot(eventName, data) {
             }
             break;
         case "cancel-order-total-invoice":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+            break;
+        case "update-data-on-refresh":
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data
@@ -258,8 +276,9 @@ function ToApp(eventName, data, orgData) {
             StoreDataIn(data);
             loadBrandSelectionUIByBrandName(data);
             break;
-        case "value":
-
+        case "get-data-on-refresh":
+            GlobalVarInit();
+            StoreDataIn(data);
             break;
         case "value":
 

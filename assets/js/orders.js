@@ -354,6 +354,7 @@ function loadBrandSelectionUI(data) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         ToApp('userwelcome-screen', data);
+        ToBot('back-brand-select', data);
     });
 
     $(".progressbar_wrapper.addproduct").click(function (e) {

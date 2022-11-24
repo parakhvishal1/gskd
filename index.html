@@ -77,6 +77,13 @@
     <div id="logout_option">
 
     </div>
+    <script>
+        window.onbeforeunload = function () {
+            const data = localStorage.getItem("data");
+            ToBot("update-data-on-refresh", data);
+            return "Are you sure you want to exit?";
+        };
+    </script>
 </body>
 
 </html>

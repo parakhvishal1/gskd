@@ -156,7 +156,7 @@ function getAccordianAccounts(data, rebates) {
                                         <td class="info_data title" colspan="1">Est. Price</td>
                                         <td class="info_data title" colspan="1">Units</td>
                                         <td class="info_data title" colspan="1">Free Goods</td>
-                                        <td class="info_data title" colspan="1">${(rebates || filteredBrand[0]["off_invoice_range"]) ? "Off Invoice Discount" : "On Invoice Discount"}</td>
+                                        <td class="info_data title" colspan="1">${(rebates || !filteredBrand[0]["on_invoice_range"]) ? "Off Invoice Discount" : "On Invoice Discount"}</td>
                                         <td class="info_data title" colspan="1">Pay Term</td>
                                     </tr>
                                 </thead>
