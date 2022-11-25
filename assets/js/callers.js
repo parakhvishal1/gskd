@@ -21,7 +21,6 @@ function GlobalVarInit() {
     window.wholesalerAccountData = [];
     window.dataStore = {};
     window.discountData = {};
-    window.currentScreen = "";
 }
 
 function StoreDataIn(data) {
@@ -214,8 +213,6 @@ function ToBot(eventName, data) {
             }), '*');
             break;
         case "update-data-on-refresh":
-            let updatedData = JSON.parse(data);
-            updatedData["currentScreen"] = window.currentScreen || "";
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data
@@ -227,7 +224,6 @@ function ToBot(eventName, data) {
 }
 
 function ToApp(eventName, data, orgData) {
-    window.currentScreen = eventName;
     switch (eventName) {
         case "user-login":
             userData = data;
@@ -281,11 +277,8 @@ function ToApp(eventName, data, orgData) {
             loadBrandSelectionUIByBrandName(data);
             break;
         case "get-data-on-refresh":
-            let toScreen = data["currentScreen"];
-            delete data["currentScreen"];
             GlobalVarInit();
             StoreDataIn(data);
-            ToApp(toScreen, data);
             break;
         case "value":
 

@@ -194,12 +194,6 @@ function showSkuLevelDetailsBrand(data, currentSku) {
             });
         });
     }
-
-    $(".accordion-item-body-content").mCustomScrollbar({
-        theme: "dark-thin",
-        scrollButtons: { enable: false },
-        autoHideScrollbar: true
-    });
 }
 
 function showBrandLevelDetails(data, currentSku) {
@@ -350,20 +344,19 @@ function showBrandLevelDetails(data, currentSku) {
         }
     });
 
-    /* Disable auto popuplate */
     if (window.wholesalerAccountData && window.wholesalerAccountData.length === 0) {
         let orderData = data["available_orders"]["orders"][0];
         if(!window.orderCartData.includes(filteredBrand[0]["sku"])) {
             window.orderCartData.push(filteredBrand[0]["sku"]);
         }
-        // window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
-        // addWholeSalerAccordion(data, orderData, currentSku);
+        window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+        addWholeSalerAccordion(data, orderData, currentSku);
     } else {
         let orderData = data["available_orders"]["orders"][0];
         if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
             window.orderCartData.push(filteredBrand[0]["sku"]);
-            // window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
-            // addWholeSalerAccordion(data, orderData, currentSku);
+            window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+            addWholeSalerAccordion(data, orderData, currentSku);
         }
     }
 
@@ -380,13 +373,7 @@ function showBrandLevelDetails(data, currentSku) {
             let shouldWholeSalerAccountAdd = false;
             if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
                 window.orderCartData.push(filteredBrand[0]["sku"]);
-                console.log("window.wholesalerAccountData --> ", window.wholesalerAccountData);
-                window.wholesalerAccountData && window.wholesalerAccountData.map(whData => {
-                    if (whData["sku"] !== orderData["sku"]) {
-                        window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
-                    }
-                })
-                // window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
                 addWholeSalerAccordion(updatedData, orderData, currentSku);
             } else {
                 window.wholesalerAccountData.every(v => {
@@ -399,10 +386,7 @@ function showBrandLevelDetails(data, currentSku) {
                     }
                 });
                 if (shouldWholeSalerAccountAdd) {
-                    if(!Object.keys(window.cartData).includes(orderData["sku"])) {
-                        window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
-                    }
-                    // window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                    window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
                     addWholeSalerAccordion(updatedData, orderData, currentSku);
                 }
             }
@@ -416,31 +400,20 @@ function showBrandLevelDetails(data, currentSku) {
         }
     });
 
-    if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0) {
-        if(window.cartData && Object.keys(window.cartData).length !== 0) {
-            let parseData = getParsedData();
-            parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
-                window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
-                ordr["product_details"].map(product => {
-                    let parentSku = window.cartData[ordr["sku"]];
-                    let skuproduct = parentSku[product["sku"]];
-                    if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku && ordr["brandsku"].includes(currentSku))) {
-                        addnewOrder(ordr, currentSku);
-                        window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
-                    }
-                });
+    if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0 && window.cartData && Object.keys(window.cartData).length !== 0) {
+        let parseData = getParsedData();
+        parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+            window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
+            ordr["product_details"].map(product => {
+                let parentSku = window.cartData[ordr["sku"]];
+                let skuproduct = parentSku[product["sku"]];
+                if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku && ordr["brandsku"].includes(currentSku))) {
+                    addnewOrder(ordr, currentSku);
+                    window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
+                }
             });
-        } else {
-            window.wholesalerAccountData = [];
-        }
-       
+        });
     }
-
-    $(".order_details_container.choosebrands").mCustomScrollbar({
-        theme: "dark-thin",
-        scrollButtons: { enable: true },
-        autoHideScrollbar: true
-    });
 }
 
 function addWholeSalerAccordionSku(data, orderData, currentSku) {
@@ -600,13 +573,6 @@ function addnewOrder(data, currentSku) {
         }
     });
 
-
-    $(".accordion-item-body-content").mCustomScrollbar({
-        theme: "dark-thin",
-        scrollButtons: { enable: false },
-        autoHideScrollbar: true
-    });
-
     // $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
     // $('input[id$=tbDate]').datepicker("setDate", "today");
 }
@@ -731,13 +697,6 @@ function addnewOrderBrand(data, currentSku, skulevel) {
         }
     });
 
-
-    $(".accordion-item-body-content").mCustomScrollbar({
-        theme: "dark-thin",
-        scrollButtons: { enable: false },
-        autoHideScrollbar: true
-    });
-
     // $('input[id$=tbDate]').datepicker({ dateFormat: 'M dd, y', minDate: 0 });
     // $('input[id$=tbDate]').datepicker("setDate", "today");
 }
@@ -758,11 +717,7 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
         let parentSkuData = $(counterInput).parent().parent().attr("parentskudata");
 
         let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
-        let filteredProductDetails = brandData["product_details"].map(data => {
-            if(data["brand"] === currentSku) {
-                return data["sku"];
-            }
-        });
+        let filteredProductDetails = brandData["product_details"].filter(data => data["sku"] === skuData);
 
         window.cartData = {
             ...window.cartData,
@@ -816,7 +771,7 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
         }));
 
         for(key in totalCalculationTemporary[parentSkuData]) {
-            if(!filteredProductDetails.includes(key)){
+            if(brand[0]["sku"] !== filteredProductDetails[0]["brand"]) {
                 delete totalCalculationTemporary[parentSkuData][key];    
             }
         }
