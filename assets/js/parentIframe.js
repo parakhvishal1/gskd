@@ -14,7 +14,6 @@
 })();
 
 
-
 function injectDynamicCssToChild() {
     var ymFrameHead = window.frames["ymIframe"].document.getElementsByTagName("head")[0];
     var modularStyles = document.createElement('style');

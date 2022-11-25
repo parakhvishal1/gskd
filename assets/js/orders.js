@@ -47,28 +47,28 @@ function loadUserWelcomeUI(data) {
     if(containsPrevOrder) {
         addInputEventListener();
 
-    $("#last_order_history").append(`
-        <div class="order_card last_order" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
-            <div class="title backbtn hide">
-                <div class="arrow name flex back_button" style="font-weight: 400; font-size: 14px; color: #151515;">
-                    <img src="/gskd/assets/images/svg/right.svg" style="transform: rotate(180deg);" />
-                    <span style="margin-left: 5px;">Back</span>
-                </div>
-                <div class="arrow hide">
-                    <img src="/gskd/assets/images/svg/edit.svg" style="height: 20px; width: 20px;"/>
-                </div>
-            </div>
-            <div class="card_click" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
-                <div class="title">
-                        <div class="name highlight">${lastOrder["account_no"]}</div>
-                    <div class="arrow">
-                        <img src="/gskd/assets/images/svg/right.svg" />
+        $("#last_order_history").append(`
+            <div class="order_card last_order" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
+                <div class="title backbtn hide">
+                    <div class="arrow name flex back_button" style="font-weight: 400; font-size: 14px; color: #151515;">
+                        <img src="/gskd/assets/images/svg/right.svg" style="transform: rotate(180deg);" />
+                        <span style="margin-left: 5px;">Back</span>
+                    </div>
+                    <div class="arrow hide">
+                        <img src="/gskd/assets/images/svg/edit.svg" style="height: 20px; width: 20px;"/>
                     </div>
                 </div>
-                <div class="flex">
+                <div class="card_click" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
+                    <div class="title">
+                        <div class="name highlight">${lastOrder["account_no"]}</div>
+                        <div class="arrow">
+                            <img src="/gskd/assets/images/svg/right.svg" />
+                        </div>
+                    </div>
+                    <div class="flex">
                         <!-- <div class="order_status">
-                        <div class="info">Order No: ${lastOrder["order_no"]}</div>
-                        <div class="info">${lastOrder["status"]}${lastOrder["delivery_date"] ? " &nbsp;|&nbsp; Delivery On: " : ""}${lastOrder["delivery_date"]}</div>
+                            <div class="info">Order No: ${lastOrder["order_no"]}</div>
+                            <div class="info">${lastOrder["status"]}${lastOrder["delivery_date"] ? " &nbsp;|&nbsp; Delivery On: " : ""}${lastOrder["delivery_date"]}</div>
                         </div> -->
                         <div class="order_status">
                             <div class="info"><span class="light-colored">Order No:</span> <span class="bold">${lastOrder["order_no"]}</span></div>
@@ -119,190 +119,211 @@ function loadUserWelcomeUI(data) {
             siblingElement.siblings(".card_click").css("pointer-events", "unset");
         });
 
-    data && data["previous_orders"] && data["previous_orders"]["orders"] && data["previous_orders"]["orders"].map((orderData, index) => {
-        let classValue = "success";
-        if (orderData["status"] === "Invoiced") {
-            classValue = "success";
-        }
-        if (orderData["status"] === "Sent") {
-            classValue = "warning";
-        }
-        if (orderData["status"] === "Cancelled") {
-            classValue = "failed";
-        }
-
-        $("#order_history_container").prepend(`
-            <div class="order_card history clickToOpen" data=${encodeURIComponent(JSON.stringify(orderData))}>
-                <div class="history_card_click" data=${encodeURIComponent(JSON.stringify(orderData))}>
-                    <div class="status_bar_bordered">
-                        <div class="bordered ${classValue}"></div>
-                        <div style="width: 100%;">
-                            <div class="title">
-                                <div class="name">${orderData["account_no"]}</div>
-                                <div class="arrow">
-                                    <img src="/gskd/assets/images/svg/right.svg" />
+        data && data["previous_orders"] && data["previous_orders"]["orders"] && data["previous_orders"]["orders"].map((orderData, index) => {
+            let classValue = "success";
+            if (orderData["status"] === "Invoiced") {
+                classValue = "success";
+            }
+            if (orderData["status"] === "Sent") {
+                classValue = "warning";
+            }
+            if (orderData["status"] === "Cancelled") {
+                classValue = "failed";
+            }
+    
+            $("#order_history_container").prepend(`
+                <div class="order_card history clickToOpen" data=${encodeURIComponent(JSON.stringify(orderData))}>
+                    <div class="history_card_click" data=${encodeURIComponent(JSON.stringify(orderData))}>
+                        <div class="status_bar_bordered">
+                            <div class="bordered ${classValue}"></div>
+                            <div style="width: 100%;">
+                                <div class="title">
+                                    <div class="name">${orderData["account_no"]}</div>
+                                    <div class="arrow">
+                                        <img src="/gskd/assets/images/svg/right.svg" />
+                                    </div>
                                 </div>
+                                <div class="info">Order No: ${orderData["order_no"]}</div>
                             </div>
-                            <div class="info">Order No: ${orderData["order_no"]}</div>
+                        </div>
+                        <div class="info outer"><span class=${classValue}>${orderData["status"]}</span>${orderData["delivery_date"] ? " | Delivery On: " : ""}${orderData["delivery_date"]}</div>
+                    </div>
+                    <div class="order_cart history hide">
+                        <div class="title">
+                            <div class="name">Order Details</div>
+                        </div>
+                        <div class="detail">
+                            <table class="ui very basic table">
+                                <thead>
+                                    <tr class="info_row">
+                                        <td class="info_data" colspan="1">Est. Price</td>
+                                        <td class="info_data" colspan="1">Units</td>
+                                        <td class="info_data" colspan="1">Free Goods</td>
+                                        <td class="info_data" colspan="2">${Boolean(lastOrder["on_invoice"]) ? "On Invoice Discount" : "Off Invoice Discount"}</td>
+                                        <td class="info_data" colspan="1">Pay Term</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="order_card_tablebody" skudata=${orderData["sku"]}></tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="info outer"><span class=${classValue}>${orderData["status"]}</span>${orderData["delivery_date"] ? " | Delivery On: " : ""}${orderData["delivery_date"]}</div>
                 </div>
-                <div class="order_cart history hide">
-                    <div class="title">
-                        <div class="name">Order Details</div>
-                    </div>
-                    <div class="detail">
-                        <table class="ui very basic table">
-                            <thead>
-                                <tr class="info_row">
-                                    <td class="info_data" colspan="1">Est. Price</td>
-                                    <td class="info_data" colspan="1">Units</td>
-                                    <td class="info_data" colspan="1">Free Goods</td>
-                                    <td class="info_data" colspan="2">${Boolean(lastOrder["on_invoice"]) ? "On Invoice Discount" : "Off Invoice Discount"}</td>
-                                    <td class="info_data" colspan="1">Pay Term</td>
-                                </tr>
-                            </thead>
-                            <tbody id="order_card_tablebody" skudata=${orderData["sku"]}></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        `);
-
-        $(".card_click").click(function (e) {
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            let currentElementData = $(this).attr("data");
-            let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
-            let childElement = $(this).parent().children(".order_cart");
-            let additionalDetails = parsedCurrentElementData["product_details"];
-            let getTableBodyChildElement = $(childElement).children().children().children("#order_card_tablebody");
-            if (childElement.hasClass("hide")) {
-                childElement.removeClass("hide");
-                $("#progress_plan_main").addClass("hide");
-                $(this).siblings(".title.backbtn").removeClass("hide");
-                getTableBodyChildElement.empty();
-                additionalDetails && additionalDetails.map((item, index) => {
-                    getTableBodyChildElement.append(`
-                        <tr>
-                            <td colspan="5">
-                                <div class="title">
-                                    <div class="name" skudata=${item["sku"]}>${item["name"]}</div>
-                                    <div class="arrow edit quantityEdit">
-                                        <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
+            `);
+    
+            $(".card_click").click(function (e) {
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                let currentElementData = $(this).attr("data");
+                let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
+                let childElement = $(this).parent().children(".order_cart");
+                let additionalDetails = parsedCurrentElementData["product_details"];
+                let getTableBodyChildElement = $(childElement).children().children().children("#order_card_tablebody");
+                if (childElement.hasClass("hide")) {
+                    childElement.removeClass("hide");
+                    $("#progress_plan_main").addClass("hide");
+                    $(this).siblings(".title.backbtn").removeClass("hide");
+                    getTableBodyChildElement.empty();
+                    additionalDetails && additionalDetails.map((item, index) => {
+                        getTableBodyChildElement.append(`
+                            <tr>
+                                <td colspan="5">
+                                    <div class="title">
+                                        <div class="name" skudata=${item["sku"]}>${item["name"]}</div>
+                                        <div class="arrow edit quantityEdit">
+                                            <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
+                                        </div>
+                                        <div class="arrow edit quantitySave hide">
+                                            <img src="/gskd/assets/images/svg/save.svg" key=${index} />
+                                        </div>
                                     </div>
-                                    <div class="arrow edit quantitySave hide">
-                                        <img src="/gskd/assets/images/svg/save.svg" key=${index} />
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="info_row key${index}">
-                            <td class="info_data" colspan="1">£ ${item["price"]}</td>
-                            <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
-                            <td class="info_data" colspan="1">+${item["free_goods"]}</td>
-                            <td class="info_data" colspan="2">${item["discount"]}%</td>
-                            <td class="info_data" colspan="1">${item["payterm"]} D</td>
-                        </tr>
-                    `);
-                })
-
-                $(".arrow.edit.quantityEdit").click(function (e) {
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    let index = $(this).children().attr("key");
-                    $(this).addClass("hide");
-                    $(this).siblings().removeClass("hide");
-                    let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
-                    getElement.attr("prev-value", $(getElement).children().val());
-                    $(getElement).addClass("active")
-                    PosEnd($(getElement).children()[0]);
-                });
-
-                $(".arrow.edit.quantitySave").click(function (e) {
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    let index = $(this).children().attr("key");
-                    $(this).addClass("hide");
-                    $(this).siblings().removeClass("hide");
-                    let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
-                    let getElementValue = $(getElement).children().val();
-                    let getElementPrevValue = getElement.attr("prev-value");
-                    $(getElement).removeClass("active");
-                    let value = $(getElement).children().val();
-                    let siblingElementDataSku = $(this).siblings(".name").attr("skudata");
-                    let tableElement = $(this).parent().parent().parent().parent().parent();
-                    let currentElementDataSku = $(tableElement).attr("skudata");
-                    window.updateCartData = {
-                        ...window.updateCartData,
-                        [currentElementDataSku]: {
-                            ...window.updateCartData[currentElementDataSku],
-                            [siblingElementDataSku] : value
+                                </td>
+                            </tr>
+                            <tr class="info_row key${index}">
+                                <td class="info_data" colspan="1">£ ${item["price"]}</td>
+                                <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
+                                <td class="info_data" colspan="1">+${item["free_goods"]}</td>
+                                <td class="info_data" colspan="2">${item["discount"]}%</td>
+                                <td class="info_data" colspan="1">${item["payterm"]} D</td>
+                            </tr>
+                        `);
+                    })
+    
+                    $(".arrow.edit.quantityEdit").click(function (e) {
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        let index = $(this).children().attr("key");
+                        $(this).addClass("hide");
+                        $(this).siblings().removeClass("hide");
+                        let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
+                        getElement.attr("prev-value", $(getElement).children().val());
+                        $(getElement).addClass("active")
+                        PosEnd($(getElement).children()[0]);
+                    });
+    
+                    $(".arrow.edit.quantitySave").click(function (e) {
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        let index = $(this).children().attr("key");
+                        $(this).addClass("hide");
+                        $(this).siblings().removeClass("hide");
+                        let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
+                        let getElementValue = $(getElement).children().val();
+                        let getElementPrevValue = getElement.attr("prev-value");
+                        $(getElement).removeClass("active");
+                        let value = $(getElement).children().val();
+                        let siblingElementDataSku = $(this).siblings(".name").attr("skudata");
+                        let tableElement = $(this).parent().parent().parent().parent().parent();
+                        let currentElementDataSku = $(tableElement).attr("skudata");
+                        window.updateCartData = {
+                            ...window.updateCartData,
+                            [currentElementDataSku]: {
+                                ...window.updateCartData[currentElementDataSku],
+                                [siblingElementDataSku]: value
+                            }
+                        };
+                        if (getElementValue !== getElementPrevValue) {
+                            ToBot("update-order-data", window.updateCartData)
                         }
-                    };
-                    if(getElementValue !== getElementPrevValue) {
-                        ToBot("update-order-data", window.updateCartData)
-                    }
-                });
-
-                $(this).css("pointer-events", "none");
-            } else {
-                childElement.addClass("hide");
-                $(this).children(".title.backbtn").addClass("hide");
-            }
-        });
-
-        $(".history_card_click").click(function (e) {
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            let currentElementData = $(this).attr("data");
-            let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
-            let childElement = $(this).parent().children(".order_cart");
-            let additionalDetails = parsedCurrentElementData["product_details"];
-            let getTableBodyChildElement = $(childElement).children().children().children("#order_card_tablebody");
-            if (childElement.hasClass("hide")) {
-                childElement.removeClass("hide");
-                getTableBodyChildElement.empty();
-                additionalDetails && additionalDetails.map((item, index) => {
-                    getTableBodyChildElement.append(`
-                        <tr>
-                            <td colspan="5">
-                                <div class="title">
-                                    <div class="name">${item["name"]}</div>
-                                    <div class="arrow edit quantityEdit hide">
-                                        <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
+                    });
+    
+                    $(this).css("pointer-events", "none");
+                } else {
+                    childElement.addClass("hide");
+                    $(this).children(".title.backbtn").addClass("hide");
+                }
+            });
+    
+            $(".history_card_click").click(function (e) {
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                let currentElementData = $(this).attr("data");
+                let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
+                let childElement = $(this).parent().children(".order_cart");
+                let additionalDetails = parsedCurrentElementData["product_details"];
+                let getTableBodyChildElement = $(childElement).children().children().children("#order_card_tablebody");
+                if (childElement.hasClass("hide")) {
+                    childElement.removeClass("hide");
+                    getTableBodyChildElement.empty();
+                    additionalDetails && additionalDetails.map((item, index) => {
+                        getTableBodyChildElement.append(`
+                            <tr>
+                                <td colspan="5">
+                                    <div class="title">
+                                        <div class="name">${item["name"]}</div>
+                                        <div class="arrow edit quantityEdit hide">
+                                            <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
+                                        </div>
+                                        <div class="arrow edit quantitySave hide">
+                                            <img src="/gskd/assets/images/svg/save.svg" />
+                                        </div>
                                     </div>
-                                    <div class="arrow edit quantitySave hide">
-                                        <img src="/gskd/assets/images/svg/save.svg" />
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="info_row key${index}">
-                            <td class="info_data" colspan="1">£ ${item["price"]}</td>
-                            <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
-                            <td class="info_data" colspan="1">+${item["free_goods"]}</td>
-                            <td class="info_data" colspan="1">${item["discount"]}%</td>
-                            <td class="info_data" colspan="1">${item["payterm"]} D</td>
-                        </tr>
-                    `);
-                });
-                $(".arrow.edit.quantityEdit").click(function (e) {
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    let index = $(this).children().attr("key");
-                    $(this).addClass("hide");
-                    $(this).siblings().removeClass("hide");
-                    let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
-                    $(getElement).addClass("active")
-                    $(getElement).children().focus();
-                });
-            } else {
-                childElement.addClass("hide");
-            }
+                                </td>
+                            </tr>
+                            <tr class="info_row key${index}">
+                                <td class="info_data" colspan="1">£ ${item["price"]}</td>
+                                <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
+                                <td class="info_data" colspan="1">+${item["free_goods"]}</td>
+                                <td class="info_data" colspan="1">${item["discount"]}%</td>
+                                <td class="info_data" colspan="1">${item["payterm"]} D</td>
+                            </tr>
+                        `);
+                    });
+                    $(".arrow.edit.quantityEdit").click(function (e) {
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        let index = $(this).children().attr("key");
+                        $(this).addClass("hide");
+                        $(this).siblings().removeClass("hide");
+                        let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
+                        $(getElement).addClass("active")
+                        $(getElement).children().focus();
+                    });
+                } else {
+                    childElement.addClass("hide");
+                }
+            })
         })
-    })
+    } else {
+        $("#last_order_history").append(`<div class="progress_plan" id="progress_plan_main"></div>`);
+    }
+
+    /* $("#last_order_history").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: true },
+        autoHideScrollbar: true
+    }); */
+
+    $(".place_new_order").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        let data = localStorage.getItem("data");
+        let parsedData = JSON.parse(data);
+        // let currentElementData = $(this).parent().attr("data");
+        // let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
+        ToApp("choosebrands-screen", parsedData);
+        ToBot("place-new-order", {});
+    });
+    
 }
 
 function loadBrandSelectionUI(data) {
@@ -333,7 +354,23 @@ function loadBrandSelectionUI(data) {
         </div>
     `);
 
-    let total = calculateSumAmount(window.cartData);
+    /* $(".choosebrands").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: true },
+        autoHideScrollbar: true
+    }); */
+
+    // let total = calculateSumAmount(window.cartData);
+    
+    let parseData = getParsedData();
+    let total = 0;
+    parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+        ordr["product_details"].map(product => {
+            let quantity = product["quantity"] ? Number(product["quantity"]) : 0;
+            total = total + quantity;
+        });
+    });
+
     if (total) {
         $(".count_wrapper").removeClass("hide");
         $(".place_order.checkout").parent().removeClass("disabled");
@@ -370,7 +407,7 @@ function loadBrandSelectionUI(data) {
         // let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
         // let products = data["brands"]["products"];
         // let filteredProducts = products.filter(product => {
-            // return product["name"] === parsedCurrentElementData["name"];
+        // return product["name"] === parsedCurrentElementData["name"];
         // })
         // data["brands"]["products"] = filteredProducts;
         const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentElementSkuData);

@@ -21,6 +21,7 @@ function GlobalVarInit() {
     window.wholesalerAccountData = [];
     window.dataStore = {};
     window.discountData = {};
+    window.currentScreen = "";
 }
 
 function StoreDataIn(data) {
@@ -213,9 +214,12 @@ function ToBot(eventName, data) {
             }), '*');
             break;
         case "update-data-on-refresh":
+            let updatedData = JSON.parse(data);
+            updatedData["currentScreen"] = window.currentScreen || "";
+            console.log('--> Updated data on refresh', updatedData);
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
-                data: data
+                data: JSON.stringify(updatedData)
             }), '*');
             break;
         default:
@@ -224,6 +228,7 @@ function ToBot(eventName, data) {
 }
 
 function ToApp(eventName, data, orgData) {
+    window.currentScreen = eventName;
     switch (eventName) {
         case "user-login":
             userData = data;
@@ -277,8 +282,11 @@ function ToApp(eventName, data, orgData) {
             loadBrandSelectionUIByBrandName(data);
             break;
         case "get-data-on-refresh":
+            let toScreen = data["currentScreen"];
+            delete data["currentScreen"];
             GlobalVarInit();
             StoreDataIn(data);
+            ToApp(toScreen, data);
             break;
         case "value":
 
@@ -379,7 +387,8 @@ window.addEventListener('message', function (eventData) {
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
         console.log('refreshed local storage data in caller.js',data);
-        ToApp("get-data-on-refresh", data);
+        console.log('reload parse data',data)
+        ToApp("get-data-on-refresh", JSON.parse(data));
     }
 
 });

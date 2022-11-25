@@ -188,10 +188,24 @@
 .sub-block.initial:first-child::before {
     content: '0';
     position: absolute;
-    left: 0;
+    left: -2.5px;
     font-size: 12px;
     margin: 6px 0;
     z-index: 1;
+}
+
+.sub-block.initial.labeller::after {
+    counter-reset: x var(--label);
+    content: counter(x);
+    position: absolute;
+    right: -10%;
+}
+
+.sub-block.labeller::after {
+    counter-reset: x var(--label);
+    content: counter(x);
+    position: absolute;
+    right: -10%;
 }
 
 .sub-block.highlight {

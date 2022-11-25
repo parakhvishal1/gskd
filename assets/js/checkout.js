@@ -112,6 +112,19 @@ function loadOrderCart(data) {
             $(".periodrebates").removeClass("hide");
         });
     }
+
+    /* $(".order_details_container.choosebrands").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: false },
+        autoHideScrollbar: true
+    }); */
+
+    
+    /* $(".accordion-item-body-content").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: false },
+        autoHideScrollbar: true
+    }); */
 }
 
 function getAccordianAccounts(data, rebates) {
@@ -121,7 +134,7 @@ function getAccordianAccounts(data, rebates) {
         if(rebates) {
             return `
                 <div class="edit switchWholesalerAccount" style="height: auto; width: 16px; margin-right: 10px;" skudata=${data["sku"]}>
-                    <img src="/assets/images/svg/edit.svg" />
+                    <img src="/gskd/assets/images/svg/edit.svg" />
                 </div>
             `
         } 
@@ -278,6 +291,19 @@ function loadOrderFinalCart(data) {
             accordionItemBody.css("maxHeight", "0");
         }
     });
+
+    /* $(".order_details_container.choosebrands").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: true },
+        autoHideScrollbar: true
+    }); */
+
+    
+    /* $(".accordion-item-body-content").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: false },
+        autoHideScrollbar: true
+    }); */
 }
 
 function goBack() {
