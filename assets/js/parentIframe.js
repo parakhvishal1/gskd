@@ -193,12 +193,23 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
+        console.log("bot-reloaded");
+        let data = localStorage.getItem("updated-data")
+        console.log('refreshed local storage data in parentIframe', data);
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'bot-reloaded',
+            data:  data
+        }), '*');
+        return;
+    }
 
 
     // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
-        // injectDynamicCssForMobileBot();
+       console.error('-logout--')
+       localStorage.removeItem("updated-data");
         console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
@@ -294,6 +305,12 @@ window.addEventListener('message', function (eventData) {
                 data: parsedData
             }
         }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'update-data-on-refresh') {
+        console.log("\n\n\n <--- update-data-on-refresh event in parent iframe ---> \n\n\n", parsedData);
+        localStorage.setItem("updated-data", parsedData.data)
         return;
     }
 

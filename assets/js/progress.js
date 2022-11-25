@@ -155,18 +155,18 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             let diff = Number(discount_range[index]["label"]) - 0;
             let blockWidthRatio = diff / Number(data["max_limit"]);
             let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div class="sub-block initial" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; position: absolute; left: 0; top: 0;">${range["label"]}</div>`;
+            return `<div class="sub-block initial labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; --label: ${range["label"]}"></div>`;
         }
         if (index === discount_range.length - 1) {
             let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
             let blockWidthRatio = diff / Number(data["max_limit"]);
             let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div class="sub-block" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; position: absolute; right: 0; top: 0;">${range["label"]}</div>`;
+            return `<div class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; --label: ${range["label"]}"></div>`;
         }
         let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
         let blockWidthRatio = diff / Number(data["max_limit"]);
         let blockWidthRatioPercent = blockWidthRatio * 100;
-        return `<div class="sub-block" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;">${range["label"]}</div>`;
+        return `<div class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; --label: ${range["label"]}"></div>`;
     });
     discountRangeData = discountRangeData.join("");
     return `

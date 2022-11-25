@@ -112,6 +112,19 @@ function loadOrderCart(data) {
             $(".periodrebates").removeClass("hide");
         });
     }
+
+    $(".order_details_container.choosebrands").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: false },
+        autoHideScrollbar: true
+    });
+
+    
+    $(".accordion-item-body-content").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: false },
+        autoHideScrollbar: true
+    });
 }
 
 function getAccordianAccounts(data, rebates) {
@@ -277,6 +290,19 @@ function loadOrderFinalCart(data) {
             $(this).removeClass("active");
             accordionItemBody.css("maxHeight", "0");
         }
+    });
+
+    $(".order_details_container.choosebrands").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: true },
+        autoHideScrollbar: true
+    });
+
+    
+    $(".accordion-item-body-content").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: false },
+        autoHideScrollbar: true
     });
 }
 

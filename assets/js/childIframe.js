@@ -3,7 +3,6 @@
         window.onresize = function (event) {
             var frameHeight = window.innerHeight - 104 - 48;
             document.getElementById("chatBoxMainContainer").style.height = `${frameHeight}px`
-            console.error('frameHeight', frameHeight)
         };
         document.getElementById('player').style.width = '0px'
         document.querySelector('#chatContainer').insertAdjacentHTML(
@@ -29,17 +28,7 @@
     }
 })();
 
-// <div style="display:flex;align-items:center;">
-// <div id="e11" class="icons-box"> 
-//     <span class="header-bar-icon-box" title="minimize">-</span>
-// </div>
-// <div id="e10" style="cursor:pointer;"> 
-// <span class="header-bar-icon-box" title="maxamize"><img src="https://cdn.yellowmessenger.com/m65zoVM7Si3s1624952263631.png" style="width: 1.7rem; height: 20px;" /></span>
-// </div>
-// <div id="e9" class="icons-box"> 
-//     <span class="header-bar-icon-box" title="Close">x</span>
-// </div>
-// </div>
+
 function show_image() {
     console.error('---Blur Image---');
     var img = document.createElement("img");
@@ -149,7 +138,18 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
+    }
+
+    if (parsedEventData.event_code === "bot-reloaded" && parsedEventData.data) {
+        document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
+            event_code: 'bot-reloaded',                                                // added new event name
+            data: parsedEventData.data
+        }), '*');
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('refreshed local storage data in childIframe',data);
     }
 
 
