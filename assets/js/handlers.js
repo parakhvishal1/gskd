@@ -88,6 +88,33 @@ function showSkuLevelDetailsBrand(data, currentSku) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         let parseData = getParsedData();
+        window.wholesalerAccountData && window.wholesalerAccountData.map((whData, index) => {
+            if(!window.cartData[whData["sku"]]) {
+                window.wholesalerAccountData.splice(index, 1);
+            } else {
+                parseData && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((pdo, index) => {
+                    let quant = 0;
+                    pdo["product_details"].map((pd , ind) => {
+                        if(pd["brand"] === currentSku) {
+                            quant = quant + Number(pd["units"]);
+                            if(window.cartData[pdo["sku"]]) {
+                                if(!Number(pd["units"])) {
+                                    delete window.cartData[pdo["sku"]][pd["sku"]];
+                                 }
+                            }
+                        }
+                    });
+                    if(!quant) {
+                        delete window.cartData[pdo["sku"]];
+                    }
+                });
+            }
+        });
+        if(parseData?.["new_orders"]?.["orders"]){
+            parseData["new_orders"]["orders"] = window.wholesalerAccountData;
+        }
+        saveParsedData(parseData);
+
         loadBrandSelectionUI(parseData);
         ToBot("ordercart-back", parseData);
     });
@@ -110,7 +137,6 @@ function showSkuLevelDetailsBrand(data, currentSku) {
 
                 });
             });
-            
             window.dataStore["plan_progress"]["brands"].map(brand => {
                 if(brand["sku"] === currentSku) {
                     brand["selected"] = totalSelectedQuantity;
@@ -162,37 +188,69 @@ function showSkuLevelDetailsBrand(data, currentSku) {
         e.stopImmediatePropagation();
         $(".account_select").addClass("hide");
         let currentElementData = $(this).attr("skudata");
-        let filteredData = data["available_orders"]["orders"].filter((order, index) => order["sku"] === currentElementData)
+        let updatedData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : JSON.parse(JSON.stringify(data));
+        let currentAvailableOrders = Object.keys(window.dataStore).length !== 0 ? window.dataStore["available_orders"]["orders"] : data["available_orders"]["orders"];
+        let filteredData = currentAvailableOrders.filter((order, index) => order["sku"] === currentElementData)
         let orderData = filteredData[0];
         if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0) {
-            window.wholesalerAccountData.map(v => {
-                if (orderData["sku"] !== v["sku"]) {
-                    window.wholesalerAccountData.push(orderData);
-                    addWholeSalerAccordionSku(data, orderData, currentSku);
-                    return;
+            let shouldWholeSalerAccountAdd = false;
+            if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
+                window.orderCartData.push(filteredBrand[0]["sku"]);
+                window.wholesalerAccountData && window.wholesalerAccountData.map(whData => {
+                    if (whData["sku"] !== orderData["sku"]) {
+                        window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                    }
+                })
+                // window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                addWholeSalerAccordionSku(updatedData, orderData, currentSku);
+            } else {
+                window.wholesalerAccountData.every(v => {
+                    if (v["brandsku"] === `${orderData["sku"]}-${filteredBrand[0]["sku"]}`) {
+                        shouldWholeSalerAccountAdd = false;
+                        return false;
+                    } else {
+                        shouldWholeSalerAccountAdd = true;
+                        return true;
+                    }
+                });
+                if (shouldWholeSalerAccountAdd) {
+                    if(!Object.keys(window.cartData).includes(orderData["sku"])) {
+                        window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                    }
+                    // window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+                    addWholeSalerAccordionSku(updatedData, orderData, currentSku);
                 }
-            });
+            }
         } else {
-            window.wholesalerAccountData.push(orderData);
-            addWholeSalerAccordionSku(data, orderData, currentSku);
+            if(!window.orderCartData.includes(filteredBrand[0]["sku"])) {
+                window.orderCartData.push(filteredBrand[0]["sku"]);
+            }
+            window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
+            addWholeSalerAccordionSku(updatedData, orderData, currentSku);
             return;
         }
     });
 
     let parseData = getParsedData();
 
-    if(window.cartData && Object.keys(window.cartData).length !== 0) {
-        parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
-            window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
-            ordr["product_details"].map(product => {
-                let parentSku = window.cartData[ordr["sku"]];
-                let skuproduct = parentSku[product["sku"]];
-                if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku  && ordr["brandsku"].includes(currentSku))) {
-                    addnewOrderBrand(ordr, currentSku, true);
-                    window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
-                }
+    if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0) {
+        if(window.cartData && Object.keys(window.cartData).length !== 0) {
+            let parseData = getParsedData();
+            parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+                window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
+                ordr["product_details"].map(product => {
+                    let parentSku = window.cartData[ordr["sku"]];
+                    let skuproduct = parentSku[product["sku"]];
+                    if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku && ordr["brandsku"].includes(currentSku))) {
+                        addnewOrderBrand(ordr, currentSku, true);
+                        window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
+                    }
+                });
             });
-        });
+        } else {
+            window.wholesalerAccountData = [];
+        }
+       
     }
 
     /* $(".accordion-item-body-content").mCustomScrollbar({
@@ -292,6 +350,36 @@ function showBrandLevelDetails(data, currentSku) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         let parseData = getParsedData();
+        window.wholesalerAccountData && window.wholesalerAccountData.map((whData, index) => {
+            if(!window.cartData[whData["sku"]]) {
+                window.wholesalerAccountData.splice(index, 1);
+            } else {
+                parseData && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((pdo, index) => {
+                    let quant = 0;
+                    pdo["product_details"].map((pd , ind) => {
+                        if(pd["brand"] === currentSku) {
+                            quant = quant + Number(pd["units"]);
+                            if(window.cartData[pdo["sku"]]) {
+                                if(!Number(pd["units"])) {
+                                    if(whData["product_details"][ind]["sku"] === pd["sku"]) {
+                                        whData["product_details"][ind]["units"] = '0';
+                                        delete whData["product_details"][ind]["quantity"];
+                                    }
+                                    delete window.cartData[pdo["sku"]][pd["sku"]];
+                                 }
+                            }
+                        }
+                    });
+                    if(!quant) {
+                        delete window.cartData[pdo["sku"]];
+                    }
+                });
+            }
+        });
+        if(parseData?.["new_orders"]?.["orders"]){
+            parseData["new_orders"]["orders"] = window.wholesalerAccountData;
+        }
+        saveParsedData(parseData);
         loadBrandSelectionUI(parseData);
         ToBot("ordercart-back", parseData);
     });
@@ -374,7 +462,6 @@ function showBrandLevelDetails(data, currentSku) {
             let shouldWholeSalerAccountAdd = false;
             if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
                 window.orderCartData.push(filteredBrand[0]["sku"]);
-                console.log("window.wholesalerAccountData --> ", window.wholesalerAccountData);
                 window.wholesalerAccountData && window.wholesalerAccountData.map(whData => {
                     if (whData["sku"] !== orderData["sku"]) {
                         window.wholesalerAccountData.push({...orderData, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
@@ -418,7 +505,7 @@ function showBrandLevelDetails(data, currentSku) {
                 ordr["product_details"].map(product => {
                     let parentSku = window.cartData[ordr["sku"]];
                     let skuproduct = parentSku[product["sku"]];
-                    if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku && ordr["brandsku"].includes(currentSku))) {
+                    if(window[`shouldNewWholeSalerAccountAdd-${index}`] && skuproduct && (product["brand"] === currentSku)) {
                         addnewOrder(ordr, currentSku);
                         window[`shouldNewWholeSalerAccountAdd-${index}`] = false;
                     }
@@ -440,6 +527,8 @@ function showBrandLevelDetails(data, currentSku) {
 function addWholeSalerAccordionSku(data, orderData, currentSku) {
     data["new_orders"] = {};
     data["new_orders"]["orders"] = window.wholesalerAccountData;
+    window.dataStore["new_orders"] = {};
+    window.dataStore["new_orders"]["orders"] = window.wholesalerAccountData;
     localStorage.setItem("data", JSON.stringify(data));
     if (window.wholesalerAccountData.length > 1) {
         let openedAccContainers = [...$(".accordion-item-body.orderbrandselection")];
@@ -607,14 +696,14 @@ function addnewOrder(data, currentSku) {
 
 function addnewOrderBrand(data, currentSku, skulevel) {
     let completeData = getParsedData();
-
+    
     $(".new_orders").prepend(`
         <div class="accordion">
             <div class="accordion-item">
                 <div class="accordion-item-header orderdetail active">${data["account_no"]}</div>
                 <div class="accordion-item-body parent opened orderbrandselection">
                     <div class="accordion-item-body-content" style="max-height: 270px; overflow-y: auto;">
-                        <div class="date-picker-value" id="dpicker-${data["sku"]}>
+                        <div class="date-picker-value" id="dpicker-${data['sku']}">
                             ${showDatePicker()}
                         </div>
                         
@@ -639,62 +728,65 @@ function addnewOrderBrand(data, currentSku, skulevel) {
 
     data["product_details"].map((productData, index) => {
         let uuid = create_UUID();
-        $("#new_order_body").append(`
-            <tr class="info_row">
-                <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;" colspan="2">${productData["name"]}</td>
-                <td class="info_data highlight" style="vertical-align: middle; padding: 8px 0 0 0; text-align: right;" colspan="2">
-                    ${productData["discount"]["on_invoice_range"] ? "On Invoice" : "Off Invoice"}
-                </td>
-            </tr>
-            <tr class="info_row brandscreen">
-                <td class="info_data skuBrand_level_progress" id="skulevelprogress-${productData["sku"]}" colspan="4">
-                    ${loadProgressCards({"brands": [productData["discount"]]}, true, true)}
-                </td>
-            </tr>
-            <tr class="info_row brandscreen">
-                <td class="info_data" style="vertical-align: middle; padding: 0px 0 0 0;" colspan="2">
-                    Period Total:   125
-                </td>
-                <td class="info_data" style="vertical-align: middle; padding: 0px 0 0 0;" colspan="2">
-                    <div class="counter__wrapper">
-                        <div class="counter__container" skudata="${productData["sku"]}" parentskudata=${data["sku"]} >
-                            <div class="counter__box__container sub">
-                                <div class="counter__minus key${uuid}" id="minus" >
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_138_2417)">
-                                        <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#FDE0D6"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_138_2417">
-                                            <rect width="18" height="18" fill="white"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>
+        if(productData["brand"] === currentSku) {
+            $("#new_order_body").append(`
+                <tr class="info_row">
+                    <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;" colspan="2">${productData["name"]}</td>
+                    <td class="info_data highlight" style="vertical-align: middle; padding: 8px 0 0 0; text-align: right;" colspan="2">
+                        ${productData["discount"]["on_invoice_range"] ? "On Invoice" : "Off Invoice"}
+                    </td>
+                </tr>
+                <tr class="info_row brandscreen">
+                    <td class="info_data skuBrand_level_progress" id="skulevelprogress-${productData["sku"]}" colspan="4">
+                        ${loadProgressCards({"brands": [productData["discount"]]}, true, true)}
+                    </td>
+                </tr>
+                <tr class="info_row brandscreen">
+                    <td class="info_data" style="vertical-align: middle; padding: 0px 0 0 0;" colspan="2">
+                        Period Total:   125
+                    </td>
+                    <td class="info_data" style="vertical-align: middle; padding: 0px 0 0 0;" colspan="2">
+                        <div class="counter__wrapper">
+                            <div class="counter__container" skudata="${productData["sku"]}" parentskudata=${data["sku"]} >
+                                <div class="counter__box__container sub">
+                                    <div class="counter__minus key${uuid}" id="minus" >
+                                        <!-- <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_138_2417)">
+                                            <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#FDE0D6"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_138_2417">
+                                                <rect width="18" height="18" fill="white"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg> -->
+                                    </div>
                                 </div>
-                            </div>
-                        
-                            <input id="counter_input_${index}" class="counter__input home" type="text" value=${productData["units"]} size="4" maxlength="4" autocomplete="off" previous-value="1" />
-                            <div class="counter__box__container add">
-                                <div class="counter__plus key${uuid}" id="plus">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_138_2422)">
-                                        <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H9.75V11.25C9.75 11.4489 9.67099 11.6397 9.53033 11.7803C9.38968 11.921 9.19892 12 9 12C8.80109 12 8.61033 11.921 8.46967 11.7803C8.32902 11.6397 8.25 11.4489 8.25 11.25V9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H8.25V6.75C8.25 6.55109 8.32902 6.36032 8.46967 6.21967C8.61033 6.07902 8.80109 6 9 6C9.19892 6 9.38968 6.07902 9.53033 6.21967C9.67099 6.36032 9.75 6.55109 9.75 6.75V8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#F36633"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_138_2422">
-                                            <rect width="18" height="18" fill="white"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>
+                            
+                                <input id="counter_input_${index}" class="counter__input home" type="text" value=${productData["units"]} size="4" maxlength="4" autocomplete="off" previous-value="1" />
+                                <div class="counter__box__container add">
+                                    <div class="counter__plus key${uuid}" id="plus">
+                                        <!-- <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_138_2422)">
+                                            <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM11.25 9.75H9.75V11.25C9.75 11.4489 9.67099 11.6397 9.53033 11.7803C9.38968 11.921 9.19892 12 9 12C8.80109 12 8.61033 11.921 8.46967 11.7803C8.32902 11.6397 8.25 11.4489 8.25 11.25V9.75H6.75C6.55109 9.75 6.36033 9.67098 6.21967 9.53033C6.07902 9.38968 6 9.19891 6 9C6 8.80109 6.07902 8.61032 6.21967 8.46967C6.36033 8.32902 6.55109 8.25 6.75 8.25H8.25V6.75C8.25 6.55109 8.32902 6.36032 8.46967 6.21967C8.61033 6.07902 8.80109 6 9 6C9.19892 6 9.38968 6.07902 9.53033 6.21967C9.67099 6.36032 9.75 6.55109 9.75 6.75V8.25H11.25C11.4489 8.25 11.6397 8.32902 11.7803 8.46967C11.921 8.61032 12 8.80109 12 9C12 9.19891 11.921 9.38968 11.7803 9.53033C11.6397 9.67098 11.4489 9.75 11.25 9.75Z" fill="#F36633"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_138_2422">
+                                                <rect width="18" height="18" fill="white"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr class="info_row paddingBottom"><td colspan="4"></td></tr>
-            <tr class="info_row paddingTop"><td colspan="4"></td></tr>
-        `);
+                    </td>
+                </tr>
+                <tr class="info_row paddingBottom"><td colspan="4"></td></tr>
+                <tr class="info_row paddingTop"><td colspan="4"></td></tr>
+            `);
+        }
+        
 
         $(`.counter__minus.key${uuid}`).click(function (e) {
             updateCounter(this, "minus", currentSku, skulevel, data);
@@ -741,8 +833,14 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
     /* check added: if counter is clicked for another medicine data should not reset */
     let parseStoredData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : JSON.parse(storeddata);
     let siblingWrapper = $(counterInput).parent().siblings(".counter__input");
+    let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
     if (type === "add") {
         var $input = $(siblingWrapper);
+        let totalMedSelected = Number(brand[0]["purchased"] ? brand[0]["purchased"] : 0) + Number(brand[0]["selected"] ? brand[0]["selected"] : Number($input.val())) ;
+        if(totalMedSelected >= brand[0]["max_limit"]) {
+            showSnackbar(true, "Maximum reached!!!");
+            return;
+        }
         siblingWrapper.siblings(".counter__box__container.sub").children().children().children().children().css("fill", "#f36633");
         let datepickedElement = $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
         let formattedDate = datepickedElement.datepicker({ dateFormat: 'M dd, y' }).val();
@@ -750,8 +848,6 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
         $input.change();
         let skuData = $(counterInput).parent().parent().attr("skudata");
         let parentSkuData = $(counterInput).parent().parent().attr("parentskudata");
-
-        let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
         let filteredProductDetails = brandData["product_details"].map(data => {
             if(data["brand"] === currentSku) {
                 return data["sku"];
@@ -801,7 +897,7 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
             }
         });
 
-        console.log("parseStoredData --> ", parseStoredData);
+        // console.log("parseStoredData --> ", parseStoredData);
 
         let totalCalculationTemporary = JSON.parse(JSON.stringify({
             [parentSkuData]: {
@@ -815,7 +911,19 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
             }
         }
 
-        let total = calculateSumAmount(totalCalculationTemporary);
+        let total = 0;
+        if(skulevel) {
+            total = calculateSumAmount(totalCalculationTemporary);
+        } else {
+            parseStoredData && parseStoredData?.["new_orders"] && parseStoredData?.["new_orders"]?.["orders"] && parseStoredData?.["new_orders"]?.["orders"].map((ordr, index) => {
+                ordr["product_details"].map(product => {
+                    if(currentSku === product["brand"]) {
+                        let quantity = product["quantity"] ? Number(product["quantity"]) : 0;
+                        total = total + quantity;
+                    }
+                });
+            });
+        }
 
         parseStoredData && parseStoredData["plan_progress"] && parseStoredData["plan_progress"]["brands"].map(brandDataItem => {
             if (brandDataItem["sku"] === parseStoredData["selected_brand"]) {
@@ -839,6 +947,10 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
     if (type === "minus") {
         var $input = $(siblingWrapper);
         var count = parseInt($input.val()) - 1;
+        /* let totalMedSelected = Number(brand[0]["purchased"] ? brand[0]["purchased"] : 0) + Number($input.val());
+        if(totalMedSelected >= brand[0]["max_limit"]) {
+            return;
+        } */
         let datepickedElement = $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
         let formattedDate = datepickedElement.datepicker({ dateFormat: 'M dd, y' }).val();
         let skuData = $(counterInput).parent().parent().attr("skudata");
@@ -855,9 +967,15 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
                 $input.attr("previous-value", $input.val());
             }
 
-            let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
-            let filteredProductDetails = brandData["product_details"].filter(data => data["sku"] === skuData);
-
+            /* let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
+            let filteredProductDetails = brandData["product_details"].filter(data => data["sku"] === skuData); */
+            
+            let filteredProductDetails = brandData["product_details"].map(data => {
+                if(data["brand"] === currentSku) {
+                    return data["sku"];
+                }
+            });
+            
             window.cartData = {
                 ...window.cartData,
                 [parentSkuData]: {
@@ -866,9 +984,9 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
                 }
             };
             
-            parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach(order => {
+            parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach((order, mainIndex) => {
                 if (order["sku"] === parentSkuData) {
-                    order["product_details"].forEach(product => {
+                    let productDetails = order["product_details"].map((product, index) => {
                         /* if(currentSku === product["brand"]) {
                             
                         } */
@@ -883,11 +1001,24 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
                                 $(`#skulevelprogress-${product["sku"]}`).empty();
                                 $(`#skulevelprogress-${product["sku"]}`).append(progressCards);
                             }
+                            if(parseStoredData["available_orders"]["orders"][mainIndex]["sku"] === parentSkuData) {
+                                if(parseStoredData["available_orders"]["orders"][mainIndex]["product_details"][index]["sku"] === skuData) {
+                                    parseStoredData["available_orders"]["orders"][mainIndex]["ordered_date"] = order["ordered_date"];
+                                    parseStoredData["available_orders"]["orders"][mainIndex]["product_details"][index] = product;
+                                }
+                            }
+                            
                             // window.cartData[parentSkuData][skuData] = $input.val() - Number(product["units"]);
                         }
                     });
+                    if(window.wholesalerAccountData[mainIndex]["sku"] === parentSkuData) {
+                        window.wholesalerAccountData[mainIndex]["ordered_date"] = parseStoredData["new_orders"]["orders"][mainIndex]["ordered_date"];
+                        window.wholesalerAccountData[mainIndex]["product_details"] = parseStoredData["new_orders"]["orders"][mainIndex]["product_details"];
+                    }
                 }
             });
+
+            console.log("parseStoredData --> ", parseStoredData);
 
             let totalCalculationTemporary = JSON.parse(JSON.stringify({
                 [parentSkuData]: {
@@ -896,12 +1027,24 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData) {
             }));
     
             for(key in totalCalculationTemporary[parentSkuData]) {
-                if(brand[0]["sku"] !== filteredProductDetails[0]["brand"]) {
+                if(!filteredProductDetails.includes(key)){
                     delete totalCalculationTemporary[parentSkuData][key];    
                 }
             }
     
-            let total = calculateSumAmount(totalCalculationTemporary);
+            let total = 0;
+            if(skulevel) {
+                total = calculateSumAmount(totalCalculationTemporary);
+            } else {
+                parseStoredData && parseStoredData?.["new_orders"] && parseStoredData?.["new_orders"]?.["orders"] && parseStoredData?.["new_orders"]?.["orders"].map((ordr, index) => {
+                    ordr["product_details"].map(product => {
+                        if(currentSku === product["brand"]) {
+                            let quantity = product["quantity"] ? Number(product["quantity"]) : 0;
+                            total = total + quantity;
+                        }
+                    });
+                });
+            }
     
             parseStoredData && parseStoredData["plan_progress"] && parseStoredData["plan_progress"]["brands"].map(brandDataItem => {
                 if (brandDataItem["sku"] === parseStoredData["selected_brand"]) {

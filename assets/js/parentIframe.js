@@ -204,6 +204,7 @@ window.addEventListener('message', function (eventData) {
     }
 
 
+
     // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
@@ -301,6 +302,39 @@ window.addEventListener('message', function (eventData) {
         window.frames.ymIframe.chat.send({
             event: {
                 code: "cancel-order-total-invoice",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'back-brand-select') {
+        console.log("\n\n\n <---  back-brand-select event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "back-brand-select",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'ordercart-back') {
+        console.log("\n\n\n <---  ordercart-back event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "ordercart-back",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'back-on-orderhistory') {
+        console.log("\n\n\n <---  back-on-orderhistory event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "back-on-orderhistory",
                 data: parsedData
             }
         }, true);

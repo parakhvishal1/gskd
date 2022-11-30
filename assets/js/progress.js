@@ -292,7 +292,7 @@ function getInvertedProgress(item, progressPercent, colorscheme) {
 function getSelectedProgress(item, progressPercentSelected, colorscheme, hideSelectedProgress) {
     if (progressPercentSelected) {
         return `
-            <div class="progressbar_ratio" style="width:${progressPercentSelected}%; background: ${colorscheme} !important;">
+            <div class="progressbar_ratio" style="width:${progressPercentSelected}%; background: ${colorscheme} !important; border-top-right-radius: ${Number(progressPercentSelected) >= 100 ? '6px': '10px'}; border-bottom-right-radius: ${Number(progressPercentSelected) >= 100 ? '6px': '10px'};">
                 <div class="ratio_wrapper">
                     <div class="ratio">${!hideSelectedProgress ? "+" : ""} ${parseInt(item["selected"])}</div>
                 </div>

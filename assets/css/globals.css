@@ -301,3 +301,58 @@ thead .info_row .info_data {
 .mCSB_inside>.mCSB_container {
     margin-right: 0px !important;
 }
+
+
+#snack {
+    /* opacity: 0; */
+    /* width: 300px; */
+    height: 54px;
+}
+
+.snackbar {
+    width: 300px;
+    height: 54px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(124, 130, 141, 0.2);
+    transition: transform 0.6s ease-out;
+    position: fixed;
+    z-index: 100;
+    right: 10px;
+    bottom: 0px;
+    transform: translateY(90px);
+  }
+
+  .snackbar.isShown {
+    transform: translateY(-30px);
+  }
+
+  .snackbar-icon {
+    max-width: 60px;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+
+  .snackbar-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 70px;
+    font-size: 12px;
+  }
+
+  .snackbar-text-heading {
+    color: #292d34;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .snackbar-close-btn {
+    position: absolute;
+    top: 50%;
+    left: calc(100% - 10px);
+    transform: translate(-100%, -50%);
+    cursor: pointer;
+  }

@@ -33,7 +33,7 @@ function loadUserWelcomeUI(data) {
                             <div class="upper_history_container" id="order_history_container"></div>
                             <div class="btn_wrapper">
                                 <div class="btnbox">
-                                    <button class="btn solid inverted">Back</button>
+                                    <button class="btn solid inverted" id="backbtnOh">Back</button>
                                     <a class="btn outline" href=${data["previous_orders"]["download_url"]} download="ashish.csv"><span class="icon"><i class="fa fa-download" aria-hidden="true"></i></span>Download Order History</a>
                                 </div>
                             </div>
@@ -107,6 +107,13 @@ function loadUserWelcomeUI(data) {
     
             <div class="progress_plan" id="progress_plan_main"></div>
         `);
+
+        $("#backbtnOh").click(function (e) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            document.getElementById("tab21").click();
+            ToBot("back-on-orderhistory", {});
+        });
     
         $(".back_button").click(function (e) {
             e.stopPropagation();
