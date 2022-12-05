@@ -72,7 +72,7 @@ function CallScreen(caseNum) {
                     "brands": [
                         {
                             "name": "Augmentin",
-                            "isSku": false,
+                            "isSku": true,
                             "additional_discount": true,
                             "purchased": "125",
                             "selected": "0",
@@ -183,7 +183,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Augmentin",
                                         "isSku": !true,
                                         "additional_discount": true,
@@ -228,7 +228,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Augmentin",
                                         "isSku": !true,
                                         "additional_discount": true,
@@ -273,7 +273,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Ventolin",
                                         "isSku": true,
                                         "additional_discount": true,
@@ -318,7 +318,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Ventolin",
                                         "isSku": true,
                                         "additional_discount": true,
@@ -363,7 +363,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Seretide",
                                         "isSku": true,
                                         "additional_discount": false,
@@ -408,7 +408,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Seretide",
                                         "isSku": true,
                                         "additional_discount": false,
@@ -460,7 +460,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Augmentin",
                                         "isSku": !true,
                                         "additional_discount": true,
@@ -505,7 +505,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Augmentin",
                                         "isSku": !true,
                                         "additional_discount": true,
@@ -550,7 +550,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Ventolin",
                                         "isSku": true,
                                         "additional_discount": true,
@@ -595,7 +595,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Ventolin",
                                         "isSku": true,
                                         "additional_discount": true,
@@ -640,7 +640,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Seretide",
                                         "isSku": true,
                                         "additional_discount": false,
@@ -685,7 +685,7 @@ function CallScreen(caseNum) {
                                         "limit": "40",
                                         "eligible_goods": "4"
                                     },
-                                    "discount": {
+                                    "discounts": {
                                         "name": "Seretide",
                                         "isSku": true,
                                         "additional_discount": false,

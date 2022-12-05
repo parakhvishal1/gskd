@@ -196,6 +196,7 @@ window.addEventListener('message', function (eventData) {
         console.log("bot-reloaded");
         let data = localStorage.getItem("updated-data")
         console.log('refreshed local storage data in parentIframe', data);
+        if(!data) return;
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'bot-reloaded',
             data:  data

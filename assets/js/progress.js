@@ -40,10 +40,8 @@ function loadProgressCards(data, detailed, hideAdd) {
 
 function getProgressHeaderFooterLabels(data, sourceContainer) {
     let discount_range = data["on_invoice_range"] ? data["on_invoice_range"] : data["off_invoice_range"];
-    let limit = Math.floor(Number(data["max_limit"]) / discount_range.length);
-
-
-    function getRange(rangeData) {
+    
+    function getRange(rangeData, type) {
         // let rangeDataWidth = 100 / rangeData.length;
         let progressPercent = Math.ceil(((Number(data["purchased"]) + Number(data["selected"])) / Number(data["max_limit"])) * 100);
         let labelObj = { prevprogress: 0, progessMade: 0 };
@@ -61,15 +59,16 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
                 let diff = Number(rangeData[index]["label"]) - 0;
                 let blockWidthRatio = diff / Number(data["max_limit"]);
                 let blockWidthRatioPercent = blockWidthRatio * 100;
-                if((Number(data["purchased"]) + Number(data["selected"])) > rangeData[0]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) <= range["label"]) {
+                if((Number(data["purchased"]) + Number(data["selected"])) >= rangeData[0]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) < range["label"]) {
                     isLabelReached = true;
                     data["eligible_discount"] = range["discount"];
                 } else {
                     isLabelReached = false;
                 }
-                return `<div class="sub-block ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff;">${range["discount"]}%</div>`;
+                // return ``;
+                return `<div labelvalue="${range['discount']}" class="sub-block markerInit labeller class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
             }
-            if((Number(data["purchased"]) + Number(data["selected"])) > rangeData[index - 1]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) <= range["label"]) {
+            if((Number(data["purchased"]) + Number(data["selected"])) >= rangeData[index - 1]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) < range["label"]) {
                 isLabelReached = true;
                 data["eligible_discount"] = range["discount"];
             } else {
@@ -79,16 +78,12 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
                 let diff = Number(rangeData[index]["label"]) - Number(rangeData[index - 1]["label"]);
                 let blockWidthRatio = diff / Number(data["max_limit"]);
                 let blockWidthRatioPercent = blockWidthRatio * 100;
-                return `<div class="sub-block ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff;">${range["discount"]}%</div>`;
+                return `<div labelvalue="${range['discount']}" class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
             }
             let diff = Number(rangeData[index]["label"]) - Number(rangeData[index - 1]["label"]);
             let blockWidthRatio = diff / Number(data["max_limit"]);
             let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div class="sub-block ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff;">${range["discount"]}%</div>`;
-            
-            /* return `
-                <div class="sub-block ${temp ? 'highlight' : ''}" style="width: ${rangeDataWidth}%;border-color: #fff;">${range["discount"]}%</div>
-            `; */
+            return `<div labelvalue="${range['discount']}" class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
         })
         return rangeDataDivs.join("");
     }
@@ -98,9 +93,16 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             return `
                 <div class="detail_bar">
                     <div class="main">
-                        ${getRange(discount_range)}
+                        ${getRange(discount_range, data["offInvoice_discount_execution"])}
                     </div>
-                    ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
+                    ${sourceContainer === "header" ? 
+                        `
+                            <div class="progress_header_label">
+                                ${(data["offInvoice_discount_execution"] === "FINANCIAL") ? 'Disc.' : ''}
+                                ${(data["offInvoice_discount_execution"] === "FREE_GOODS") ? 'Free Goods' : ''}
+                            </div>
+                        ` : ""
+                    }
                     ${sourceContainer === "header" ? '<div class="progress_header_label right">Off <br/> Invoice</div>' : ""}
                     ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
                 </div>
@@ -114,9 +116,16 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             return `
                 <div class="detail_bar">
                     <div class="main">
-                        ${getRange(discount_range)}
+                        ${getRange(discount_range, data["onInvoice_discount_execution"])}
                     </div>
-                    ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
+                    ${sourceContainer === "header" ? 
+                        `
+                            <div class="progress_header_label">
+                                ${(data["onInvoice_discount_execution"] === "FINANCIAL") ? 'Disc.' : ''}
+                                ${(data["onInvoice_discount_execution"] === "FREE_GOODS") ? 'Free<br />Goods' : ''}
+                            </div>
+                        ` : ""
+                    }
                     ${sourceContainer === "header" ? '<div class="progress_header_label right">On <br/> Invoice</div>' : ""}
                     ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
                 </div>
@@ -155,18 +164,18 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             let diff = Number(discount_range[index]["label"]) - 0;
             let blockWidthRatio = diff / Number(data["max_limit"]);
             let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div class="sub-block initial labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; --label: ${range["label"]}"></div>`;
+            return `<div labelvalue="${range['label']}" class="sub-block initial labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
         }
         if (index === discount_range.length - 1) {
             let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
             let blockWidthRatio = diff / Number(data["max_limit"]);
             let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; --label: ${range["label"]}"></div>`;
+            return `<div labelvalue="${range['label']}" class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
         }
         let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
         let blockWidthRatio = diff / Number(data["max_limit"]);
         let blockWidthRatioPercent = blockWidthRatio * 100;
-        return `<div class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right; --label: ${range["label"]}"></div>`;
+        return `<div labelvalue="${range['label']}" class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
     });
     discountRangeData = discountRangeData.join("");
     return `
@@ -221,14 +230,14 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
             let diff = Number(discount_range[index]["label"]) - 0;
             let blockWidthRatio = diff / Number(item["max_limit"]);
             let blockWidthRatioPercent = blockWidthRatio * 100;
-            if((Number(item["purchased"]) + Number(item["selected"])) <= range["label"]) {
+            if((Number(item["purchased"]) + Number(item["selected"])) < range["label"]) {
                 isLabelReached = true;
             } else {
                 isLabelReached = false;
             }
             return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${blockWidthRatioPercent}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>`;
         }
-        if((Number(item["purchased"]) + Number(item["selected"])) <= range["label"]) {
+        if((Number(item["purchased"]) + Number(item["selected"])) < range["label"]) {
             isLabelReached = true;
         } else {
             isLabelReached = false;
@@ -276,7 +285,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
 }
 
 function getInvertedProgress(item, progressPercent, colorscheme) {
-    if(progressPercent) {
+    if (progressPercent) {
         return `
             <div class="progressbar_ratio inverted" style="width:${progressPercent}%; background: ${colorscheme} !important;">
                 <div class="ratio_wrapper">

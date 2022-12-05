@@ -314,12 +314,6 @@ function loadUserWelcomeUI(data) {
         $("#last_order_history").append(`<div class="progress_plan" id="progress_plan_main"></div>`);
     }
 
-    /* $("#last_order_history").mCustomScrollbar({
-        theme: "dark-thin",
-        scrollButtons: { enable: true },
-        autoHideScrollbar: true
-    }); */
-
     $(".place_new_order").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -330,7 +324,12 @@ function loadUserWelcomeUI(data) {
         ToApp("choosebrands-screen", parsedData);
         ToBot("place-new-order", {});
     });
-    
+
+    /* $("#last_order_history").mCustomScrollbar({
+        theme: "dark-thin",
+        scrollButtons: { enable: true },
+        autoHideScrollbar: true
+    }); */
 }
 
 function loadBrandSelectionUI(data) {
@@ -338,7 +337,7 @@ function loadBrandSelectionUI(data) {
     $(".header").removeClass('hide');
     $("#content_box").empty();
     $("#content_box").append(`
-        <div class="choosebrands">
+        <div class="choosebrands" id="loadBrandSelectionUI">
             <div class="menu_header">
                 <div class="label">
                     <img class="back-arrow" src="/gskd/assets/images/svg/right.svg"/>
@@ -361,7 +360,7 @@ function loadBrandSelectionUI(data) {
         </div>
     `);
 
-    /* $(".choosebrands").mCustomScrollbar({
+    /* $("#loadBrandSelectionUI").mCustomScrollbar({
         theme: "dark-thin",
         scrollButtons: { enable: true },
         autoHideScrollbar: true

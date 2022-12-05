@@ -22,6 +22,7 @@ function GlobalVarInit() {
     window.dataStore = {};
     window.discountData = {};
     window.currentScreen = "";
+    window.brandArr = {};
 }
 
 function StoreDataIn(data) {
@@ -215,6 +216,7 @@ function ToBot(eventName, data) {
             break;
         case "update-data-on-refresh":
             let updatedData = JSON.parse(data);
+            if(window.currentScreen) {
             updatedData["currentScreen"] = window.currentScreen || "";
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
@@ -222,9 +224,22 @@ function ToBot(eventName, data) {
             }), '*');
             if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 ToApp("get-data-on-refresh", updatedData);
+                }
             }
             break;
         case "back-on-orderhistory":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+            break;
+        case "checkout-add-brands":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+            break;
+        case "checkout-to-brand-detailing":
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data

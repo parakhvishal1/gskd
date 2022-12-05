@@ -82,7 +82,7 @@
 
 .counter__container .addmore__qty{
     display: flex;
-    right: 26%;
+    right: 0%;
     height: auto;
     height: 18px;
     width: 18px;
@@ -92,8 +92,8 @@
     align-items: center;
     justify-content: center;
     animation-name: slideToRight;
-    animation-duration: 3s;
-    animation-delay: 0ms;
+    animation-duration: 1.5s;
+    animation-timing-function: ease;
     opacity: 0;
     display: none;
 }
@@ -155,3 +155,20 @@
     padding: 2px 4px;
     margin: 5px 0px;
 }
+
+/* .counter__container .addmore__qty { 
+    right: 0%;
+} */
+
+@keyframes slideToRight {
+    from {right: 25%;}
+    to {right: 0%;}
+}
+/* 
+@keyframes slideToRight {
+    0%   {right: 25%;}
+    25%  {right: 19%;}
+    50%  {right: 13%;}
+    75%  {right: 7%;}
+    100% {right: 0%;}
+} */

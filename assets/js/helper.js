@@ -185,3 +185,31 @@ function getMonthName(data) {
 
     return months[monthNumber];
 }
+
+function addInputListener(inputElement) {
+    console.log("pppp ", $(`.${inputElement}`));
+    window[inputElement] = $(`.${inputElement}`);
+    
+    window[inputElement].blur(function () {
+        setTimeout(() => {
+            console.log("this blur --> ", this);
+            console.log("blurred --> ", $(this).val());
+            
+            $(this).val(parseInt($(this).val()) - 1);
+            $(this).change();
+            let currentElementData = $(this).attr("skudata");
+            let currentAvailableOrders = window.dataStore["available_orders"]["orders"];
+            let filteredData = currentAvailableOrders.filter((order, index) => order["sku"] === currentElementData)
+            let orderData = filteredData[0];
+            let sibling = $(this).siblings(".counter__box__container.add").children('.counter__plus');
+            updateCounter(sibling[0], "add", window.dataStore["selected_brand"], false, orderData, "blur");
+        }, 500);
+    });
+
+    window[inputElement].keypress(function (e) {
+        var key = e.keyCode || e.which;
+        if (key == 13) {
+           $(this).blur();
+        }
+    });
+}

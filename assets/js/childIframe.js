@@ -41,18 +41,20 @@ function show_image() {
     // document.body.appendChild(img);
     document.getElementById('iframe').appendChild(img);
     var element = document.getElementById("iframe");
-    element.classList.add("blur");
+   element.classList.add("blur");
 }
 
 function remove_blur() {
     var element = document.getElementById("iframe");
-    element.classList.remove("blur");
+   element.classList.remove("blur");
 }
 
 window.addEventListener('message', function (eventData) {
-    let parsedEventData = JSON.parse(eventData.data);
 
+    let parsedEventData = JSON.parse(eventData.data);
+  
     if (parsedEventData.event_code === "welcome-screen" && parsedEventData.data) {
+        // remove_blur()
         document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
             event_code: 'welcome-screen',                                                // added new event name
             data: parsedEventData.data
@@ -60,7 +62,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
     }
 
     if (parsedEventData.event_code === "termsui-screen" && parsedEventData.data) {
@@ -71,11 +73,12 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
     }
 
 
     if (parsedEventData.event_code === "userwelcome-screen" && parsedEventData.data) {
+        // remove_blur()
         document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
             event_code: 'userwelcome-screen',                                                // added new event name
             data: parsedEventData.data
@@ -83,7 +86,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
     }
 
     if (parsedEventData.event_code === "user-login" && parsedEventData.data) {
@@ -94,7 +97,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
     }
 
     if (parsedEventData.event_code === "ordercart-screen" && parsedEventData.data) {
@@ -105,7 +108,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
     }
 
     if (parsedEventData.event_code === "load-userwelcome-screen" && parsedEventData.data) {
@@ -116,7 +119,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
     }
 
     if (parsedEventData.event_code === "show-brand-selection" && parsedEventData.data) {
@@ -127,7 +130,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---', data);
+        console.log('Event Data---',data);
     }
 
     if (parsedEventData.event_code === "show-brand-detailing" && parsedEventData.data) {
@@ -156,7 +159,7 @@ window.addEventListener('message', function (eventData) {
 
 
     // send event to bot
-    if (parsedEventData.event_code === "logout") {
+    if(parsedEventData.event_code === "logout") {
         // show_image()
         console.log(' logout Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
@@ -165,7 +168,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "place-new-order") {
+    if(parsedEventData.event_code === "place-new-order") {
         // console.log('place-new-order Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'place-new-order',
@@ -173,7 +176,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "view-checkout") {
+    if(parsedEventData.event_code === "view-checkout") {
         // console.log('view-checkout Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'view-checkout',
@@ -181,7 +184,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "select-brand") {
+    if(parsedEventData.event_code === "select-brand") {
         // console.log('select-brand Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'select-brand',
@@ -189,7 +192,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "ordercart-continue") {
+    if(parsedEventData.event_code === "ordercart-continue") {
         // console.log('ordercart-continue Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'ordercart-continue',
@@ -197,7 +200,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "confirm-order") {
+    if(parsedEventData.event_code === "confirm-order") {
         // console.log('confirm-order Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'confirm-order',
@@ -205,7 +208,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "cancel-order") {
+    if(parsedEventData.event_code === "cancel-order") {
         // console.log('cancel-order Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'cancel-order',
@@ -213,7 +216,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "confirm-order-total-invoice") {
+    if(parsedEventData.event_code === "confirm-order-total-invoice") {
         // console.log('confirm-order-total-invoice Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'confirm-order-total-invoice',
@@ -221,7 +224,7 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
-    if (parsedEventData.event_code === "cancel-order-total-invoice") {
+    if(parsedEventData.event_code === "cancel-order-total-invoice") {
         // console.log('cancel-order-total-invoice Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({
             event_code: 'cancel-order-total-invoice',
