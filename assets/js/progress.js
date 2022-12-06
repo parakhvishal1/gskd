@@ -40,33 +40,22 @@ function loadProgressCards(data, detailed, hideAdd) {
 
 function getProgressHeaderFooterLabels(data, sourceContainer) {
     let discount_range = data["on_invoice_range"] ? data["on_invoice_range"] : data["off_invoice_range"];
-    
+    let backgroundProgressWidth = Number(data["max_limit"])/discount_range.length;
+    let backgroundProgressPerc = (backgroundProgressWidth/Number(data["max_limit"])) * 100;
+    // console.log("backgroundProgressWidth -> ", backgroundProgressPerc);
+
     function getRange(rangeData, type) {
-        // let rangeDataWidth = 100 / rangeData.length;
-        let progressPercent = Math.ceil(((Number(data["purchased"]) + Number(data["selected"])) / Number(data["max_limit"])) * 100);
-        let labelObj = { prevprogress: 0, progessMade: 0 };
         let isLabelReached = false;
-
         let rangeDataDivs = rangeData.map((range, index) => {
-            let rangeDataWidth = (range["label"]/data["max_limit"]) * 100;
-            labelObj["prevprogress"] = Number(labelObj["progessMade"]);
-            labelObj["progessMade"] = Number(labelObj["progessMade"]) + Number(range["label"]);
-            let currentProgressPercent = ((Number(labelObj["progessMade"])/Number(data["max_limit"])) * 100);
-
-            
-
             if(index === 0) {
                 let diff = Number(rangeData[index]["label"]) - 0;
-                let blockWidthRatio = diff / Number(data["max_limit"]);
-                let blockWidthRatioPercent = blockWidthRatio * 100;
                 if((Number(data["purchased"]) + Number(data["selected"])) >= rangeData[0]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) < range["label"]) {
                     isLabelReached = true;
                     data["eligible_discount"] = range["discount"];
                 } else {
                     isLabelReached = false;
                 }
-                // return ``;
-                return `<div labelvalue="${range['discount']}" class="sub-block markerInit labeller class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
+                return `<div labelvalue="${range['discount']}" class="sub-block markerInit labeller class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
             }
             if((Number(data["purchased"]) + Number(data["selected"])) >= rangeData[index - 1]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) < range["label"]) {
                 isLabelReached = true;
@@ -76,14 +65,10 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             }
             if (index === rangeData.length - 1) {
                 let diff = Number(rangeData[index]["label"]) - Number(rangeData[index - 1]["label"]);
-                let blockWidthRatio = diff / Number(data["max_limit"]);
-                let blockWidthRatioPercent = blockWidthRatio * 100;
-                return `<div labelvalue="${range['discount']}" class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
+                return `<div labelvalue="${range['discount']}" class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
             }
             let diff = Number(rangeData[index]["label"]) - Number(rangeData[index - 1]["label"]);
-            let blockWidthRatio = diff / Number(data["max_limit"]);
-            let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div labelvalue="${range['discount']}" class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
+            return `<div labelvalue="${range['discount']}" class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
         })
         return rangeDataDivs.join("");
     }
@@ -141,41 +126,18 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
         `;
     }
 
-    /* let discountRangeData = discount_range.map((range, index) => {
-        let newRangeDataDivsWidth = (range["label"]/data["max_limit"]) * 100;
-        if (index === discount_range.length - 1) return;
-        return `<div class="sub-block" style="width: ${newRangeDataDivsWidth}%;border-color: #fff;">${(index + 1) * range["label"]}</div>`
-    });
-    discountRangeData = discountRangeData.join("");
-    return `
-        <div class="detail_bar discount_range">
-            <div class="main" style="justify-content: center;">
-                <div class="sub-block" style="border-color: #fff; justify-content: left; position: absolute; left: 0; top: 0;">0</div>
-                ${discountRangeData}
-                <div class="sub-block" style="border-color: #fff; justify-content: right; position: absolute; right: 0; top: 0;">${Number(data["max_limit"])}</div>
-            </div>
-            ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
-            ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
-        </div>
-    `; */
     let discountRangeData = discount_range.map((range, index) => {
         /* let newRangeDataDivsWidth = (range["label"]/data["max_limit"]) * 100; */
         if(index === 0) {
             let diff = Number(discount_range[index]["label"]) - 0;
-            let blockWidthRatio = diff / Number(data["max_limit"]);
-            let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div labelvalue="${range['label']}" class="sub-block initial labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
+            return `<div labelvalue="${range['label']}" class="sub-block initial labeller" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
         }
         if (index === discount_range.length - 1) {
             let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
-            let blockWidthRatio = diff / Number(data["max_limit"]);
-            let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div labelvalue="${range['label']}" class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
+            return `<div labelvalue="${range['label']}" class="sub-block labeller" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
         }
         let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
-        let blockWidthRatio = diff / Number(data["max_limit"]);
-        let blockWidthRatioPercent = blockWidthRatio * 100;
-        return `<div labelvalue="${range['label']}" class="sub-block labeller" style="width: ${blockWidthRatioPercent}%;border-color: #fff; justify-content: right;"></div>`;
+        return `<div labelvalue="${range['label']}" class="sub-block labeller" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
     });
     discountRangeData = discountRangeData.join("");
     return `
@@ -200,6 +162,16 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
     let discount_range = item["on_invoice_range"] ? item["on_invoice_range"] : item["off_invoice_range"];
     let progressPercent = Math.ceil((item["purchased"] / item["max_limit"]) * 100);
     let progressPercentSelected = Math.ceil(((parseInt(item["purchased"]) + parseInt(item["selected"])) / item["max_limit"]) * 100);
+
+    
+    
+    let aggregateSelectedProgress = 0;
+    let aggregateInvertedProgress = 0;
+    let inverted = parseInt(item["purchased"]);
+    let selected = parseInt(item["purchased"]) + parseInt(item["selected"]);
+    let backgroundProgressWidth = Number(item["max_limit"])/discount_range.length;
+    let backgroundProgressPerc = (backgroundProgressWidth/Number(item["max_limit"])) * 100;
+
     let isLabelReached = false;
     let addBtn = `
         ${basicProgress ?
@@ -221,21 +193,25 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
     `;
 
     let rangeDataDivs = discount_range.map((range, index) => {
-        let newRangeDataDivsWidth = (range["label"]/item["max_limit"]) * 100;
-        /* let newRangeDataDivsWidth = (range["label"]/item["max_limit"]) * 100;
-        return `
-            <div class="sub-block ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "withmarkings" : "withoutmarkings"}" style="width: ${newRangeDataDivsWidth}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>
-        `; */
         if(index === 0) {
             let diff = Number(discount_range[index]["label"]) - 0;
-            let blockWidthRatio = diff / Number(item["max_limit"]);
-            let blockWidthRatioPercent = blockWidthRatio * 100;
+            let blockRatio = backgroundProgressWidth/diff;
+            if (selected > 0) {
+                if(selected > Number(discount_range[index]["label"])) {
+                    aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * diff);
+                    aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * diff);
+                } else {
+                    aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * (selected - 0));
+                    aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * (inverted - 0));
+                }
+                
+            }
             if((Number(item["purchased"]) + Number(item["selected"])) < range["label"]) {
                 isLabelReached = true;
             } else {
                 isLabelReached = false;
             }
-            return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${blockWidthRatioPercent}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>`;
+            return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${backgroundProgressPerc}%;"></div>`;
         }
         if((Number(item["purchased"]) + Number(item["selected"])) < range["label"]) {
             isLabelReached = true;
@@ -244,17 +220,37 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
         }
         if (index === discount_range.length - 1) {
             let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
-            let blockWidthRatio = diff / Number(item["max_limit"]);
-            let blockWidthRatioPercent = blockWidthRatio * 100;
-            return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${blockWidthRatioPercent}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>`;
+            let blockRatio = backgroundProgressWidth/diff;
+            if (selected > Number(discount_range[index - 1]["label"])) {
+                if(selected >= Number(discount_range[index]["label"])) {
+                    aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * diff);
+                    aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * diff);
+                } else {
+                    aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * (selected - Number(discount_range[index - 1]["label"])));
+                    aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * (inverted - Number(discount_range[index - 1]["label"])));
+                }
+            }
+            return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${backgroundProgressPerc}%;"></div>`;
         }
         let diff = Number(discount_range[index]["label"]) - Number(discount_range[index - 1]["label"]);
-        let blockWidthRatio = diff / Number(item["max_limit"]);
-        let blockWidthRatioPercent = blockWidthRatio * 100;
-        return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${blockWidthRatioPercent}%; border-color: ${progressPercent < ((index + 1) * (newRangeDataDivsWidth)) ? "#959595" : "#fff"}"></div>`;
+        let blockRatio = backgroundProgressWidth/diff;
+        if (selected > Number(discount_range[index - 1]["label"])) {
+            if(selected > Number(discount_range[index]["label"])) {
+                aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * diff);
+                aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * diff);
+            } else {
+                aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * (selected - Number(discount_range[index - 1]["label"])));
+                aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * (inverted - Number(discount_range[index - 1]["label"])));
+            }
+        }
+        return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${backgroundProgressPerc}%;"></div>`;
     });
 
+    // console.log("aggregate progress --> ", aggregateSelectedProgress);
+    // console.log("aggregateInvertedProgress progress --> ", aggregateInvertedProgress);
     rangeDataDivs = rangeDataDivs.join("");
+    let aggregateSelectedProgressPerc = (aggregateSelectedProgress/Number(item["max_limit"])) * 100;
+    let aggregateInvertedProgressPerc = (aggregateInvertedProgress/Number(item["max_limit"])) * 100;
 
     return `
         <div class="progressbar flex">
@@ -266,8 +262,8 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                     <div class="main">
                         
                     </div>
-                    ${!hideSelectedProgress ? getInvertedProgress(item, progressPercent, colorscheme) : ""}
-                    ${getSelectedProgress(item, progressPercentSelected, "#f36633", hideSelectedProgress)}
+                    ${!hideSelectedProgress ? getInvertedProgress(item, aggregateInvertedProgressPerc, colorscheme) : ""}
+                    ${getSelectedProgress(item, aggregateSelectedProgressPerc, "#f36633", hideSelectedProgress)}
                     <div class="progressbar_ratio inverted" style="width:${100}%; background: transparent !important;">
                         <div class="main" style="background: transparent;">
                             ${rangeDataDivs}
