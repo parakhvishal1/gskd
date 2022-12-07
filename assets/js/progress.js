@@ -127,7 +127,6 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
     }
 
     let discountRangeData = discount_range.map((range, index) => {
-        /* let newRangeDataDivsWidth = (range["label"]/data["max_limit"]) * 100; */
         if(index === 0) {
             let diff = Number(discount_range[index]["label"]) - 0;
             return `<div labelvalue="${range['label']}" class="sub-block initial labeller" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
@@ -181,7 +180,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                 <label style="font-size: 12px;">${parseInt(item["purchased"]) + parseInt(item["selected"])}</label>
                 <div class="progressbar_wrapper addproduct" skudata=${`${item["sku"]}`} >
                     <!--<div class="main reset" style="cursor: pointer;">
-                        <img src="/gsk/assets/images/svg/plus.svg" class="icon_add"/>
+                        <img src="/gskd/assets/images/svg/plus.svg" class="icon_add"/>
                     </div>-->
                     <div class="main reset rounded_btn">
                         <div class="inner">
