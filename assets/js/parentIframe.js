@@ -228,6 +228,7 @@ window.addEventListener('message', function (eventData) {
     // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
+        injectDynamicCssForMobileBot()
         console.error('-logout--')
         localStorage.removeItem("updated-data");
         console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
