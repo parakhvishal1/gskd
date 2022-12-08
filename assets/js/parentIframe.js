@@ -130,19 +130,10 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
-        let device = 'Mobile'
-        if (device == 'Mobile') {
-            injectDynamicCssForMobileUI();
-            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-                event_code: 'userwelcome-screen',
-                data: parsedData.data.data
-            }), '*');
-        } else {
-            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-                event_code: 'userwelcome-screen',
-                data: parsedData.data.data
-            }), '*');
-        }
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'userwelcome-screen',
+            data: parsedData.data.data
+        }), '*');
 
 
         console.log("userwelcome-screen")
@@ -151,21 +142,10 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
-        let device = parsedData.data.data.device
-        console.error('userlogin device---->', device)
-        if (device == 'mobile') {
-            injectDynamicCssForMobileUI();
-            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-                event_code: 'user-login',
-                data: parsedData.data.data
-            }), '*');
-        } else {
-            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-                event_code: 'user-login',
-                data: parsedData.data.data
-            }), '*');
-        }
-
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'user-login',
+            data: parsedData.data.data
+        }), '*');
         console.log("user-login")
         console.log('Event Data-->>', parsedData.data.data)
         return;
