@@ -55,7 +55,7 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
                 } else {
                     isLabelReached = false;
                 }
-                return `<div labelvalue="${range['discount']}" class="sub-block markerInit labeller class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
+                return `<div labelvalue="${range['discount']}" class="sub-block ${(type === "FINANCIAL" || !type) ? "discount" : ""} ${(type === "FREE_GOODS" || !type) ? "freegoods" : ""} ${isLabelReached ? 'highlight' : ''}" style="width: ${backgroundProgressPerc}%;border-color: #fff; justify-content: right;"></div>`;
             }
             if((Number(data["purchased"]) + Number(data["selected"])) >= rangeData[index - 1]["label"] &&  (Number(data["purchased"]) + Number(data["selected"])) < range["label"]) {
                 isLabelReached = true;

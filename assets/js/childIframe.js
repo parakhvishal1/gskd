@@ -256,6 +256,22 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
+    if (parsedEventData.event_code === "checkout-add-brands") {
+        // console.log('checkout-add-brands Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'checkout-add-brands',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if (parsedEventData.event_code === "checkout-to-brand-detailing") {
+        // console.log('checkout-to-brand-detailing Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'checkout-to-brand-detailing',
+            data: parsedEventData.data
+        }), '*');
+    }
+
     if (parsedEventData.event_code === "update-data-on-refresh") {
         // console.log('update-data-on-refresh Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({

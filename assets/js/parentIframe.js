@@ -342,6 +342,28 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
+    if (parsedData?.event_code == 'checkout-add-brands') {
+        console.log("\n\n\n <---  checkout-add-brands event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "checkout-add-brands",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
+    if (parsedData?.event_code == 'checkout-to-brand-detailing') {
+        console.log("\n\n\n <---  checkout-to-brand-detailing event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "checkout-to-brand-detailing",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
     if (parsedData?.event_code == 'update-data-on-refresh') {
         console.log("\n\n\n <--- update-data-on-refresh event in parent iframe ---> \n\n\n", parsedData);
         localStorage.setItem("updated-data", parsedData.data)
