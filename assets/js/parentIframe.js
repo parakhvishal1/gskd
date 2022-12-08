@@ -97,12 +97,10 @@ window.addEventListener('message', function (eventData) {
         console.log('Event Data-->>', parsedData.data.data);
 
         if (parsedData.data.data == 'Mobile') {
-            console.error('Mobile view data--->', view)
             console.error('Mobile view ', parsedData.data.data)
             injectDynamicCssForMobileUI();
             injectDynamicCssForMobileBot()
         } else {
-            console.error('Mobile view data--->', view)
             console.error('Desktop view', parsedData.data.data)
             injectDynamicCssToChild()
         }
@@ -132,8 +130,8 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
-        console.log('--View in welcome screen--', view)
-        if (view == 'Mobile') {
+        let device = 'Mobile'
+        if (device == 'Mobile') {
             injectDynamicCssForMobileUI();
             document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
                 event_code: 'userwelcome-screen',
