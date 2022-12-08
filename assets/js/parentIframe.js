@@ -87,27 +87,27 @@ window.addEventListener('message', function (eventData) {
     let parsedData = JSON.parse(eventData.data);
 
     console.log("parsedData", parsedData)
-    
-    // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
-    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-    //         event_code: 'get-source',
-    //         data: parsedData.data.data
-    //     }), '*');
-    //     console.error("get-source")
-    //     console.log('Event Data-->>',parsedData.data.data);
-        
-    //     if(parsedData.data.data == 'Mobile') {
-    //         console.error('Mobile hai ', parsedData.data.data)
-    //         // injectDynamicCssForMobileUI();
-    //         // injectDynamicCssForMobileBot()
-    //     }else {
-    //         console.error('Desktop view', parsedData.data.data)
-    //         injectDynamicCssToChild()
-    //     }
-    //     return;
-        
-    // }
-   
+
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'get-source',
+            data: parsedData.data.data
+        }), '*');
+        console.error("get-source")
+        console.log('Event Data-->>', parsedData.data.data);
+
+        if (parsedData.data.data == 'Mobile') {
+            console.error('Mobile hai ', parsedData.data.data)
+            injectDynamicCssForMobileUI();
+            injectDynamicCssForMobileBot()
+        } else {
+            console.error('Desktop view', parsedData.data.data)
+            injectDynamicCssToChild()
+        }
+        return;
+
+    }
+
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
@@ -115,7 +115,7 @@ window.addEventListener('message', function (eventData) {
             data: parsedData.data.data
         }), '*');
         console.log("welcome-screen")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
 
@@ -125,70 +125,70 @@ window.addEventListener('message', function (eventData) {
             data: parsedData.data.data
         }), '*');
         console.log("termsui-screen")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
-        // injectDynamicCssForMobileUI();
+        injectDynamicCssForMobileUI();
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'userwelcome-screen',
             data: parsedData.data.data
         }), '*');
-        
+
         console.log("userwelcome-screen")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
-    
+
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
-        // injectDynamicCssForMobileUI();
+        injectDynamicCssForMobileUI();
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'user-login',
-            data:  parsedData.data.data
+            data: parsedData.data.data
         }), '*');
         console.log("user-login")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "ordercart-screen") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'ordercart-screen',
-            data:  parsedData.data.data
+            data: parsedData.data.data
         }), '*');
         console.log("ordercart-screen")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "load-userwelcome-screen") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'load-userwelcome-screen',
-            data:  parsedData.data.data
+            data: parsedData.data.data
         }), '*');
         console.log("load-userwelcome-screen")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "show-brand-selection") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'show-brand-selection',
-            data:  parsedData.data.data
+            data: parsedData.data.data
         }), '*');
         console.log("show-brand-selection")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "show-brand-detailing") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'show-brand-detailing',
-            data:  parsedData.data.data
+            data: parsedData.data.data
         }), '*');
         console.log("show-brand-detailing")
-        console.log('Event Data-->>',parsedData.data.data)
+        console.log('Event Data-->>', parsedData.data.data)
         return;
     }
 
@@ -196,10 +196,10 @@ window.addEventListener('message', function (eventData) {
         console.log("bot-reloaded");
         let data = localStorage.getItem("updated-data")
         console.log('refreshed local storage data in parentIframe', data);
-        if(!data) return;
+        if (!data) return;
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'bot-reloaded',
-            data:  data
+            data: data
         }), '*');
         return;
     }
@@ -209,8 +209,8 @@ window.addEventListener('message', function (eventData) {
     // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
-       console.error('-logout--')
-       localStorage.removeItem("updated-data");
+        console.error('-logout--')
+        localStorage.removeItem("updated-data");
         console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
