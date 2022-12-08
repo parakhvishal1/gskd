@@ -98,12 +98,14 @@ window.addEventListener('message', function (eventData) {
         console.log('Event Data-->>', parsedData.data.data);
 
         if (parsedData.data.data == 'Mobile') {
-            view = 'mobile'
+            view = parsedData.data.data
+            console.error('Mobile view data--->', view)
             console.error('Mobile view ', parsedData.data.data)
             injectDynamicCssForMobileUI();
             injectDynamicCssForMobileBot()
         } else {
-            view = 'desktop'
+            view = parsedData.data.data
+            console.error('Mobile view data--->', view)
             console.error('Desktop view', parsedData.data.data)
             injectDynamicCssToChild()
         }
@@ -133,13 +135,20 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
-        if (view == 'mobile') {
+        console.log('--View in welcome screen--', view)
+        if (view == 'Mobile') {
             injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'userwelcome-screen',
+                data: parsedData.data.data
+            }), '*');
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'userwelcome-screen',
+                data: parsedData.data.data
+            }), '*');
         }
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'userwelcome-screen',
-            data: parsedData.data.data
-        }), '*');
+
 
         console.log("userwelcome-screen")
         console.log('Event Data-->>', parsedData.data.data)
@@ -147,13 +156,20 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
+        console.log('--View in welcome screen--', view)
         if (view == 'mobile') {
             injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'user-login',
+                data: parsedData.data.data
+            }), '*');
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'user-login',
+                data: parsedData.data.data
+            }), '*');
         }
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'user-login',
-            data: parsedData.data.data
-        }), '*');
+
         console.log("user-login")
         console.log('Event Data-->>', parsedData.data.data)
         return;
