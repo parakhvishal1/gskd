@@ -88,25 +88,25 @@ window.addEventListener('message', function (eventData) {
 
     console.log("parsedData", parsedData)
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'get-source',
-            data: parsedData.data.data
-        }), '*');
-        console.error("get-source")
-        console.log('Event Data-->>', parsedData.data.data);
+    // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
+    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+    //         event_code: 'get-source',
+    //         data: parsedData.data.data
+    //     }), '*');
+    //     console.error("get-source")
+    //     console.log('Event Data-->>', parsedData.data.data);
 
-        if (parsedData.data.data == 'Mobile') {
-            console.error('Mobile view ', parsedData.data.data)
-            injectDynamicCssForMobileUI();
-            injectDynamicCssForMobileBot()
-        } else {
-            console.error('Desktop view', parsedData.data.data)
-            injectDynamicCssToChild()
-        }
-        return;
+    //     if (parsedData.data.data == 'Mobile') {
+    //         console.error('Mobile view ', parsedData.data.data)
+    //         injectDynamicCssForMobileUI();
+    //         injectDynamicCssForMobileBot()
+    //     } else {
+    //         console.error('Desktop view', parsedData.data.data)
+    //         injectDynamicCssToChild()
+    //     }
+    //     return;
 
-    }
+    // }
 
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
@@ -228,7 +228,7 @@ window.addEventListener('message', function (eventData) {
     // Send events to bot
 
     if (parsedData?.event_code == 'logout') {
-        injectDynamicCssForMobileBot()
+        // injectDynamicCssForMobileBot()
         console.error('-logout--')
         localStorage.removeItem("updated-data");
         console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
