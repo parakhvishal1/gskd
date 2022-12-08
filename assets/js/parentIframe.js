@@ -87,7 +87,6 @@ window.addEventListener('message', function (eventData) {
     let parsedData = JSON.parse(eventData.data);
 
     console.log("parsedData", parsedData)
-    let view
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
@@ -98,13 +97,11 @@ window.addEventListener('message', function (eventData) {
         console.log('Event Data-->>', parsedData.data.data);
 
         if (parsedData.data.data == 'Mobile') {
-            view = parsedData.data.data
             console.error('Mobile view data--->', view)
             console.error('Mobile view ', parsedData.data.data)
             injectDynamicCssForMobileUI();
             injectDynamicCssForMobileBot()
         } else {
-            view = parsedData.data.data
             console.error('Mobile view data--->', view)
             console.error('Desktop view', parsedData.data.data)
             injectDynamicCssToChild()
@@ -156,8 +153,9 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
-        console.log('--View in welcome screen--', view)
-        if (view == 'mobile') {
+        let device = parsedData.data.data.device
+        console.error('userlogin device---->', device)
+        if (device == 'mobile') {
             injectDynamicCssForMobileUI();
             document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
                 event_code: 'user-login',
