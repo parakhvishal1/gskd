@@ -87,6 +87,7 @@ window.addEventListener('message', function (eventData) {
     let parsedData = JSON.parse(eventData.data);
 
     console.log("parsedData", parsedData)
+    let view
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
@@ -97,10 +98,12 @@ window.addEventListener('message', function (eventData) {
         console.log('Event Data-->>', parsedData.data.data);
 
         if (parsedData.data.data == 'Mobile') {
-            console.error('Mobile hai ', parsedData.data.data)
+            view = 'mobile'
+            console.error('Mobile view ', parsedData.data.data)
             injectDynamicCssForMobileUI();
             injectDynamicCssForMobileBot()
         } else {
+            view = 'desktop'
             console.error('Desktop view', parsedData.data.data)
             injectDynamicCssToChild()
         }
@@ -130,7 +133,9 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
-        injectDynamicCssForMobileUI();
+        if (view == 'mobile') {
+            injectDynamicCssForMobileUI();
+        }
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'userwelcome-screen',
             data: parsedData.data.data
@@ -142,7 +147,9 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
-        injectDynamicCssForMobileUI();
+        if (view == 'mobile') {
+            injectDynamicCssForMobileUI();
+        }
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'user-login',
             data: parsedData.data.data
