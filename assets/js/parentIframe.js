@@ -191,6 +191,26 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "orderhistory-screen") {
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'orderhistory-screen',
+            data: parsedData.data.data
+        }), '*');
+        console.log("orderhistory-screen")
+        console.log('Event Data-->>', parsedData.data.data)
+        return;
+    }
+
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "confirmorderon-bot") {
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'confirmorderon-bot',
+            data: parsedData.data.data
+        }), '*');
+        console.log("confirmorderon-bot")
+        console.log('Event Data-->>', parsedData.data.data)
+        return;
+    }
+
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
         console.log("bot-reloaded");
         let data = localStorage.getItem("updated-data")

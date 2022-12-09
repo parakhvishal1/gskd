@@ -155,7 +155,7 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 ToApp('ordercart-screen', data);
             }
             break;
@@ -188,7 +188,7 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 loadUserWelcomeUI(data);
                 data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true);
             }
@@ -204,7 +204,7 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 ToApp("userwelcome-screen", data);
             }
             break;
@@ -216,14 +216,14 @@ function ToBot(eventName, data) {
             break;
         case "update-data-on-refresh":
             let updatedData = JSON.parse(data);
-            if(window.currentScreen) {
-            updatedData["currentScreen"] = window.currentScreen || "";
-            window.parent.postMessage(JSON.stringify({
-                event_code: eventName,
-                data: JSON.stringify(updatedData)
-            }), '*');
-            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                ToApp("get-data-on-refresh", updatedData);
+            if (window.currentScreen) {
+                updatedData["currentScreen"] = window.currentScreen || "";
+                window.parent.postMessage(JSON.stringify({
+                    event_code: eventName,
+                    data: JSON.stringify(updatedData)
+                }), '*');
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    ToApp("get-data-on-refresh", updatedData);
                 }
             }
             break;
@@ -325,7 +325,7 @@ function ToApp(eventName, data, orgData) {
 
 window.addEventListener('message', function (eventData) {
     let parsedEventData = JSON.parse(eventData.data);
-  
+
     if (parsedEventData.event_code === "welcome-screen" && parsedEventData.data) {
         // document.querySelector("iframe").contentWindow.postMessage(JSON.stringify({
         //     event_code: 'welcome-screen',                                                // added new event name
@@ -334,8 +334,8 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
-        ToApp(eventName,data);
+        console.log('Event Data---', data);
+        ToApp(eventName, data);
     }
 
     if (parsedEventData.event_code === "termsui-screen" && parsedEventData.data) {
@@ -346,8 +346,8 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
-        ToApp(eventName,data);
+        console.log('Event Data---', data);
+        ToApp(eventName, data);
     }
 
     if (parsedEventData.event_code === "userwelcome-screen" && parsedEventData.data) {
@@ -358,8 +358,8 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
-        ToApp(eventName,data);
+        console.log('Event Data---', data);
+        ToApp(eventName, data);
     }
 
     if (parsedEventData.event_code === "user-login" && parsedEventData.data) {
@@ -370,23 +370,23 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
-        ToApp(eventName,data);
+        console.log('Event Data---', data);
+        ToApp(eventName, data);
     }
 
     if (parsedEventData.event_code === "ordercart-screen" && parsedEventData.data) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
-        ToApp(eventName,data);
+        console.log('Event Data---', data);
+        ToApp(eventName, data);
     }
 
     if (parsedEventData.event_code === "load-userwelcome-screen" && parsedEventData.data) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
+        console.log('Event Data---', data);
         ToApp("userwelcome-screen", data);
     }
 
@@ -394,7 +394,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
+        console.log('Event Data---', data);
         ToApp("show-brand-selection", data);
     }
 
@@ -402,17 +402,34 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('Event Data---',data);
+        console.log('Event Data---', data);
         ToApp("show-brand-detailing", data);
+    }
+
+    if (parsedEventData.event_code === "orderhistory-screen" && parsedEventData.data) {
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---', data);
+        ToApp("orderhistory-screen", data);
+    }
+
+    if (parsedEventData.event_code === "confirmorderon-bot" && parsedEventData.data) {
+        let eventName = parsedEventData.event_code;
+        let data = parsedEventData.data;
+        console.log("eventName---", eventName);
+        console.log('Event Data---', data);
+        ToApp("confirmorderon-bot", data);
     }
 
     if (parsedEventData.event_code === "bot-reloaded" && parsedEventData.data) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('refreshed local storage data in caller.js',data);
-        console.log('reload parse data',data)
+        console.log('refreshed local storage data in caller.js', data);
+        console.log('reload parse data', data)
         ToApp("get-data-on-refresh", JSON.parse(data));
     }
+
 
 });
