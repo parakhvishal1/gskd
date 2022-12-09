@@ -411,7 +411,7 @@ window.addEventListener('message', function (eventData) {
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
         console.log('Event Data---', data);
-        ToApp("orderhistory-screen", data);
+        // ToApp("orderhistory-screen", data);
     }
 
     if (parsedEventData.event_code === "confirmorderon-bot" && parsedEventData.data) {
@@ -419,7 +419,7 @@ window.addEventListener('message', function (eventData) {
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
         console.log('Event Data---', data);
-        ToApp("confirmorderon-bot", data);
+        // ToApp("confirmorderon-bot", data);
     }
 
     if (parsedEventData.event_code === "bot-reloaded" && parsedEventData.data) {
