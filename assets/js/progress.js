@@ -207,7 +207,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
             }
 
             if (inverted > 0) {
-                if(selected > Number(discount_range[index]["label"])) {
+                if(inverted > Number(discount_range[index]["label"])) {
                     // aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * diff);
                     aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * diff);
                 } else {
@@ -247,7 +247,9 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                     aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * diff);
                 } else {
                     // aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * (selected - Number(discount_range[index - 1]["label"])));
-                    aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * (inverted - Number(discount_range[index - 1]["label"])));
+                    if(inverted > Number(discount_range[index - 1]["label"])) {
+                        aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * (inverted - Number(discount_range[index - 1]["label"])));
+                    }
                 }
             }
             return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${backgroundProgressPerc}%;"></div>`;
@@ -268,7 +270,9 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                 aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * diff);
             } else {
                 // aggregateSelectedProgress = aggregateSelectedProgress + (blockRatio * (selected - Number(discount_range[index - 1]["label"])));
-                aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * (inverted - Number(discount_range[index - 1]["label"])));
+                if(inverted > Number(discount_range[index - 1]["label"])) {
+                    aggregateInvertedProgress = aggregateInvertedProgress + (blockRatio * (inverted - Number(discount_range[index - 1]["label"])));
+                }
             }
         }
         return `<div class="sub-block ${isLabelReached ? "withmarkings" : "withoutmarkings"}" style="width: ${backgroundProgressPerc}%;"></div>`;
