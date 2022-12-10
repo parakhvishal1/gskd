@@ -138,7 +138,7 @@ function getAccordianAccounts(data, rebates) {
     let parsedData = getParsedData();
     let newDataJoined = [];
     if(rebates) {
-        newDataJoined = parsedData?.["rebates"]?.["orders"];
+        newDataJoined = parsedData?.["rebates"]?.["orders"] || [];
     } else {
         newDataJoined = getJoinedCheckout(parsedData);
     }
@@ -155,7 +155,7 @@ function getAccordianAccounts(data, rebates) {
         return "";
     }
 
-    let accordianAccounts = newDataJoined.map(order => {
+    let accordianAccounts = newDataJoined && newDataJoined.map(order => {
         return `
             <div class="accordion">
                 <div class="accordion-item">
