@@ -309,8 +309,10 @@
 
 .progressbar .detail_bar .progress_header_label {
     position: absolute;
-    top: -2px;
-    left: -40px;
+    /* top: -2px; */
+    top: 7.5px;
+    /* left: -40px; */
+    right: calc(100% + 14px);
     font-size: 12px;
     font-weight: 600;
     color: #f26633;
@@ -318,7 +320,7 @@
 
 .progressbar .detail_bar .progress_header_label.right {
     position: absolute;
-    top: -2px;
+    top: 7.5px;
     left: unset;
     right: -50px;
     font-size: 12px;
@@ -327,8 +329,8 @@
 
 .progressbar .detail_bar .progress_footer_label {
     position: absolute;
-    bottom: 10px;
-    left: -40px;
+    bottom: 7.5px;
+    right: calc(100% + 14px);
     font-size: 12px;
     font-weight: 600;
 }

@@ -1362,7 +1362,7 @@ function addnewOrderBrand(data, currentSku, skulevel) {
                 </div>
                 <div class="accordion-item-body parent opened orderbrandselection">
                     <div class="accordion-item-body-content" style="max-height: 270px; overflow-y: auto;">
-                        <div class="date-picker-value" id="dpicker-${data["_id"]}" _id=${data["_id"]}>
+                        <div class="date-picker-value" id="dpicker-${data["_id"]}" _id=${data["_id"]} style="margin-top: -6px;">
                             ${showDatePicker()}
                         </div>
                         
