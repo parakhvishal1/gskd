@@ -1,6 +1,6 @@
 function loadUserWelcomeUI(data) {
-    const lastOrder = data["previous_orders"]["orders"][0];
     const containsPrevOrder = data["previous_orders"]["orders"].length;
+    const lastOrder = data["previous_orders"]["orders"][containsPrevOrder - 1];
     $(".header").removeClass('hide');
     $("#content_box").empty();
 
