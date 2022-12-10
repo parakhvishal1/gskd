@@ -564,11 +564,7 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
             showSnackbar(true, "All Acc Selected!!!");
         } else {
 
-            if (window.brandArr[currentSku].length >= data["available_orders"]["orders"].length) {
-                $(".account_select").addClass("hide");
-                showSnackbar(true, "All Acc Selected!!!");
-            }
-            /* if(window.wholesalerAccountData.length === data["available_orders"]["orders"].length) {
+            if(window.brandArr[currentSku].length >= data["available_orders"]["orders"].length) {
                 $(".account_select").addClass("hide");
                 showSnackbar(true, "All Acc Selected!!!");
             } 
@@ -1128,7 +1124,7 @@ function addnewOrder(data, currentSku) {
 
     data["product_details"].map((productData, index) => {
         let uuid = create_UUID();
-        if (productData["brand"] === currentSku) {
+        if(productData["brand"] === currentSku) {
             $("#new_order_body").append(`
                 <tr class="info_row">
                     <td class="info_data" style="vertical-align: middle; padding: 8px 0 0 0;">${productData["name"]}</td>

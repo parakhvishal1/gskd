@@ -36,7 +36,7 @@ function loadUserWelcomeUI(data) {
                             <div class="btn_wrapper">
                                 <div class="btnbox">
                                     <button class="btn solid inverted" id="backbtnOh">Back</button>
-                                    <a class="btn outline" href=${data["previous_orders"]["download_url"]} download="ashish.csv"><span class="icon"><i class="fa fa-download" aria-hidden="true"></i></span>Download Order History</a>
+                                    <div id="download_file" class="btn outline" href=${data["download_url"]}><span class="icon"><i class="fa fa-download" aria-hidden="true"></i></span>Download Order History</div>
                                 </div>
                             </div>
                         </div>
