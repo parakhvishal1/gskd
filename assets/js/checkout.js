@@ -138,7 +138,7 @@ function getAccordianAccounts(data, rebates) {
     let parsedData = getParsedData();
     let newDataJoined = [];
     if(rebates) {
-        newDataJoined = parsedData["rebates"]["orders"];
+        newDataJoined = parsedData?.["rebates"]?.["orders"];
     } else {
         newDataJoined = getJoinedCheckout(parsedData);
     }
