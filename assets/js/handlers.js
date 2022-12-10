@@ -747,7 +747,7 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
             window.wholesalerAccountData.push({...orderData, "_id": uuid, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
             addWholeSalerAccordion(data, { ...orderData, "_id": uuid, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}` }, currentSku);
         } else {
-            let getIds = window.dataStore["new_orders"]["orders"].map(nwo => nwo["_id"])
+            let getIds = window.dataStore["new_orders"]["orders"].map(nwo => nwo["_id"]);
             if(requestType === "from-checkout") {
                 let parseData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : getParsedData();
                 parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
@@ -1690,16 +1690,20 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
     if(!isDateSelectedForAccount) return; */
 
     if (type === "add") {
-        let totalMedSelected = Number(brand[0]["purchased"] ? brand[0]["purchased"] : 0) + Number(brand[0]["selected"] ? brand[0]["selected"] : Number($input.val()));
+        // Number(brand[0]["purchased"] ? brand[0]["purchased"] : 0) + Number(brand[0]["selected"] ? brand[0]["selected"] : Number($input.val()));
+        let totalMedSelected = (Number(brand[0]["purchased"]) ? Number(brand[0]["purchased"]) : 0) + ( Number(brand[0]["selected"]) ? Number(brand[0]["selected"]) : Number($input.val()));
         if(inputtype !== "blur" && (totalMedSelected >= Number(brand[0]["max_limit"]))) {
             showSnackbar(true, "Maximum reached!!!");
             return;
         }
-        if(inputtype === "blur" && (totalMedSelected + parseInt($input.val())) >= Number(brand[0]["max_limit"])) {
-            showSnackbar(true, "Maximum reached!!!");
-            $input.val(0);
-            $input.change();
-            return;
+        if(inputtype === "blur" && totalMedSelected >= Number(brand[0]["max_limit"])) {
+            if(totalMedSelected === Number(brand[0]["max_limit"])) {
+            } else {
+                $input.val(Number(brand[0]["max_limit"]) - 1);
+                $input.change();
+                showSnackbar(true, "Maximum reached!!!");
+                // return;
+            }
         }
         siblingWrapper.siblings(".counter__box__container.sub").children().children().children().children().css("fill", "#f36633");
         let datepickedElement = $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
