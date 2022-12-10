@@ -232,6 +232,24 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
         localStorage.setItem("data", JSON.stringify(window.dataStore));
         let parseData = getParsedData();
         if (parseData && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].length > 0) {
+            let totalSelectedQuantity = 0;
+            parseData?.["new_orders"]?.["orders"].map(order => {
+                order["product_details"].map(product => {
+                    if(filteredBrand[0]["sku"] === product["brand"]) {
+                        if(product["quantity"]) {
+                            totalSelectedQuantity = totalSelectedQuantity + Number(product["quantity"]);
+                        }
+                    }
+
+                });
+            });
+            window.dataStore["plan_progress"]["brands"].map(brand => {
+                if(brand["sku"] === currentSku) {
+                    brand["selected"] = totalSelectedQuantity;
+                }
+            });
+            localStorage.setItem("data", JSON.stringify(window.dataStore));
+
             if(!window.orderCartData.includes(filteredBrand[0]["sku"])) {
                 window.orderCartData.push(filteredBrand[0]["sku"]);
             }
@@ -245,8 +263,8 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
                 }
             })
             if(isDateSelectedforNewOrder) {
-                loadBrandSelectionUI(parseData);
-                ToBot("ordercart-continue", parseData);
+                loadBrandSelectionUI(window.dataStore);
+                ToBot("ordercart-continue", window.dataStore);
             } else {
                 showSnackbar(true, "Please select the date!!!");
             }
