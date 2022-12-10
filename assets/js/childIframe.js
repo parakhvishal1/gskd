@@ -174,7 +174,7 @@ window.addEventListener('message', function (eventData) {
         let eventName = parsedEventData.event_code;
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
-        console.log('refreshed local storage data in childIframe', data);
+        console.log('refreshed local storage data in childIframe', JSON.parse(data));
     }
 
 
