@@ -319,7 +319,9 @@ function confirmOrder() {
     if(filteredBrand && filteredBrand[0] && filteredBrand[0]["total_invoice_range"]) {
         ToApp("ordercart-final-screen", data);
     } else {
-        ToBot("confirm-order", data);
+        let updatedData = getJoinedCheckout(data);
+        console.log("updated data --> ", updatedData);
+        ToBot("confirm-order", updatedData);
         /* loadUserWelcomeUI(data);
         data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true); */
     }
