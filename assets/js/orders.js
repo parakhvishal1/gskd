@@ -17,9 +17,8 @@ function loadUserWelcomeUI(data) {
                             <div class="upper_history_container" id="last_order_history"></div>
                             <div class="btn_wrapper">
                                 <div class="btnbox">
-                                    ${
-                                        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '<a class="btn outline place_new_order" href="#">Place New Order</a>': ''
-                                    }
+                                    ${(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '<a class="btn outline place_new_order" href="#">Place New Order</a>' : ''
+        }
                                 </div>
                             </div>
                         </div>
@@ -51,11 +50,11 @@ function loadUserWelcomeUI(data) {
         e.stopImmediatePropagation();
         console.log(data["download_url"]);
         let blob = new Blob([data["download_url"]], { type: 'text/csv;charset=utf-8' });
-        if(navigator.msSavedBlob) {
+        if (navigator.msSavedBlob) {
             navigator.msSavedBlob(blob, "orderhistory.csv");
         } else {
             let link = document.createElement("a");
-            if(link.download !== undefined) {
+            if (link.download !== undefined) {
                 let url = URL.createObjectURL(blob);
                 link.setAttribute("href", url);
                 link.setAttribute("download", "orderhistory.csv");
@@ -67,7 +66,7 @@ function loadUserWelcomeUI(data) {
         }
     });
 
-    if(containsPrevOrder) {
+    if (containsPrevOrder) {
         addInputEventListener();
 
         $("#last_order_history").append(`
@@ -138,7 +137,7 @@ function loadUserWelcomeUI(data) {
             switchTab("tab21");
             ToBot("back-on-orderhistory", {});
         });
-    
+
         $(".back_button").click(function (e) {
             e.stopPropagation();
             e.stopImmediatePropagation();
@@ -161,7 +160,7 @@ function loadUserWelcomeUI(data) {
             if (orderData["status"] === "Cancelled") {
                 classValue = "failed";
             }
-    
+
             $("#order_history_container").prepend(`
                 <div class="order_card history clickToOpen" data=${encodeURIComponent(JSON.stringify(orderData))}>
                     <div class="history_card_click" data=${encodeURIComponent(JSON.stringify(orderData))} skudata="${lastOrder['sku']}" date="${lastOrder['ordered_date']}">
@@ -200,7 +199,7 @@ function loadUserWelcomeUI(data) {
                     </div>
                 </div>
             `);
-    
+
             $(".card_click").click(function (e) {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
@@ -240,7 +239,7 @@ function loadUserWelcomeUI(data) {
                             </tr>
                         `);
                     })
-    
+
                     $(".arrow.edit.quantityEdit").click(function (e) {
                         e.stopPropagation();
                         e.stopImmediatePropagation();
@@ -253,7 +252,7 @@ function loadUserWelcomeUI(data) {
                         $(getElement).children().attr("disabled", false);
                         PosEnd($(getElement).children()[0]);
                     });
-    
+
                     $(".arrow.edit.quantitySave").click(function (e) {
                         e.stopPropagation();
                         e.stopImmediatePropagation();
@@ -272,7 +271,7 @@ function loadUserWelcomeUI(data) {
 
                         let parseData = getParsedData();
                         let prevEditedSku = parseData["previous_orders"]["orders"].filter(prorder => {
-                            if(prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
+                            if (prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
                                 return prorder;
                             }
                         });
@@ -291,14 +290,14 @@ function loadUserWelcomeUI(data) {
                             ToBot("update-order-data", prevEditedSku[0]);
                         }
                     });
-    
+
                     $(this).css("pointer-events", "none");
                 } else {
                     childElement.addClass("hide");
                     $(this).children(".title.backbtn").addClass("hide");
                 }
             });
-    
+
             $(".history_card_click").click(function (e) {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
@@ -319,7 +318,7 @@ function loadUserWelcomeUI(data) {
                                     <div class="title">
                                         <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
                                         <div class="arrow edit quantityEdit">
-                                            <img src="/assets/images/svg/edit.svg" key=${index} />
+                                            <img src="/gsk/assets/images/svg/edit.svg" key=${index} />
                                         </div>
                                         <div class="arrow edit quantitySave hide">
                                             <img src="/gskd/assets/images/svg/save.svg" key=${index} />
@@ -336,7 +335,7 @@ function loadUserWelcomeUI(data) {
                             </tr>
                         `);
                     });
-                    
+
                     $(".arrow.edit.quantityEdit").click(function (e) {
                         e.stopPropagation();
                         e.stopImmediatePropagation();
@@ -366,7 +365,7 @@ function loadUserWelcomeUI(data) {
                         let currentElementDataSku = $(tableElement).attr("skudata");
                         let parseData = getParsedData();
                         let prevEditedSku = parseData["previous_orders"]["orders"].filter(prorder => {
-                            if(prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
+                            if (prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
                                 return prorder;
                             }
                         });
@@ -447,7 +446,7 @@ function loadBrandSelectionUI(data) {
     }); */
 
     // let total = calculateSumAmount(window.cartData);
-    
+
     let parseData = getParsedData();
     let total = 0;
     parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
@@ -486,7 +485,7 @@ function loadBrandSelectionUI(data) {
         e.stopImmediatePropagation();
         const currentElementSkuData = $(this).attr("skudata");
         const parsedData = getParsedData();
-        if(window.dataStore && Object.keys(window.dataStore).length !== 0) {
+        if (window.dataStore && Object.keys(window.dataStore).length !== 0) {
             window.dataStore["selected_brand"] = currentElementSkuData;
         }
         parsedData["selected_brand"] = currentElementSkuData;
@@ -506,7 +505,7 @@ function loadBrandSelectionUI(data) {
 
 function loadBrandSelectionUIByBrandName(data, name) {
     const currentElementSkuData = data["selected_brand"];
-    if(window.dataStore && Object.keys(window.dataStore).length !== 0) {
+    if (window.dataStore && Object.keys(window.dataStore).length !== 0) {
         window.dataStore["selected_brand"] = currentElementSkuData;
     }
     const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentElementSkuData);
