@@ -423,8 +423,8 @@ function loadBrandSelectionUI(data) {
                     <img class="back-arrow" src="/gskd/assets/images/svg/right.svg"/>
                     Choose Brands
                 </div>
-                <div class="icon">
-                    <img src="/gskd/assets/images/svg/basket.svg" class="view_checkout" />
+                <div class="icon view_checkout">
+                    <img src="/gskd/assets/images/svg/basket.svg" />
                     <div class="count_wrapper hide"></div>
                 </div>
             </div>
