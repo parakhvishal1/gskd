@@ -478,6 +478,7 @@ function loadBrandSelectionUI(data) {
         e.stopImmediatePropagation();
         let parseData = getParsedData()
         loadUserWelcomeUI(parseData);
+        parseData["plan_progress"] && loadPlanProgress(parseData["plan_progress"], true);
         ToBot('back-brand-select', parseData);
     });
 
