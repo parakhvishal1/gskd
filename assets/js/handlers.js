@@ -1666,7 +1666,7 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
             $input.change();
             return;
         } else {
-            $input.val(Number($input.val()) + 1);
+            $input.val(0);
             $input.change();
             return;
         }
