@@ -982,13 +982,13 @@ table {
 }
 
 .accordian.table .info_row.brandscreen td .progress_card .progress_plan .grouped .progressbar .wrapper_brand_progress:nth-child(2){
-    width: 94% !important;
-    padding-left: 20px;
+    /* width: 94% !important; */
+    /* padding-left: 20px; */
 }
 
 .accordian.table .info_row.brandscreen td .progress_card .progress_plan .grouped .progressbar .wrapper_brand_progress:nth-child(3){
-    display: none;
-    width: 0 !important;
+    /* display: none; */
+    /* width: 0 !important; */
 }
 
 .accordian.table .info_row {

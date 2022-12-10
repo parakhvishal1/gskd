@@ -74,11 +74,12 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
     }
 
     function getOffInvoice() {
+        let offInvoiceRange = data["off_invoice_range"];
         if(data["off_invoice_range"]) {
             return `
                 <div class="detail_bar">
                     <div class="main">
-                        ${getRange(discount_range, data["offInvoice_discount_execution"])}
+                        ${getRange(offInvoiceRange, data["offInvoice_discount_execution"])}
                     </div>
                     ${sourceContainer === "header" ? 
                         `
@@ -97,11 +98,12 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
     }
 
     function getOnInvoice() {
+        let onInvoiceRange = data["on_invoice_range"];
         if(data["on_invoice_range"]) {
             return `
                 <div class="detail_bar">
                     <div class="main">
-                        ${getRange(discount_range, data["onInvoice_discount_execution"])}
+                        ${getRange(onInvoiceRange, data["onInvoice_discount_execution"])}
                     </div>
                     ${sourceContainer === "header" ? 
                         `
