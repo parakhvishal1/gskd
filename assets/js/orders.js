@@ -17,7 +17,9 @@ function loadUserWelcomeUI(data) {
                             <div class="upper_history_container" id="last_order_history"></div>
                             <div class="btn_wrapper">
                                 <div class="btnbox">
-                                    <a class="btn outline place_new_order" href="#">Place New Order</a>
+                                    ${
+                                        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '<a class="btn outline place_new_order" href="#">Place New Order</a>': ''
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -44,11 +46,32 @@ function loadUserWelcomeUI(data) {
         </div>
     `);
 
+    $("#download_file").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        console.log(data["download_url"]);
+        let blob = new Blob([data["download_url"]], { type: 'text/csv;charset=utf-8' });
+        if(navigator.msSavedBlob) {
+            navigator.msSavedBlob(blob, "orderhistory.csv");
+        } else {
+            let link = document.createElement("a");
+            if(link.download !== undefined) {
+                let url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", "orderhistory.csv");
+                link.style.visibility = "hidden";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    });
+
     if(containsPrevOrder) {
         addInputEventListener();
 
         $("#last_order_history").append(`
-            <div class="order_card last_order" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
+            <div class="order_card last_order" data=${encodeURIComponent(JSON.stringify(lastOrder))} skudata="${lastOrder['sku']}" date="${lastOrder['ordered_date']}">
                 <div class="title backbtn hide">
                     <div class="arrow name flex back_button" style="font-weight: 400; font-size: 14px; color: #151515;">
                         <img src="/gskd/assets/images/svg/right.svg" style="transform: rotate(180deg);" />
@@ -58,7 +81,7 @@ function loadUserWelcomeUI(data) {
                         <img src="/gskd/assets/images/svg/edit.svg" style="height: 20px; width: 20px;"/>
                     </div>
                 </div>
-                <div class="card_click" data=${encodeURIComponent(JSON.stringify(lastOrder))}>
+                <div class="card_click" data=${encodeURIComponent(JSON.stringify(lastOrder))} skudata="${lastOrder['sku']}" date="${lastOrder['ordered_date']}">
                     <div class="title">
                         <div class="name highlight">${lastOrder["account_no"]}</div>
                         <div class="arrow">
@@ -89,7 +112,7 @@ function loadUserWelcomeUI(data) {
                         <div class="name">Order Details</div>
                     </div>
                     <div class="detail">
-                        <table class="ui very basic table" skudata=${lastOrder["sku"]}>
+                        <table class="ui very basic table" skudata=${lastOrder["sku"]} date="${lastOrder["ordered_date"]}">
                             <thead>
                                 <tr class="info_row">
                                     <td class="info_data" colspan="1">Est. Price</td>
@@ -111,7 +134,8 @@ function loadUserWelcomeUI(data) {
         $("#backbtnOh").click(function (e) {
             e.stopPropagation();
             e.stopImmediatePropagation();
-            document.getElementById("tab21").click();
+            // document.getElementById("tab21").click();
+            switchTab("tab21");
             ToBot("back-on-orderhistory", {});
         });
     
@@ -140,7 +164,7 @@ function loadUserWelcomeUI(data) {
     
             $("#order_history_container").prepend(`
                 <div class="order_card history clickToOpen" data=${encodeURIComponent(JSON.stringify(orderData))}>
-                    <div class="history_card_click" data=${encodeURIComponent(JSON.stringify(orderData))}>
+                    <div class="history_card_click" data=${encodeURIComponent(JSON.stringify(orderData))} skudata="${lastOrder['sku']}" date="${lastOrder['ordered_date']}">
                         <div class="status_bar_bordered">
                             <div class="bordered ${classValue}"></div>
                             <div style="width: 100%;">
@@ -160,7 +184,7 @@ function loadUserWelcomeUI(data) {
                             <div class="name">Order Details</div>
                         </div>
                         <div class="detail">
-                            <table class="ui very basic table">
+                            <table class="ui very basic table" skudata=${orderData["sku"]}>
                                 <thead>
                                     <tr class="info_row">
                                         <td class="info_data" colspan="1">Est. Price</td>
@@ -170,7 +194,7 @@ function loadUserWelcomeUI(data) {
                                         <td class="info_data" colspan="1">Pay Term</td>
                                     </tr>
                                 </thead>
-                                <tbody id="order_card_tablebody" skudata=${orderData["sku"]}></tbody>
+                                <tbody id="order_card_tablebody" skudata=${orderData["sku"]} date="${orderData["ordered_date"]}"></tbody>
                             </table>
                         </div>
                     </div>
@@ -181,6 +205,8 @@ function loadUserWelcomeUI(data) {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
                 let currentElementData = $(this).attr("data");
+                let previousSelectedSku = $(this).attr("skudata");
+                let previousSelectedSkuDate = $(this).attr("date");
                 let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
                 let childElement = $(this).parent().children(".order_cart");
                 let additionalDetails = parsedCurrentElementData["product_details"];
@@ -195,7 +221,7 @@ function loadUserWelcomeUI(data) {
                             <tr>
                                 <td colspan="5">
                                     <div class="title">
-                                        <div class="name" skudata=${item["sku"]}>${item["name"]}</div>
+                                        <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
                                         <div class="arrow edit quantityEdit">
                                             <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
                                         </div>
@@ -207,7 +233,7 @@ function loadUserWelcomeUI(data) {
                             </tr>
                             <tr class="info_row key${index}">
                                 <td class="info_data" colspan="1">£ ${item["price"]}</td>
-                                <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
+                                <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off" disabled/></td>
                                 <td class="info_data" colspan="1">+${item["free_goods"]}</td>
                                 <td class="info_data" colspan="2">${item["discount"]}%</td>
                                 <td class="info_data" colspan="1">${item["payterm"]} D</td>
@@ -224,6 +250,7 @@ function loadUserWelcomeUI(data) {
                         let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
                         getElement.attr("prev-value", $(getElement).children().val());
                         $(getElement).addClass("active")
+                        $(getElement).children().attr("disabled", false);
                         PosEnd($(getElement).children()[0]);
                     });
     
@@ -237,10 +264,19 @@ function loadUserWelcomeUI(data) {
                         let getElementValue = $(getElement).children().val();
                         let getElementPrevValue = getElement.attr("prev-value");
                         $(getElement).removeClass("active");
+                        $(getElement).children().attr("disabled", true);
                         let value = $(getElement).children().val();
                         let siblingElementDataSku = $(this).siblings(".name").attr("skudata");
                         let tableElement = $(this).parent().parent().parent().parent().parent();
                         let currentElementDataSku = $(tableElement).attr("skudata");
+
+                        let parseData = getParsedData();
+                        let prevEditedSku = parseData["previous_orders"]["orders"].filter(prorder => {
+                            if(prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
+                                return prorder;
+                            }
+                        });
+
                         window.updateCartData = {
                             ...window.updateCartData,
                             [currentElementDataSku]: {
@@ -248,8 +284,11 @@ function loadUserWelcomeUI(data) {
                                 [siblingElementDataSku]: value
                             }
                         };
+
+                        console.log("prevEditedSku -> ", prevEditedSku);
+                        console.log("updateCartData --> ", updateCartData);
                         if (getElementValue !== getElementPrevValue) {
-                            ToBot("update-order-data", window.updateCartData)
+                            ToBot("update-order-data", prevEditedSku[0]);
                         }
                     });
     
@@ -264,6 +303,8 @@ function loadUserWelcomeUI(data) {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
                 let currentElementData = $(this).attr("data");
+                let previousSelectedSku = $(this).attr("skudata");
+                let previousSelectedSkuDate = $(this).attr("date");
                 let parsedCurrentElementData = JSON.parse(decodeURIComponent(currentElementData));
                 let childElement = $(this).parent().children(".order_cart");
                 let additionalDetails = parsedCurrentElementData["product_details"];
@@ -276,12 +317,12 @@ function loadUserWelcomeUI(data) {
                             <tr>
                                 <td colspan="5">
                                     <div class="title">
-                                        <div class="name">${item["name"]}</div>
-                                        <div class="arrow edit quantityEdit hide">
-                                            <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
+                                        <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
+                                        <div class="arrow edit quantityEdit">
+                                            <img src="/assets/images/svg/edit.svg" key=${index} />
                                         </div>
                                         <div class="arrow edit quantitySave hide">
-                                            <img src="/gskd/assets/images/svg/save.svg" />
+                                            <img src="/gskd/assets/images/svg/save.svg" key=${index} />
                                         </div>
                                     </div>
                                 </td>
@@ -295,6 +336,7 @@ function loadUserWelcomeUI(data) {
                             </tr>
                         `);
                     });
+                    
                     $(".arrow.edit.quantityEdit").click(function (e) {
                         e.stopPropagation();
                         e.stopImmediatePropagation();
@@ -302,8 +344,46 @@ function loadUserWelcomeUI(data) {
                         $(this).addClass("hide");
                         $(this).siblings().removeClass("hide");
                         let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
-                        $(getElement).addClass("active")
-                        $(getElement).children().focus();
+                        $(getElement).addClass("active");
+                        $(getElement).children().attr("disabled", false);
+                        PosEnd($(getElement).children()[0]);
+                    });
+
+                    $(".arrow.edit.quantitySave").click(function (e) {
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        let index = $(this).children().attr("key");
+                        $(this).addClass("hide");
+                        $(this).siblings().removeClass("hide");
+                        let getElement = $(this).parent().parent().parent().siblings(`.info_row.key${index}`).children(".editable");
+                        let getElementValue = $(getElement).children().val();
+                        let getElementPrevValue = getElement.attr("prev-value");
+                        $(getElement).removeClass("active");
+                        $(getElement).children().attr("disabled", true);
+                        let value = $(getElement).children().val();
+                        let siblingElementDataSku = $(this).siblings(".name").attr("skudata");
+                        let tableElement = $(this).parent().parent().parent().parent().parent();
+                        let currentElementDataSku = $(tableElement).attr("skudata");
+                        let parseData = getParsedData();
+                        let prevEditedSku = parseData["previous_orders"]["orders"].filter(prorder => {
+                            if(prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
+                                return prorder;
+                            }
+                        });
+
+                        window.updateCartData = {
+                            ...window.updateCartData,
+                            [currentElementDataSku]: {
+                                ...window.updateCartData[currentElementDataSku],
+                                [siblingElementDataSku]: value
+                            }
+                        };
+
+                        console.log("prevEditedSku -> ", prevEditedSku);
+                        console.log("updateCartData --> ", updateCartData);
+                        if (getElementValue !== getElementPrevValue) {
+                            ToBot("update-order-data", prevEditedSku[0]);
+                        }
                     });
                 } else {
                     childElement.addClass("hide");
@@ -396,8 +476,9 @@ function loadBrandSelectionUI(data) {
     $(".back-arrow").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        ToApp('userwelcome-screen', data);
-        ToBot('back-brand-select', data);
+        let parseData = getParsedData()
+        loadUserWelcomeUI(parseData);
+        ToBot('back-brand-select', parseData);
     });
 
     $(".progressbar_wrapper.addproduct").click(function (e) {
@@ -431,4 +512,8 @@ function loadBrandSelectionUIByBrandName(data, name) {
     const filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === currentElementSkuData);
     const isBrandSku = filteredBrand[0]["isSku"];
     isBrandSku ? showSkuLevelDetailsBrand(data, currentElementSkuData) : showBrandLevelDetails(data, currentElementSkuData);
+}
+
+function switchTab(tab) {
+    document.getElementById(tab).click();
 }

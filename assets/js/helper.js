@@ -91,7 +91,7 @@ function showDatePicker() {
     return `
         <div class="flex calendar-picker">
             <img class="picker" src="/gskd/assets/images/svg/calendar.svg" />
-            <input type='text' id='tbDate' placeholder='select a date' readonly="readonly" />
+            <input type='text' id='tbDate' placeholder='Pick Date' readonly="readonly" />
             <img class="arrow-down" src="/gskd/assets/images/svg/down.svg" />
              </div>
     `;
@@ -192,9 +192,7 @@ function addInputListener(inputElement) {
     
     window[inputElement].blur(function () {
         setTimeout(() => {
-            console.log("this blur --> ", this);
             console.log("blurred --> ", $(this).val());
-            
             $(this).val(parseInt($(this).val()) - 1);
             $(this).change();
             let currentElementData = $(this).attr("skudata");
@@ -202,14 +200,50 @@ function addInputListener(inputElement) {
             let filteredData = currentAvailableOrders.filter((order, index) => order["sku"] === currentElementData)
             let orderData = filteredData[0];
             let sibling = $(this).siblings(".counter__box__container.add").children('.counter__plus');
-            updateCounter(sibling[0], "add", window.dataStore["selected_brand"], false, orderData, "blur");
+
+            const filteredBrand = window.dataStore["plan_progress"]["brands"].filter(brand => brand["sku"] === window.dataStore["selected_brand"]);
+            const isBrandSku = filteredBrand[0]["isSku"];
+            updateCounter(sibling[0], "add", window.dataStore["selected_brand"], isBrandSku, orderData, "blur");
         }, 500);
     });
 
     window[inputElement].keypress(function (e) {
         var key = e.keyCode || e.which;
         if (key == 13) {
+            /* let dateDivWrapper = $(this).parent().parent().parent().parent().parent().parent().siblings('.date-picker-value').children().children(".hasDatepicker");
+            let isDateSelected = dateDivWrapper.datepicker({ dateFormat: 'M dd, y' }).val()
+            if(!isDateSelected) {
+                showSnackbar(true, "Please select date!!!");
+                return;
+            } */
            $(this).blur();
         }
     });
 }
+
+// function addInputListener(inputElement) {
+//     window[inputElement] = $(`.${inputElement}`);
+    
+//     window[inputElement].blur(function () {
+//         setTimeout(() => {
+//             console.log("this blur --> ", this);
+//             console.log("blurred --> ", $(this).val());
+            
+//             $(this).val(parseInt($(this).val()) - 1);
+//             $(this).change();
+//             let currentElementData = $(this).attr("skudata");
+//             let currentAvailableOrders = window.dataStore["available_orders"]["orders"];
+//             let filteredData = currentAvailableOrders.filter((order, index) => order["sku"] === currentElementData)
+//             let orderData = filteredData[0];
+//             let sibling = $(this).siblings(".counter__box__container.add").children('.counter__plus');
+//             updateCounter(sibling[0], "add", window.dataStore["selected_brand"], false, orderData, "blur");
+//         }, 500);
+//     });
+
+//     window[inputElement].keypress(function (e) {
+//         var key = e.keyCode || e.which;
+//         if (key == 13) {
+//            $(this).blur();
+//         }
+//     });
+// }

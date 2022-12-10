@@ -123,8 +123,17 @@
     align-items: center;
     font-weight: 500;
     font-size: 14px;
-    color: #ffffff;
+    color: #f0efed;
     white-space: nowrap;
+}
+
+.choosebrands .progress_card.transparent .progress_plan .grouped .progressbar .progressbar_ratio .ratio_wrapper .ratio {
+    color: #f0efed;
+}
+
+.progress_plan .grouped .progressbar .progressbar_ratio .ratio_wrapper .ratio,
+.accordian.table .info_row.brandscreen td.skuBrand_level_progress .progress_card.transparent .progress_plan .grouped .progressbar .progressbar_ratio .ratio_wrapper .ratio {
+    color: #ffffff;
 }
 
 .progressbar label {

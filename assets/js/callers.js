@@ -312,20 +312,15 @@ function ToApp(eventName, data, orgData) {
             StoreDataIn(data);
             ToApp(toScreen, data);
             break;
+        case "confirmorderon-bot":
+            confirmOrder();
+            break;
         case "show-order-history-screen":
-            GlobalVarInit();
-            StoreDataIn(data);
-            loadBrandSelectionUIByBrandName(data);
+            switchTab("tab22");
             break;
         case "confirm-order-from-cart":
-            GlobalVarInit();
-            StoreDataIn(data);
-            loadBrandSelectionUIByBrandName(data);
+            confirmOrder();
             break;
-        case "value":
-
-            break;
-
         default:
             break;
     }

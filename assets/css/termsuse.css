@@ -69,6 +69,7 @@
 }
 
 .bottom .btn_wrapper .btnbox .btn {
+    cursor: pointer;
     padding: 12px 20px;
     outline: none;
     border-radius: 5px;

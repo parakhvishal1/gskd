@@ -356,3 +356,7 @@ thead .info_row .info_data {
     transform: translate(-100%, -50%);
     cursor: pointer;
   }
+
+  #ui-datepicker-div {
+    z-index: 999 !important;
+  }
