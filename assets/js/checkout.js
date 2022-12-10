@@ -113,16 +113,36 @@ function loadOrderCart(data) {
         autoHideScrollbar: true
     }); */
 
-
+    
     /* $(".accordion-item-body-content").mCustomScrollbar({
         theme: "dark-thin",
         scrollButtons: { enable: false },
         autoHideScrollbar: true
     }); */
+
+    $(".quantityEditBackToSelection").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        let parseData = window.dataStore;
+        let selectedBrand = $(this).attr("brand");
+        // showBrandLevelDetails(parseData, selectedBrand);
+        ToBot("checkout-to-brand-detailing", parseData);
+
+        const filteredBrand = parseData["plan_progress"]["brands"].filter(brand => brand["sku"] === selectedBrand);
+        const isBrandSku = filteredBrand[0]["isSku"];
+        isBrandSku ? showSkuLevelDetailsBrand(parsedData, selectedBrand, "from-checkout") : showBrandLevelDetails(parseData, selectedBrand, "from-checkout");
+    });
 }
 
 function getAccordianAccounts(data, rebates) {
     let parsedData = getParsedData();
+    let newDataJoined = [];
+    if(rebates) {
+        newDataJoined = parseData["rebates"]["orders"];
+    } else {
+        newDataJoined = getJoinedCheckout(parsedData);
+    }
+    console.log("newDataJoined -> ", newDataJoined);
     let filteredBrand = parsedData["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedData["selected_brand"]);
     const getRebatesSwitchOption = (rebates) => {
         if (rebates) {
@@ -135,7 +155,7 @@ function getAccordianAccounts(data, rebates) {
         return "";
     }
 
-    let accordianAccounts = data.map(order => {
+    let accordianAccounts = newDataJoined.map(order => {
         return `
             <div class="accordion">
                 <div class="accordion-item">
@@ -208,18 +228,6 @@ function getAccordianAccountsData(data, rebates) {
         }
     });
 
-    $(".quantityEditBackToSelection").click(function (e) {
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        let parseData = JSON.parse(localStorage.getItem("data"));
-        let selectedBrand = $(this).attr("brand");
-        // showBrandLevelDetails(parseData, selectedBrand);
-        ToBot("checkout-to-brand-detailing", parseData);
-
-        const filteredBrand = parseData["plan_progress"]["brands"].filter(brand => brand["sku"] === selectedBrand);
-        const isBrandSku = filteredBrand[0]["isSku"];
-        isBrandSku ? showSkuLevelDetailsBrand(parsedData, selectedBrand) : showBrandLevelDetails(parsedData, selectedBrand);
-    });
     return accordianAccountsData.join("");
 }
 

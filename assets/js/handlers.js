@@ -748,6 +748,14 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
             addWholeSalerAccordion(data, { ...orderData, "_id": uuid, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}` }, currentSku);
         } else {
             let getIds = window.dataStore["new_orders"]["orders"].map(nwo => nwo["_id"])
+            if(requestType === "from-checkout") {
+                let parseData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : getParsedData();
+                parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
+                    if(ordr["brandsku"].includes(filteredBrand[0]["sku"])) {
+                        addnewOrder(ordr, currentSku);
+                    }
+                });
+            }
             // window.wholesalerAccountData.push({...orderData, "_id": uuid, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
         }
     }

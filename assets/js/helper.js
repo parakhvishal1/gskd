@@ -247,3 +247,57 @@ function addInputListener(inputElement) {
 //         }
 //     });
 // }
+
+
+function getJoinedCheckout (data) {
+    function groupBy(objectArray, property) {
+        return objectArray.reduce((acc, obj) => {
+            const key = obj[property];
+            const curGroup = acc[key] ?? [];
+    
+            return { ...acc, [key]: [...curGroup, obj] };
+        }, {});
+    }
+    
+    let updatedData = data["new_orders"]["orders"].map(order => {
+        let parsedProductDetails = order["product_details"].filter((product, index) => {
+            product["_id"] = order["_id"];
+            if(product["quantity"] && Number(product["quantity"])) {
+                return product;
+            }
+        });
+        order["product_details"] = parsedProductDetails;
+        return order;
+    });
+    
+    let groupByOrderedDate = groupBy(updatedData, "ordered_date");
+    
+    let groupBySku = [];
+    let finalCartData = [];
+    for (const key in groupByOrderedDate) {
+        groupBySku.push(groupBy(groupByOrderedDate[key], "sku"));
+    }
+    
+    function combine(objectArray, key) {
+        return objectArray.reduce((accumulator, currentValue) => [...accumulator, ...currentValue[key]], []);
+    }
+     
+    groupBySku.map(nr => {
+        for (const key in nr) {
+            let updatedDetails = combine(nr[key], "product_details");
+            nr[key] = {
+                ...nr[key][0],
+                "product_details": updatedDetails
+            }
+        }
+        return nr;
+    });
+    
+    groupBySku.map(nr => {
+        for (const key in nr) {
+            finalCartData.push(nr[key])
+        }
+    });
+
+    return finalCartData;
+}

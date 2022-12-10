@@ -17,8 +17,9 @@ function loadUserWelcomeUI(data) {
                             <div class="upper_history_container" id="last_order_history"></div>
                             <div class="btn_wrapper">
                                 <div class="btnbox">
-                                    ${(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '<a class="btn outline place_new_order" href="#">Place New Order</a>' : ''
-        }
+                                    ${
+                                        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '<a class="btn outline place_new_order" href="#">Place New Order</a>': ''
+                                    }
                                 </div>
                             </div>
                         </div>
