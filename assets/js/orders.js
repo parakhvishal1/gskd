@@ -4,6 +4,10 @@ function loadUserWelcomeUI(data) {
     $(".header").removeClass('hide');
     $("#content_box").empty();
 
+    if(!data?.["previous_orders"]?.["orders"].length) {
+        $("#content_box").append(`<div class='empty_screen_msg'>No orders made yet.<br /> Please contact admin!!!</div>`);
+    }
+
     $("#content_box").append(`
         <div class="order_section">
             <div class="tabs">
