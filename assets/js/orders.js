@@ -371,6 +371,7 @@ function loadUserWelcomeUI(data) {
                         let parseData = getParsedData();
                         let prevEditedSku = parseData["previous_orders"]["orders"].filter(prorder => {
                             if (prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
+                                prorder["units"] = value;
                                 return prorder;
                             }
                         });
