@@ -283,6 +283,18 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
         e.stopImmediatePropagation();
     });
 
+    $(".swap_account_select").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        $(".swap_account_select").addClass("hide");
+    });
+
+    $(".swap_account_list").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        $(".swap_account_select").addClass("hide");
+    });
+
     $("#addanotheraccount").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -717,6 +729,18 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
         e.stopImmediatePropagation();
     });
 
+    $(".swap_account_select").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        $(".swap_account_select").addClass("hide");
+    });
+
+    $(".swap_account_list").click(function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        $(".swap_account_select").addClass("hide");
+    });
+
     $("#addanotheraccount").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -1143,6 +1167,10 @@ function addnewOrder(data, currentSku) {
         getLocalDataForDate && getLocalDataForDate["available_orders"] && getLocalDataForDate["available_orders"]["orders"] && getLocalDataForDate["available_orders"]["orders"].map((order, index) => {
             if(swapSku !== order["sku"]) {
                 $(".swap_account_list").append(`<div class="item swap" skudata=${order["sku"]} oldSkuData=${swapSku} currentWholeSaler=${swapSkudata}>${order["account_no"]}</div>`);
+            } else {
+                if(getLocalDataForDate["available_orders"] && getLocalDataForDate["available_orders"]["orders"].length === 1) {
+                    $(".swap_account_list").append(`<div class="item empty">No other accounts available</div>`);
+                }
             }
         });
         attachAccountListListener();
@@ -1537,6 +1565,10 @@ function addnewOrderBrand(data, currentSku, skulevel) {
         getLocalDataForDate && getLocalDataForDate["available_orders"] && getLocalDataForDate["available_orders"]["orders"] && getLocalDataForDate["available_orders"]["orders"].map((order, index) => {
             if(swapSku !== order["sku"]) {
                 $(".swap_account_list").append(`<div class="item swap" skudata=${order["sku"]} oldSkuData=${swapSku} currentWholeSaler=${swapSkudata}>${order["account_no"]}</div>`);
+            } else {
+                if(getLocalDataForDate["available_orders"] && getLocalDataForDate["available_orders"]["orders"].length === 1) {
+                    $(".swap_account_list").append(`<div class="item empty">No other accounts available</div>`);
+                }
             }
         });
         attachAccountListListener();
