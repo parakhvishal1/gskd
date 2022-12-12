@@ -58,7 +58,7 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
                                     <div class="info"><span class="highlight">Order No:</span> ${lastOrder["order_no"]}</div>
                                 </div>
                                 <div class="order_on_date">
-                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["ordered_date"]}</div>
+                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["status"]}</div>
                                 </div>
                             </div>
                             <div class="title">PRODUCTS</div>
@@ -546,7 +546,7 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
                                     <div class="info"><span class="highlight">Order No:</span> ${lastOrder["order_no"]}</div>
                                 </div>
                                 <div class="order_on_date">
-                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["ordered_date"]}</div>
+                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["status"]}</div>
                                 </div>
                             </div>
                             <div class="title">PRODUCTS</div>
