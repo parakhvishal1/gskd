@@ -101,7 +101,7 @@ function showDatePickerWhite() {
     return `
         <div class="flex calendar-picker">
             <img class="picker" src="/gskd/assets/images/svg/calendar-white.svg" />
-            <input type='text' id='tbDate' placeholder='select a date' readonly="readonly" />
+            <input type='text' id='tbDate' placeholder=${date ? date : 'Pick Date'} readonly="readonly" />
             <img class="arrow-down" src="/gskd/assets/images/svg/down-white.svg" />
         </div>
     `;
