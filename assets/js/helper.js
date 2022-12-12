@@ -97,7 +97,7 @@ function showDatePicker() {
     `;
 }
 
-function showDatePickerWhite() {
+function showDatePickerWhite(date) {
     return `
         <div class="flex calendar-picker">
             <img class="picker" src="/gskd/assets/images/svg/calendar-white.svg" />
