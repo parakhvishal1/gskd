@@ -132,12 +132,6 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            let newData = localStorage.getItem("data");
-            let parseNewData = JSON.parse(newData);
-            parseNewData["plan_progress"]["brands"].forEach(brand => {
-                brand["purchased"] = Number(brand["purchased"]) + 5;
-            })
-            ToApp("userwelcome-screen", parseNewData);
             break;
         case "logout":
             window.parent.postMessage(JSON.stringify({
