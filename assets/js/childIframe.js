@@ -294,6 +294,14 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
+    if (parsedEventData.event_code === "update-order-data") {
+        // console.log('update-order-data Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'update-order-data',
+            data: parsedEventData.data
+        }), '*');
+    }
+
     if (parsedEventData.event_code === "update-data-on-refresh") {
         // console.log('update-data-on-refresh Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({

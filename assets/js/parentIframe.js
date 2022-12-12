@@ -384,6 +384,17 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
+    if (parsedData?.event_code == 'update-order-data') {
+        console.log("\n\n\n <---  update-order-data event in parent iframe ---> \n\n\n", parsedData);
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "update-order-data",
+                data: parsedData
+            }
+        }, true);
+        return;
+    }
+
     if (parsedData?.event_code == 'update-data-on-refresh') {
         console.log("\n\n\n <--- update-data-on-refresh event in parent iframe ---> \n\n\n", parsedData);
         localStorage.setItem("updated-data", parsedData.data)
