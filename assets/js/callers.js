@@ -317,6 +317,9 @@ function ToApp(eventName, data, orgData) {
         case "confirm-order-from-cart":
             confirmOrder();
             break;
+        case "cancelorderon-bot":
+            cancelOrder();
+            break;
         default:
             break;
     }

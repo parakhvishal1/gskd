@@ -44,9 +44,7 @@ function loadOrderCart(data) {
     $("#cancel").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        let parseData = JSON.parse(localStorage.getItem("init"));
-        ToBot("cancel-order", parseData);
-        ToApp("userwelcome-screen", parseData);
+        cancelOrder();
         // showBrandLevelDetails(parseData, parseData["selected_brand"]);
     });
 
@@ -325,4 +323,10 @@ function confirmOrder() {
         /* loadUserWelcomeUI(data);
         data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true); */
     }
+}
+
+function cancelOrder() {
+    let parseData = JSON.parse(localStorage.getItem("init"));
+    ToBot("cancel-order", parseData);
+    ToApp("userwelcome-screen", parseData);
 }
