@@ -83,10 +83,8 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
                     </div>
                     ${sourceContainer === "header" ? 
                         `
-                            <div class="progress_header_label">
-                                ${(data["offInvoice_discount_execution"] === "FINANCIAL") ? 'Disc.' : ''}
-                                ${(data["offInvoice_discount_execution"] === "FREE_GOODS") ? 'Free Goods' : ''}
-                            </div>
+                            ${(data["offInvoice_discount_execution"] === "FINANCIAL") ? '<div class="progress_header_label">Disc.</div>' : ''}
+                            ${(data["offInvoice_discount_execution"] === "FREE_GOODS") ? '<div class="progress_header_label" style="right: calc(100% + 4px);">Free Goods</div>' : ''}
                         ` : ""
                     }
                     ${sourceContainer === "header" ? '<div class="progress_header_label right">Off Invoice</div>' : ""}
