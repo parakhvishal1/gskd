@@ -4,8 +4,9 @@ function loadUserWelcomeUI(data) {
     $(".header").removeClass('hide');
     $("#content_box").empty();
 
-    if(!data?.["previous_orders"]?.["orders"].length && !data?.["plan_progress"] && !data?.["available_orders"]?.["orders"].length) {
-        $("#content_box").append(`<div class='empty_screen_msg'>No orders made yet.<br /> Please contact admin!!!</div>`);
+
+    if (!data?.["previous_orders"]?.["orders"].length && !data?.["plan_progress"]?.["brands"] && !data?.["available_orders"]?.["orders"].length) {
+        $("#content_box").append(`<div class='empty_screen_msg'>No Orders History Available.`);
     }
 
     $("#content_box").append(`
@@ -21,9 +22,8 @@ function loadUserWelcomeUI(data) {
                             <div class="upper_history_container" id="last_order_history"></div>
                             <div class="btn_wrapper">
                                 <div class="btnbox">
-                                    ${
-                                        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '<a class="btn outline place_new_order" href="#">Place New Order</a>': ''
-                                    }
+                                    ${(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '<a class="btn outline place_new_order" href="#">Place New Order</a>' : ''
+        }
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,6 @@ function loadUserWelcomeUI(data) {
     $("#download_file").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        console.log(data["download_url"]);
         let blob = new Blob([data["download_url"]], { type: 'text/csv;charset=utf-8' });
         if (navigator.msSavedBlob) {
             navigator.msSavedBlob(blob, "orderhistory.csv");
@@ -226,21 +225,23 @@ function loadUserWelcomeUI(data) {
                                 <td colspan="5">
                                     <div class="title">
                                         <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
-                                        <div class="arrow edit quantityEdit">
-                                            <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
-                                        </div>
-                                        <div class="arrow edit quantitySave hide">
-                                            <img src="/gskd/assets/images/svg/save.svg" key=${index} />
-                                        </div>
+                                        ${item["internalOrderStatus"] === "OPEN" ? `
+                                            <div class="arrow edit quantityEdit">
+                                                <img src="/assets/images/svg/edit.svg" key=${index} />
+                                            </div>
+                                            <div class="arrow edit quantitySave hide">
+                                                <img src="/assets/images/svg/save.svg" key=${index} />
+                                            </div>
+                                        ` : ""}
                                     </div>
                                 </td>
                             </tr>
                             <tr class="info_row key${index}">
-                                <td class="info_data" colspan="1">£ ${item["price"] || "-"}</td>
+                                <td class="info_data" colspan="1">£ ${item["price"] && item["price"] !== "null" || "-"}</td>
                                 <td class="info_data editable" colspan="1"><input value=${item["quantity"] || item["units"]} type="text" size="4" maxlength="4" autocomplete="off" disabled/></td>
-                                <td class="info_data" colspan="1">${item["free_goods"] || "-"}</td>
-                                <td class="info_data" colspan="1">${item["discount"] || "-"}</td>
-                                <td class="info_data" colspan="1">${item["payterm"] ? (item["payterm"] + 'D') : "-"}</td>
+                                <td class="info_data" colspan="1">${item["free_goods"] && item["free_goods"] !== "null" || "-"}</td>
+                                <td class="info_data" colspan="1">${item["discount"] && item["discount"] !== "null" || "-"}</td>
+                                <td class="info_data" colspan="1">${item["payterm"] && item["payterm"] !== "null" ? (item["payterm"] + 'D') : "-"}</td>
                             </tr>
                         `);
                     })
@@ -275,25 +276,38 @@ function loadUserWelcomeUI(data) {
                         let currentElementDataSku = $(tableElement).attr("skudata");
 
                         let parseData = getParsedData();
+                        let shouldContinueOrder = false;
                         let prevEditedSku = parseData["previous_orders"]["orders"].filter(prorder => {
                             if (prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
+                                prorder["product_details"].map(pd => {
+                                    if (pd["sku"] === $(this).siblings(".name").attr("skudata")) {
+                                        if (Number(value) > pd["maxLimit"]) {
+                                            showSnackbar(true, "Value exceeding the max limit.");
+                                            $(getElement).children().val(value)
+                                            $(getElement).children().change()
+                                            return;
+                                        }
+                                        pd["units"] = value;
+                                        shouldContinueOrder = true;
+                                    }
+                                })
                                 return prorder;
                             }
                         });
 
-                        window.updateCartData = {
-                            ...window.updateCartData,
-                            [currentElementDataSku]: {
-                                ...window.updateCartData[currentElementDataSku],
-                                [siblingElementDataSku]: value
+                        if (shouldContinueOrder) {
+                            window.updateCartData = {
+                                ...window.updateCartData,
+                                [currentElementDataSku]: {
+                                    ...window.updateCartData[currentElementDataSku],
+                                    [siblingElementDataSku]: value
+                                }
+                            };
+                            if (getElementValue !== getElementPrevValue) {
+                                ToBot("update-order-data", prevEditedSku[0]);
                             }
-                        };
-
-                        console.log("prevEditedSku -> ", prevEditedSku);
-                        console.log("updateCartData --> ", updateCartData);
-                        if (getElementValue !== getElementPrevValue) {
-                            ToBot("update-order-data", prevEditedSku[0]);
                         }
+
                     });
 
                     $(this).css("pointer-events", "none");
@@ -323,20 +337,20 @@ function loadUserWelcomeUI(data) {
                                     <div class="title">
                                         <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
                                         <div class="arrow edit quantityEdit">
-                                            <img src="/gsk/assets/images/svg/edit.svg" key=${index} />
+                                            <img src="/assets/images/svg/edit.svg" key=${index} />
                                         </div>
                                         <div class="arrow edit quantitySave hide">
-                                            <img src="/gskd/assets/images/svg/save.svg" key=${index} />
+                                            <img src="/assets/images/svg/save.svg" key=${index} />
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="info_row key${index}">
-                                <td class="info_data" colspan="1">£ ${item["price"] || "-"}</td>
-                                <td class="info_data editable" colspan="1"><input value=${item["quantity"] || item["units"]} type="text" size="4" maxlength="4" autocomplete="off" disabled/></td>
-                                <td class="info_data" colspan="1">${item["free_goods"] || "-"}</td>
-                                <td class="info_data" colspan="1">${item["discount"] || "-"}</td>
-                                <td class="info_data" colspan="1">${item["payterm"] ? (item["payterm"] + 'D') : "-"}</td>
+                                <td class="info_data" colspan="1">£ ${item["price"]}</td>
+                                <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
+                                <td class="info_data" colspan="1">+${item["free_goods"]}</td>
+                                <td class="info_data" colspan="1">${item["discount"]}%</td>
+                                <td class="info_data" colspan="1">${item["payterm"]} D</td>
                             </tr>
                         `);
                     });
@@ -369,25 +383,37 @@ function loadUserWelcomeUI(data) {
                         let tableElement = $(this).parent().parent().parent().parent().parent();
                         let currentElementDataSku = $(tableElement).attr("skudata");
                         let parseData = getParsedData();
+                        let shouldContinueOrder = false;
                         let prevEditedSku = parseData["previous_orders"]["orders"].filter(prorder => {
                             if (prorder["sku"] === previousSelectedSku && prorder["ordered_date"] === previousSelectedSkuDate) {
-                                prorder["units"] = value;
+                                prorder["product_details"].map(pd => {
+                                    if (pd["sku"] === $(this).siblings(".name").attr("skudata")) {
+                                        if (Number(value) > pd["maxLimit"]) {
+                                            showSnackbar(true, "Value exceeding the maximum limit!!!");
+                                            $(getElement).children().val(value)
+                                            $(getElement).children().change()
+                                            return;
+                                        }
+                                        pd["units"] = value;
+                                        shouldContinueOrder = true;
+                                    }
+                                })
                                 return prorder;
                             }
                         });
 
-                        window.updateCartData = {
-                            ...window.updateCartData,
-                            [currentElementDataSku]: {
-                                ...window.updateCartData[currentElementDataSku],
-                                [siblingElementDataSku]: value
+                        if (shouldContinueOrder) {
+                            window.updateCartData = {
+                                ...window.updateCartData,
+                                [currentElementDataSku]: {
+                                    ...window.updateCartData[currentElementDataSku],
+                                    [siblingElementDataSku]: value
+                                }
+                            };
+    
+                            if (getElementValue !== getElementPrevValue) {
+                                ToBot("update-order-data", prevEditedSku[0]);
                             }
-                        };
-
-                        console.log("prevEditedSku -> ", prevEditedSku);
-                        console.log("updateCartData --> ", updateCartData);
-                        if (getElementValue !== getElementPrevValue) {
-                            ToBot("update-order-data", prevEditedSku[0]);
                         }
                     });
                 } else {
