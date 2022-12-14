@@ -225,7 +225,7 @@ function loadUserWelcomeUI(data) {
                                 <td colspan="5">
                                     <div class="title">
                                         <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
-                                        ${item["internalOrderStatus"] === "OPEN" ? `
+                                        ${parsedCurrentElementData["internalOrderStatus"] === "OPEN" ? `
                                             <div class="arrow edit quantityEdit">
                                                 <img src="/assets/images/svg/edit.svg" key=${index} />
                                             </div>
@@ -237,10 +237,10 @@ function loadUserWelcomeUI(data) {
                                 </td>
                             </tr>
                             <tr class="info_row key${index}">
-                                <td class="info_data" colspan="1">£ ${item["price"] && item["price"] !== "null" || "-"}</td>
+                                <td class="info_data" colspan="1">£ ${item["price"] && item["price"] !== "null" ? item["price"] : "-"}</td>
                                 <td class="info_data editable" colspan="1"><input value=${item["quantity"] || item["units"]} type="text" size="4" maxlength="4" autocomplete="off" disabled/></td>
-                                <td class="info_data" colspan="1">${item["free_goods"] && item["free_goods"] !== "null" || "-"}</td>
-                                <td class="info_data" colspan="1">${item["discount"] && item["discount"] !== "null" || "-"}</td>
+                                <td class="info_data" colspan="1">${item["free_goods"] && item["free_goods"] !== "null" ? item["free_goods"] : "-"}</td>
+                                <td class="info_data" colspan="1">${item["discount"] && item["discount"] !== "null" ? item["discount"] : "-"}</td>
                                 <td class="info_data" colspan="1">${item["payterm"] && item["payterm"] !== "null" ? (item["payterm"] + 'D') : "-"}</td>
                             </tr>
                         `);
@@ -336,21 +336,23 @@ function loadUserWelcomeUI(data) {
                                 <td colspan="5">
                                     <div class="title">
                                         <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
-                                        <div class="arrow edit quantityEdit">
-                                            <img src="/assets/images/svg/edit.svg" key=${index} />
-                                        </div>
-                                        <div class="arrow edit quantitySave hide">
-                                            <img src="/assets/images/svg/save.svg" key=${index} />
-                                        </div>
+                                        ${parsedCurrentElementData["internalOrderStatus"] === "OPEN" ? `
+                                            <div class="arrow edit quantityEdit">
+                                                <img src="/assets/images/svg/edit.svg" key=${index} />
+                                            </div>
+                                            <div class="arrow edit quantitySave hide">
+                                                <img src="/assets/images/svg/save.svg" key=${index} />
+                                            </div>
+                                        ` : ""}
                                     </div>
                                 </td>
                             </tr>
                             <tr class="info_row key${index}">
-                                <td class="info_data" colspan="1">£ ${item["price"]}</td>
-                                <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
-                                <td class="info_data" colspan="1">+${item["free_goods"]}</td>
-                                <td class="info_data" colspan="1">${item["discount"]}%</td>
-                                <td class="info_data" colspan="1">${item["payterm"]} D</td>
+                                <td class="info_data" colspan="1">£ ${item["price"] && item["price"] !== "null" ? item["price"] : "-"}</td>
+                                <td class="info_data editable" colspan="1"><input value=${item["quantity"] || item["units"]} type="text" size="4" maxlength="4" autocomplete="off" disabled/></td>
+                                <td class="info_data" colspan="1">${item["free_goods"] && item["free_goods"] !== "null" ? item["free_goods"] : "-"}</td>
+                                <td class="info_data" colspan="1">${item["discount"] && item["discount"] !== "null" ? item["discount"] : "-"}</td>
+                                <td class="info_data" colspan="1">${item["payterm"] && item["payterm"] !== "null" ? (item["payterm"] + 'D') : "-"}</td>
                             </tr>
                         `);
                     });
