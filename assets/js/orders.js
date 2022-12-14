@@ -5,7 +5,7 @@ function loadUserWelcomeUI(data) {
     $("#content_box").empty();
 
 
-    if(!data?.["previous_orders"]?.["orders"].length) {
+    if (!data?.["previous_orders"]?.["orders"].length) {
         $("#content_box").append(`<div class='empty_screen_msg'>No Orders History Available.`);
     }
 
@@ -227,10 +227,10 @@ function loadUserWelcomeUI(data) {
                                         <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
                                         ${parsedCurrentElementData["internalOrderStatus"] === "OPEN" ? `
                                             <div class="arrow edit quantityEdit">
-                                                <img src="/assets/images/svg/edit.svg" key=${index} />
+                                                <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
                                             </div>
                                             <div class="arrow edit quantitySave hide">
-                                                <img src="/assets/images/svg/save.svg" key=${index} />
+                                                <img src="/gskd/assets/images/svg/save.svg" key=${index} />
                                             </div>
                                         ` : ""}
                                     </div>
@@ -338,10 +338,10 @@ function loadUserWelcomeUI(data) {
                                         <div class="name" skudata=${item["sku"]} date="${orderData["ordered_date"]}">${item["name"]}</div>
                                         ${parsedCurrentElementData["internalOrderStatus"] === "OPEN" ? `
                                             <div class="arrow edit quantityEdit">
-                                                <img src="/assets/images/svg/edit.svg" key=${index} />
+                                                <img src="/gskd/assets/images/svg/edit.svg" key=${index} />
                                             </div>
                                             <div class="arrow edit quantitySave hide">
-                                                <img src="/assets/images/svg/save.svg" key=${index} />
+                                                <img src="/gskd/assets/images/svg/save.svg" key=${index} />
                                             </div>
                                         ` : ""}
                                     </div>
@@ -412,7 +412,7 @@ function loadUserWelcomeUI(data) {
                                     [siblingElementDataSku]: value
                                 }
                             };
-    
+
                             if (getElementValue !== getElementPrevValue) {
                                 ToBot("update-order-data", prevEditedSku[0]);
                             }

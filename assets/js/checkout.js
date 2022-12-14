@@ -9,9 +9,9 @@ function loadOrderCart(data) {
             </div>
             ${getAccordianAccounts(data["new_orders"]["orders"])}
             <div>
-                ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? `<div class="menu_header"><div class="category_label">Period Eligible / Rebates</div></div>`: ""}
+                ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? `<div class="menu_header"><div class="category_label">Period Eligible / Rebates</div></div>` : ""}
                 <div id="rebates_order">
-                    ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? getAccordianAccounts([data["rebates_orders"]["orders"][0]], true): ""}
+                    ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? getAccordianAccounts([data["rebates_orders"]["orders"][0]], true) : ""}
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@ function loadOrderCart(data) {
         }); */
         // ToApp('userwelcome-screen', data);
         // ToApp("ordercart-final-screen", data);
-        
+
     });
 
     $(".accordion-item-header.account_detail").click(function (e) {
@@ -75,7 +75,7 @@ function loadOrderCart(data) {
         }
     });
 
-    if(data["rebates_orders"]["orders"].length) {
+    if (data["rebates_orders"]["orders"].length) {
         $(".periodrebates").click(function (e) {
             e.stopPropagation();
             e.stopImmediatePropagation();
@@ -111,7 +111,7 @@ function loadOrderCart(data) {
         autoHideScrollbar: true
     }); */
 
-    
+
     /* $(".accordion-item-body-content").mCustomScrollbar({
         theme: "dark-thin",
         scrollButtons: { enable: false },
@@ -135,7 +135,7 @@ function loadOrderCart(data) {
 function getAccordianAccounts(data, rebates) {
     let parsedData = getParsedData();
     let newDataJoined = [];
-    if(rebates) {
+    if (rebates) {
         newDataJoined = data || [];
     } else {
         newDataJoined = getJoinedCheckout(parsedData);
@@ -143,13 +143,13 @@ function getAccordianAccounts(data, rebates) {
     console.log("newDataJoined -> ", newDataJoined);
     let filteredBrand = parsedData["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedData["selected_brand"]);
     const getRebatesSwitchOption = (rebates) => {
-        if(rebates) {
+        if (rebates) {
             return `
                 <div class="edit switchWholesalerAccount" style="height: auto; width: 16px; margin-right: 10px;" skudata=${data["sku"]}>
                     <img src="/gskd/assets/images/svg/edit.svg" />
                 </div>
             `
-        } 
+        }
         return "";
     }
 
@@ -203,7 +203,7 @@ function getAccordianAccountsData(data, rebates) {
     let brand = parsedData["plan_progress"]["brands"].filter(brand => brand["sku"] === parsedData["selected_brand"]);
     let filteredBrand = brand[0];
     let accordianAccountsData = data.map((item, index) => {
-        if(rebates || item["quantity"]) {
+        if (rebates || item["quantity"]) {
             return `
                 <tr>
                     <td colspan="5">
@@ -240,7 +240,7 @@ function loadOrderFinalCart(data) {
         <div class="order_details_container choosebrands">
             <div class="menu_header">
                 <div class="label">Order Details</div>
-                <div class="icon"><img src="/assets/images/svg/plus.svg" /></div>
+                <div class="icon"><img src="/gskd/assets/images/svg/plus.svg" /></div>
             </div>
             ${loadProgressCards({ "brands": filteredBrand }, true, true)}
             ${getAccordianAccounts(data["new_orders"]["orders"])}
@@ -296,7 +296,7 @@ function loadOrderFinalCart(data) {
         autoHideScrollbar: true
     }); */
 
-    
+
     /* $(".accordion-item-body-content").mCustomScrollbar({
         theme: "dark-thin",
         scrollButtons: { enable: false },
@@ -314,7 +314,7 @@ function goBack() {
 function confirmOrder() {
     let data = getParsedData();
     let filteredBrand = data["plan_progress"]["brands"].filter(brand => brand["sku"] === data["selected_brand"]);
-    if(filteredBrand && filteredBrand[0] && filteredBrand[0]["total_invoice_range"]) {
+    if (filteredBrand && filteredBrand[0] && filteredBrand[0]["total_invoice_range"]) {
         ToApp("ordercart-final-screen", data);
     } else {
         let updatedData = getJoinedCheckout(data);
