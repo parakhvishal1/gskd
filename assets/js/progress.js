@@ -160,7 +160,6 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
     let discount_range = item["on_invoice_range"] ? item["on_invoice_range"] : item["off_invoice_range"];
     let progressPercent = Math.ceil(((item["purchased"] || 0) / item["max_limit"]) * 100);
     let progressPercentSelected = Math.ceil(((parseInt(item["purchased"] || 0) + parseInt(item["selected"])) / item["max_limit"]) * 100);
-
     
     
     let aggregateSelectedProgress = 0;
@@ -327,8 +326,8 @@ function getInvertedProgress(item, progressPercent, colorscheme) {
 }
 
 function getSelectedProgress(item, progressPercentSelected, colorscheme, hideSelectedProgress) {
-    // console.log("progressPercent -> ", progressPercentSelected, "<-- ", item);
     let progressValue = ((parseInt(item["purchased"])|| 0) + parseInt(item["selected"])) > item["max_limit"] ;
+    console.log("progressValue -> ", progressValue);
     if(progressValue) {
         return `
             <div class="progressbar_ratio" style="width:${Math.abs(progressPercentSelected)}%; background: ${colorscheme} !important; border-top-right-radius: ${Number(progressPercentSelected) >= 100 ? '6px': '10px'}; border-bottom-right-radius: ${Number(progressPercentSelected) >= 100 ? '6px': '10px'};">
