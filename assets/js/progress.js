@@ -175,7 +175,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
             ""
             :
             `
-                <label style="font-size: 12px;">${parseInt(item["purchased"] || 0) + parseInt(item["selected"])}</label>
+                <label style="font-size: 12px;">${parseInt(item["purchased"] || 0) + parseInt(item["selected"]) > parseInt(item["max_limit"]) ? parseInt(item["max_limit"]) : parseInt(item["selected"])}</label>
                 <div class="progressbar_wrapper addproduct" skudata=${`${item["sku"]}`} >
                     <!--<div class="main reset" style="cursor: pointer;">
                         <img src="/gskd/assets/images/svg/plus.svg" class="icon_add"/>
@@ -298,7 +298,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                         <div class="main" style="background: transparent;">
                             ${rangeDataDivs}
                         </div>
-                        ${!detailed ? '' : `<div class="quantity_total">${parseInt(item["purchased"] || 0) + parseInt(item["selected"])}</div>`}
+                        ${!detailed ? '' : `<div class="quantity_total">${parseInt(item["purchased"] || 0) + parseInt(item["selected"]) > parseInt(item["max_limit"]) ? parseInt(item["max_limit"]) : parseInt(item["selected"]) }</div>`}
                     </div>
                 </div>
                 ${detailed ? getProgressHeaderFooterLabels(item, "footer") : ""}

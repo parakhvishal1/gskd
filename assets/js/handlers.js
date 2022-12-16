@@ -415,7 +415,6 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
             let requestSkuSwap = data["available_orders"]["orders"].filter(ordr => ordr["sku"] === requestSku);
             orderData = requestSkuSwap[0]
         }
-        debugger;
         if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
             window.orderCartData.push(filteredBrand[0]["sku"]);
             window.wholesalerAccountData.push({...orderData, "_id": uuid, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
@@ -851,7 +850,6 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
     if (window.wholesalerAccountData && window.wholesalerAccountData.length !== 0) {
         if(window.cartData && Object.keys(window.cartData).length !== 0) {
             let parseData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : getParsedData();
-            debugger;
             if(requestType !== "from-checkout") {
                 parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
                     window[`shouldNewWholeSalerAccountAdd-${index}`] = true;
@@ -888,7 +886,6 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
             let requestSkuSwap = data["available_orders"]["orders"].filter(ordr => ordr["sku"] === requestSku);
             orderData = requestSkuSwap[0]
         }
-        debugger;
         if(!window.orderCartData.includes(filteredBrand[0]["sku"]) ) {
             window.orderCartData.push(filteredBrand[0]["sku"]);
             window.wholesalerAccountData.push({...orderData, "_id": uuid, "brandsku": `${orderData["sku"]}-${filteredBrand[0]["sku"]}`});
@@ -1058,6 +1055,7 @@ function addnewOrder(data, currentSku) {
     $(".swapWholesalerAccount").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
+        
         $(".swap_account_list").empty();
         $(".swap_account_select").removeClass("hide");
         let swapSku = $(this).attr("skudata");
@@ -1198,7 +1196,7 @@ function addnewOrder(data, currentSku) {
             let selectedBrand = window.dataStore["selected_brand"];
             const filteredBrand = window.dataStore["plan_progress"]["brands"].filter(brand => brand["sku"] === selectedBrand);
             const isBrandSku = filteredBrand[0]["isSku"];
-            debugger
+            
             isBrandSku ? showSkuLevelDetailsBrand(window.dataStore, selectedBrand, "swap", newSkuData) : showBrandLevelDetails(window.dataStore, selectedBrand, "swap", newSkuData);
 
             // filterSelectedData[0]["brandsku"] = brandsku;
@@ -1596,7 +1594,6 @@ function addnewOrderBrand(data, currentSku, skulevel) {
             let selectedBrand = window.dataStore["selected_brand"];
             const filteredBrand = window.dataStore["plan_progress"]["brands"].filter(brand => brand["sku"] === selectedBrand);
             const isBrandSku = filteredBrand[0]["isSku"];
-            debugger
             isBrandSku ? showSkuLevelDetailsBrand(window.dataStore, selectedBrand, "swap", newSkuData) : showBrandLevelDetails(window.dataStore, selectedBrand, "swap", newSkuData);
 
             // filterSelectedData[0]["brandsku"] = brandsku;
@@ -1816,6 +1813,10 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
     let $input = $(siblingWrapper);
     let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
 
+    console.log("brand --> ", brand);
+    console.log("skuData --> ", skuData);
+    console.log("parentSkuData --> ", parentSkuData);
+
     /* check if date is selected or not */
     /* let datepickedElement = $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
     let formattedDate = datepickedElement.datepicker({ dateFormat: 'M dd, y' }).val(); */
@@ -1847,17 +1848,64 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
     if (type === "add") {
         // Number(brand[0]["purchased"] ? brand[0]["purchased"] : 0) + Number(brand[0]["selected"] ? brand[0]["selected"] : Number($input.val()));
         let totalMedSelected = (Number(brand[0]["purchased"]) ? Number(brand[0]["purchased"]) : 0) + ( Number(brand[0]["selected"]) ? Number(brand[0]["selected"]) : Number($input.val()));
-        if(inputtype !== "blur" && (totalMedSelected >= Number(brand[0]["max_limit"]))) {
-            showSnackbar(true, "Maximum reached!!!");
-            return;
-        }
-        if(inputtype === "blur" && totalMedSelected >= Number(brand[0]["max_limit"])) {
-            if(totalMedSelected === Number(brand[0]["max_limit"])) {
-            } else {
-                $input.val(Number(brand[0]["max_limit"]) - 1);
-                $input.change();
+        if(skulevel) {
+            let shouldInputsAllowed = true;
+            parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach((order, mainIndex) => {
+                if (order["_id"] === accoundIdSelected) {
+                    let productDetails = order["product_details"].map((product, index) => {
+                        if (product["sku"] === skuData) {
+                            if(skulevel) {
+                                console.log("first -> ", product["discounts"]["max_limit"]);
+                                console.log("second -> ", $input.val());
+                                let totalSkuMedSelected = (Number(product["discounts"]["purchased"]) || 0)  + Number($input.val());
+                                if( (totalSkuMedSelected >= Number(product["discounts"]["max_limit"])) ) {
+                                    if(inputtype !== "blur") {
+                                        if(totalMedSelected === Number(product["discounts"]["max_limit"]) ) {
+
+                                        } else {
+                                        }
+                                        shouldInputsAllowed = false;
+                                        // showSnackbar(true, "Maximum reached!!!");
+                                        return;
+                                    }
+                                    if(inputtype === "blur") {
+                                        if(totalMedSelected === Number(product["discounts"]["max_limit"]) ) {
+
+                                        } else {
+                                            shouldInputsAllowed = false;
+                                            $input.val(Number(product["discounts"]["selected"]));
+                                            $input.change();
+                                        }
+                                    }
+                                    // showSnackbar(true, "Maximum reached!!!");
+                                    return;
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+            if(!shouldInputsAllowed) {
                 showSnackbar(true, "Maximum reached!!!");
-                // return;
+                return;
+            }
+        } else {
+            let shouldInputsAllowed = true;
+            console.log("totalMedSelected --> ", totalMedSelected);
+            if(inputtype !== "blur" && (totalMedSelected >= Number(brand[0]["max_limit"]))) {
+                shouldInputsAllowed = false;
+            }
+            if(inputtype === "blur" && totalMedSelected >= Number(brand[0]["max_limit"])) {
+                if(totalMedSelected === Number(brand[0]["max_limit"])) {
+                } else {
+                    shouldInputsAllowed = false;
+                    $input.val(0);
+                    $input.change();
+                }
+            }
+            if(!shouldInputsAllowed) {
+                showSnackbar(true, "Maximum reached!!!");
+                return;
             }
         }
         siblingWrapper.siblings(".counter__box__container.sub").children().children().children().children().css("fill", "#f36633");
@@ -1895,7 +1943,6 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
                         if(skulevel) {
                             // let currentItemValue = calculateSumAmount({[parentSkuData]: {...window.cartData[parentSkuData]}});
                             let progressCards = loadProgressCards({ "brands": [product["discounts"]] }, true, true);
-                            debugger
                             $(counterInput).parent().parent('.counter__container').parent('.counter__wrapper').parent('.info_data').siblings('.info_data').text( `Period Total: ${parseInt(product["discounts"]["purchased"] || "0") + parseInt(product["discounts"]["selected"])}` );
                             $(`#skulevelprogress-${product["sku"]}`).empty();
                             $(`#skulevelprogress-${product["sku"]}`).append(progressCards);
