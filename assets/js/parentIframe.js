@@ -81,10 +81,10 @@ function injectDynamicCssToParent() {
 //     document.getElementById("placeNewOrder").disabled = true;
 // }
 
-window.onload = (event) => {
+window.addEventListener("onload", (event) => {
     console.error('event--->', event)
     console.log("page is fully loaded");
-};
+});
 
 
 window.addEventListener('message', function (eventData) {
@@ -240,9 +240,19 @@ window.addEventListener('message', function (eventData) {
     //     }), '*');
     //     return;
     // }
+    // name-received
 
-
-
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "name-received") {
+        console.log("bot-reloaded event");
+        let data = localStorage.getItem("updated-data")
+        console.log('refreshed local storage data in parentIframe', JSON.parse(data));
+        if (!data) return;
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'bot-reloaded',
+            data: data
+        }), '*');
+        return;
+    }
 
 
 
