@@ -418,7 +418,7 @@ window.addEventListener('message', function (eventData) {
         console.log("\n\n\n <--- update-data-on-refresh event in parent iframe ---> \n\n\n", parsedData);
         localStorage.setItem("updated-data", parsedData.data);
 
-
+        console.log('After setting Local storage data');
         window.onload = function () {
             console.log('Windows gets loaded')
         }
