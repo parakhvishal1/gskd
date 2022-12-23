@@ -88,7 +88,7 @@ window.addEventListener("onload", (event) => {
 
 
 window.addEventListener('message', function (eventData) {
-    console.error('eventData', eventData.data.event_code);
+    console.error('eventData', eventData);
     let parsedData = JSON.parse(eventData.data);
 
     console.log("parsedData", parsedData)
@@ -242,16 +242,17 @@ window.addEventListener('message', function (eventData) {
     // }
     // name-received
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "name-received") {
-        console.log("bot-reloaded event");
-        let data = localStorage.getItem("updated-data")
-        console.log('refreshed local storage data in parentIframe', JSON.parse(data));
-        if (!data) return;
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'bot-reloaded',
-            data: data
-        }), '*');
-        return;
+    if (parsedData?.data?.code == "name-received") {
+        console.error('name-received')
+        // console.log("bot-reloaded event");
+        // let data = localStorage.getItem("updated-data")
+        // console.log('refreshed local storage data in parentIframe', JSON.parse(data));
+        // if (!data) return;
+        // document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+        //     event_code: 'bot-reloaded',
+        //     data: data
+        // }), '*');
+        // return;
     }
 
 
