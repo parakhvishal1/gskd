@@ -81,14 +81,13 @@ function injectDynamicCssToParent() {
 //     document.getElementById("placeNewOrder").disabled = true;
 // }
 
-
-window.onload = function () {
-    console.log('Windows gets loaded');
-}
-
+window.addEventListener("load", (event) => {
+    console.log("page is fully loaded");
+});
 
 
 window.addEventListener('message', function (eventData) {
+    console.error('eventData', eventData)
     let parsedData = JSON.parse(eventData.data);
 
     console.log("parsedData", parsedData)
@@ -228,6 +227,7 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
+
     // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
     //     console.log("bot-reloaded");
     //     let data = localStorage.getItem("updated-data")
@@ -239,6 +239,7 @@ window.addEventListener('message', function (eventData) {
     //     }), '*');
     //     return;
     // }
+
 
 
 
