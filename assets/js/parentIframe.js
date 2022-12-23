@@ -108,17 +108,17 @@ window.addEventListener('message', function (eventData) {
 
     // }
 
-    window.onload = function () {
-        console.log("bot-reloaded");
-        let data = localStorage.getItem("updated-data")
-        console.log('refreshed local storage data in parentIframe', JSON.parse(data));
-        if (!data) return;
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'bot-reloaded',
-            data: data
-        }), '*');
-        return;
-    }
+    // window.onload = function () {
+    //     console.log("bot-reloaded");
+    //     let data = localStorage.getItem("updated-data")
+    //     console.log('refreshed local storage data in parentIframe', JSON.parse(data));
+    //     if (!data) return;
+    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+    //         event_code: 'bot-reloaded',
+    //         data: data
+    //     }), '*');
+    //     return;
+    // }
 
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
@@ -411,7 +411,12 @@ window.addEventListener('message', function (eventData) {
 
     if (parsedData?.event_code == 'update-data-on-refresh') {
         console.log("\n\n\n <--- update-data-on-refresh event in parent iframe ---> \n\n\n", parsedData);
-        localStorage.setItem("updated-data", parsedData.data)
+        localStorage.setItem("updated-data", parsedData.data);
+
+
+        window.onload = function () {
+            console.log('Windows gets loaded')
+        }
         return;
     }
 
