@@ -242,7 +242,7 @@ window.addEventListener('message', function (eventData) {
     // }
     // name-received
 
-    if (parsedData?.code == "name-received") {
+    if (parsedData?.event_code == "name-received") {
         console.error('name-received')
         // console.log("bot-reloaded event");
         // let data = localStorage.getItem("updated-data")
