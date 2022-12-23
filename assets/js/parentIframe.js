@@ -252,6 +252,16 @@ window.addEventListener('message', function (eventData) {
             event_code: 'bot-reloaded',
             data: data
         }), '*');
+
+
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "name-received",
+                data: 'null'
+            }
+        }, true);
+
+
         return;
     }
 
