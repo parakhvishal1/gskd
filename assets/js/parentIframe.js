@@ -81,9 +81,10 @@ function injectDynamicCssToParent() {
 //     document.getElementById("placeNewOrder").disabled = true;
 // }
 
-window.addEventListener("load", (event) => {
+window.onload = (event) => {
+    console.error('event--->', event)
     console.log("page is fully loaded");
-});
+};
 
 
 window.addEventListener('message', function (eventData) {
