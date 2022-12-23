@@ -82,6 +82,11 @@ function injectDynamicCssToParent() {
 // }
 
 
+window.onload = function () {
+    console.log('Windows gets loaded');
+}
+
+
 
 window.addEventListener('message', function (eventData) {
     let parsedData = JSON.parse(eventData.data);
