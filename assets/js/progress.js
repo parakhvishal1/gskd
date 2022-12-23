@@ -298,7 +298,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                         <div class="main" style="background: transparent;">
                             ${rangeDataDivs}
                         </div>
-                        ${!detailed ? '' : `<div class="quantity_total">${parseInt(item["purchased"] || 0) + parseInt(item["selected"]) > parseInt(item["max_limit"]) ? parseInt(item["max_limit"]) : parseInt(item["selected"]) }</div>`}
+                        ${!detailed ? '' : `<div class="quantity_total">${parseInt(item["purchased"] || 0) + parseInt(item["selected"]) > parseInt(item["max_limit"]) ? parseInt(item["max_limit"]) : (parseInt(item["purchased"]) || 0) + parseInt(item["selected"]) }</div>`}
                     </div>
                 </div>
                 ${detailed ? getProgressHeaderFooterLabels(item, "footer") : ""}

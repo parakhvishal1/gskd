@@ -1891,18 +1891,57 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
             }
         } else {
             let shouldInputsAllowed = true;
+            parseStoredData && parseStoredData["new_orders"] && parseStoredData["new_orders"]["orders"] && parseStoredData["new_orders"]["orders"].forEach((order, mainIndex) => {
+                if (order["_id"] === accoundIdSelected) {
+                    let productDetails = order["product_details"].map((product, index) => {
+                        if (product["sku"] === skuData) {
+                            let max_limit = Number(brand[0]["max_limit"]) - (Number(brand[0]["selected"]) + Number(brand[0]["purchased"])) + Number(product["units"]);
+                            console.log(max_limit);
+                            if (Number($input.val()) >= max_limit) {
+                                if (inputtype === "blur") {
+                                    shouldInputsAllowed = false;
+                                    $input.val((Number(product["quantity"]) || 0));
+                                    $input.change();
+                                }
+                                if (inputtype !== "blur") {
+                                    if((Number($input.val()) + 1) === max_limit ) {
+
+                                    } else {
+                                        shouldInputsAllowed = false;
+                                        $input.val((Number(product["quantity"]) || 0));
+                                        $input.change();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+            /* if(inputtype === "blur") {
+                let max_limit = Number(brand[0]["max_limit"]) - (Number(brand[0]["selected"]) + Number(brand[0]["purchased"]));
+                console.log(max_limit);
+                if(Number($input.val()) > max_limit) {
+                    shouldInputsAllowed = false;
+                }
+            } */
+           /*  let shouldInputsAllowed = true;
             console.log("totalMedSelected --> ", totalMedSelected);
-            if(inputtype !== "blur" && (totalMedSelected >= Number(brand[0]["max_limit"]))) {
+            console.log("brand --> ", Number($input.val()));
+            if(inputtype !== "blur" && (( Number(brand[0]["purchased"]) + Number(brand[0]["selected"]) + Number($input.val()) + 1 ) >= Number(brand[0]["max_limit"]))) {
                 shouldInputsAllowed = false;
             }
-            if(inputtype === "blur" && totalMedSelected >= Number(brand[0]["max_limit"])) {
-                if(totalMedSelected === Number(brand[0]["max_limit"])) {
+            if(inputtype === "blur" && ( Number(brand[0]["purchased"]) + Number(brand[0]["selected"]) + Number($input.val()) + 1 ) >= Number(brand[0]["max_limit"])) {
+                if(( Number(brand[0]["purchased"]) + Number(brand[0]["selected"]) + Number($input.val()) + 1 ) === Number(brand[0]["max_limit"])) {
                 } else {
                     shouldInputsAllowed = false;
                     $input.val(0);
                     $input.change();
                 }
             }
+            if(!shouldInputsAllowed) {
+                showSnackbar(true, "Maximum reached!!!");
+                return;
+            } */
             if(!shouldInputsAllowed) {
                 showSnackbar(true, "Maximum reached!!!");
                 return;

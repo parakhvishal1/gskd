@@ -213,6 +213,7 @@ function ToBot(eventName, data) {
             let updatedData = JSON.parse(data);
             if(window.currentScreen) {
                 updatedData["currentScreen"] = window.currentScreen || "";
+                console.log("updatedData -> ", updatedData);
                 window.parent.postMessage(JSON.stringify({
                     event_code: eventName,
                     data: JSON.stringify(updatedData)
@@ -253,6 +254,7 @@ function ToApp(eventName, data, orgData) {
             showHeader(userData);
             break;
         case "welcome-screen":
+            StoreDataIn(data);
             loadGeneralWelcome(data);
             break;
         case "termsui-screen":
