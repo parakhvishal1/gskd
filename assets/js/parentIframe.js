@@ -88,7 +88,7 @@ window.addEventListener("onload", (event) => {
 
 
 window.addEventListener('message', function (eventData) {
-    console.error('eventData', eventData);
+    // console.error('eventData', eventData);
     let parsedData = JSON.parse(eventData.data);
 
     console.log("parsedData", parsedData)
