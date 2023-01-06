@@ -180,11 +180,11 @@ function getAccordianAccounts(data, rebates) {
                             <table class="accordian table">
                                 <thead>
                                     <tr class="info_row borderBottom">
-                                        <td class="info_data title" colspan="1">Est. Price</td>
+                                        <!-- <td class="info_data title" colspan="1">Est. Price</td> -->
                                         <td class="info_data title" colspan="1">Units</td>
-                                        <td class="info_data title" colspan="1">Free Goods</td>
                                         <td class="info_data title" colspan="1">${rebates ? "Off Invoice Discount" : "On Invoice Discount"}</td>
-                                        <td class="info_data title" colspan="1">Pay Term</td>
+                                        <td class="info_data title" colspan="1">Free Goods</td>
+                                        ${rebates ? "" : '<td class="info_data title" colspan="1">Pay Term</td>'}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -208,7 +208,7 @@ function getAccordianAccountsData(data, rebates) {
         if (rebates || item["quantity"]) {
             return `
                 <tr>
-                    <td colspan="5">
+                    <td colspan=${rebates ? "3" : "4"}>
                         <div class="title paddingTop">
                             <div class="name">${item["name"]}</div>
                             <div class="arrow edit quantityEditBackToSelection" brand="${item['brand']}">
@@ -218,11 +218,11 @@ function getAccordianAccountsData(data, rebates) {
                     </td>
                 </tr>
                 <tr class="info_row borderBottom">
-                    <td class="info_data" colspan="1">£ ${item["price"] && item["price"] !== "null" ? item["price"] : "-"}</td>
+                    <!-- <td class="info_data" colspan="1">£ ${item["price"] && item["price"] !== "null" ? item["price"] : "-"}</td> -->
                     <td class="info_data" colspan="1">${item["units"] && item["units"] !== "null" ? item["units"] : "-"}</td>
-                    <td class="info_data" colspan="1">${item["free_goods"] && item["free_goods"] !== "null" ? item["free_goods"] : "-"}</td>
                     <td class="info_data" colspan="1">${item["discount"] && item["discount"] !== "null" ? (item["discount"] + '%') : "-"}</td>
-                    <td class="info_data" colspan="1">${item["payterm"] && item["payterm"] !== "null" ? (item["payterm"] + 'D') : "-"}</td>
+                    <td class="info_data" colspan="1">${item["free_goods"] && item["free_goods"] !== "null" ? item["free_goods"] : "-"}</td>
+                    ${rebates ? '' : `<td class="info_data" colspan="1">${item["payterm"] && item["payterm"] !== "null" ? (item["payterm"] + 'D') : "-"}</td>`}
                 </tr>
             `
         }
@@ -298,7 +298,7 @@ function loadOrderFinalCart(data) {
         autoHideScrollbar: true
     }); */
 
-
+    
     /* $(".accordion-item-body-content").mCustomScrollbar({
         theme: "dark-thin",
         scrollButtons: { enable: false },
