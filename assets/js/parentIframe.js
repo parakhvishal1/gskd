@@ -125,6 +125,15 @@ window.addEventListener('message', function (eventData) {
     //     return;
     // }
 
+    Window.location.reload = function () {
+        console.log('Bot-reloaded1');
+    }
+
+    this.document.location.reload = function () {
+        console.log('Bot-reloaded2');
+    }
+
+
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
