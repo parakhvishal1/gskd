@@ -332,5 +332,5 @@ function confirmOrder() {
 function cancelOrder() {
     let parseData = JSON.parse(localStorage.getItem("init"));
     ToBot("cancel-order", parseData);
-    ToApp("userwelcome-screen", parseData);
+    // ToApp("userwelcome-screen", parseData);
 }
