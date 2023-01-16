@@ -117,7 +117,8 @@
 
         document.onreadystatechange = () => {
             if (document.readyState === 'complete') {
-                console.log('Loaded~~~~~~~~~~~')
+                console.log('---Loaded---');
+                ToBot("get-data-from-localstorage", 'LocalStorageEvent');
                 // alert('loaded')
             }
         };
