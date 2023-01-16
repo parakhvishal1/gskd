@@ -30,14 +30,22 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
     <!-- jQuery lib -->
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.js" type="text/javascript"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.min.css" integrity="sha512-Mvnc3gzZhD8rZtNMHJkotZpdfvAHunpqankLPnj3hXpphETXpxbfr4+oNMOzF179JYu8B8/EqruGdpsH5fNYww==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.min.css"
+        integrity="sha512-Mvnc3gzZhD8rZtNMHJkotZpdfvAHunpqankLPnj3hXpphETXpxbfr4+oNMOzF179JYu8B8/EqruGdpsH5fNYww=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.js"></script>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"
+        rel="stylesheet" />
 
     <!-- Custom javascript -->
     <script defer type="text/javascript" src="/gskd/assets/js/scrollbar.js"></script>
@@ -78,7 +86,7 @@
 
     </div>
 
-    
+
     <div id="snack">
         <div class="snackbar">
             <img class="snackbar-icon" src="/gskd/assets/images/png/assistance-icon.svg" />
@@ -96,16 +104,20 @@
         </div>
     </div>
 
-    
-    
+
+
     <script>
         // if(!(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-            window.onbeforeunload = function () {
-                const data = localStorage.getItem("data");
-                ToBot("update-data-on-refresh", data);
-                return "Are you sure you want to exit?";
-            };
+        window.onbeforeunload = function () {
+            const data = localStorage.getItem("data");
+            ToBot("update-data-on-refresh", data);
+            return "Are you sure you want to exit?";
+        };
         // }
+
+        if (document.readyState === 'complete') {
+            alert('loaded')
+        }
 
         const snack = document.querySelector('#snack');
         const snackbar = document.querySelector('.snackbar');
@@ -113,13 +125,13 @@
         const closeBtn = document.querySelector('.snackbar-close-btn');
 
         const showSnackbar = (autohide, txt) => {
-            if(snackbar.classList.value.includes("isShown")) {
+            if (snackbar.classList.value.includes("isShown")) {
                 clearTimeout(window.snackbarTimer);
                 snackbar.classList.remove('isShown');
                 heading.textContent = "";
             }
             snackbar.classList.add('isShown');
-            if(txt) {
+            if (txt) {
                 heading.textContent = txt;
             }
 
