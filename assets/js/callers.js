@@ -150,7 +150,7 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 ToApp('ordercart-screen', data);
             }
             break;
@@ -183,7 +183,7 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 loadUserWelcomeUI(data);
                 data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true);
             }
@@ -199,7 +199,7 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 ToApp("userwelcome-screen", data);
             }
             break;
@@ -211,14 +211,14 @@ function ToBot(eventName, data) {
             break;
         case "update-data-on-refresh":
             let updatedData = JSON.parse(data);
-            if(window.currentScreen) {
+            if (window.currentScreen) {
                 updatedData["currentScreen"] = window.currentScreen || "";
                 console.log("updatedData -> ", updatedData);
                 window.parent.postMessage(JSON.stringify({
                     event_code: eventName,
                     data: JSON.stringify(updatedData)
                 }), '*');
-                if(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                     ToApp("get-data-on-refresh", updatedData);
                 }
             }
