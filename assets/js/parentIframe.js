@@ -125,13 +125,13 @@ window.addEventListener('message', function (eventData) {
     //     return;
     // }
 
-    Window.location.reload = function () {
-        console.log('Bot-reloaded1');
-    }
+    // window.location.reload = function () {
+    //     console.log('Bot-reloaded1');
+    // }
 
-    this.document.location.reload = function () {
-        console.log('Bot-reloaded2');
-    }
+    // document.location.reload = function () {
+    //     console.log('Bot-reloaded2');
+    // }
 
 
 
