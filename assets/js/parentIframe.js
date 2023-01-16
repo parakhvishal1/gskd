@@ -113,17 +113,17 @@ window.addEventListener('message', function (eventData) {
 
     // }
 
-    // window.onload = function () {
-    //     console.log("bot-reloaded");
-    //     let data = localStorage.getItem("updated-data")
-    //     console.log('refreshed local storage data in parentIframe', JSON.parse(data));
-    //     if (!data) return;
-    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-    //         event_code: 'bot-reloaded',
-    //         data: data
-    //     }), '*');
-    //     return;
-    // }
+    window.onload = function () {
+        console.log("bot-reloaded");
+        let data = localStorage.getItem("updated-data")
+        console.log('refreshed local storage data in parentIframe', JSON.parse(data));
+        if (!data) return;
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'bot-reloaded',
+            data: data
+        }), '*');
+        return;
+    }
 
     // window.location.reload = function () {
     //     console.log('Bot-reloaded1');
