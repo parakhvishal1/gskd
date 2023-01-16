@@ -115,10 +115,12 @@
         };
         // }
 
-        if (document.readyState === 'complete') {
-            console.log('Loaded~~~~~~~~~~~')
-            alert('loaded')
-        }
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                console.log('Loaded~~~~~~~~~~~')
+                alert('loaded')
+            }
+        };
 
         const snack = document.querySelector('#snack');
         const snackbar = document.querySelector('.snackbar');
