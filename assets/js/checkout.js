@@ -298,7 +298,7 @@ function loadOrderFinalCart(data) {
         autoHideScrollbar: true
     }); */
 
-    
+
     /* $(".accordion-item-body-content").mCustomScrollbar({
         theme: "dark-thin",
         scrollButtons: { enable: false },
@@ -325,4 +325,10 @@ function confirmOrder() {
         /* loadUserWelcomeUI(data);
         data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true); */
     }
+}
+
+function cancelOrder() {
+    let parseData = JSON.parse(localStorage.getItem("init"));
+    ToBot("cancel-order", parseData);
+    // ToApp("userwelcome-screen", parseData);
 }
