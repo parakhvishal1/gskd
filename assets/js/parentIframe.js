@@ -473,7 +473,7 @@ window.addEventListener('message', function (eventData) {
         window.frames.ymIframe.chat.send({
             event: {
                 code: "get-data-from-localstorage",
-                data: data
+                data: "data"
             }
         }, true);
         return;
