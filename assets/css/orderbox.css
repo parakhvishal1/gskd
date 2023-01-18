@@ -88,14 +88,17 @@
 
 .order_card .info.outer .success {
     color: #008a00;
+    background: transparent;
 }
 
 .order_card .info.outer .warning {
     color: #efaa4b;
+    background: transparent;
 }
 
 .order_card .info.outer .failed {
     color: #f23904;
+    background: transparent;
 }
 /* Order Card End */
 
@@ -204,4 +207,12 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+.order_card.history .history_card_click.close .status_bar_bordered .order_on_date {
+    display: none;
+}
+
+.order_card.history .history_card_click .status_bar_bordered .order_on_date {
+    display: block;
 }

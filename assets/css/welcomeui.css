@@ -71,6 +71,11 @@
     margin-bottom: 10px;
 }
 
+.content__box .splash_screen .legal_tnc .legal_tnc_body a {
+    color: #0000EE;;
+    text-decoration: underline;
+}
+
 .content__box .splash_screen .legal_tnc .readmore {
     color: #f26633;
     font-weight: 700;

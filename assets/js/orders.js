@@ -168,7 +168,7 @@ function loadUserWelcomeUI(data) {
 
             $("#order_history_container").prepend(`
                 <div class="order_card history clickToOpen" data=${encodeURIComponent(JSON.stringify(orderData))}>
-                    <div class="history_card_click" data=${encodeURIComponent(JSON.stringify(orderData))} skudata="${orderData['sku']}" date="${orderData['ordered_date']}" orderid=${orderData["order_no"]}>
+                    <div class="history_card_click close" data=${encodeURIComponent(JSON.stringify(orderData))} skudata="${orderData['sku']}" date="${orderData['ordered_date']}" orderid=${orderData["order_no"]}>
                         <div class="status_bar_bordered">
                             <div class="bordered ${classValue}"></div>
                             <div style="width: 100%;">
@@ -178,10 +178,18 @@ function loadUserWelcomeUI(data) {
                                         <img src="/gskd/assets/images/svg/right.svg" />
                                     </div>
                                 </div>
-                                <div class="info">Order No: ${orderData["order_no"]}</div>
+                                <div class="flex">
+                                    <div>
+                                        <div class="info">Order No: ${orderData["order_no"]}</div>
+                                        <div class="info outer" style="align-self: flex-start;"><span class=${classValue}>${orderData["status"]}</span>${orderData["delivery_date"] ? " | Delivery On: " : ""}${orderData["delivery_date"]}</div>
+                                    </div>
+                                    <div class="order_on_date">
+                                        <div class="info" style="font-weight: 600;white-space: nowrap;">Ordered On:</div>
+                                        <div class="info">${lastOrder["ordered_date"]}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="info outer"><span class=${classValue}>${orderData["status"]}</span>${orderData["delivery_date"] ? " | Delivery On: " : ""}${orderData["delivery_date"]}</div>
                     </div>
                     <div class="order_cart history hide">
                         <div class="title">
@@ -332,6 +340,8 @@ function loadUserWelcomeUI(data) {
                 let getTableBodyChildElement = $(childElement).children().children().children("#order_card_tablebody");
                 if (childElement.hasClass("hide")) {
                     childElement.removeClass("hide");
+                    console.log($(this));
+                    $(this).removeClass("close");
                     getTableBodyChildElement.empty();
                     additionalDetails && additionalDetails.map((item, index) => {
                         getTableBodyChildElement.append(`
@@ -417,6 +427,7 @@ function loadUserWelcomeUI(data) {
                     });
                 } else {
                     childElement.addClass("hide");
+                    $(this).addClass("close");
                 }
             })
         })

@@ -446,6 +446,7 @@
 .order_card.history .status_bar_bordered {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .order_card.history .status_bar_bordered .bordered {
