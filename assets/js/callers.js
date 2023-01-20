@@ -21,7 +21,7 @@ function GlobalVarInit() {
     window.wholesalerAccountData = [];
     window.dataStore = {};
     window.discountData = {};
-    window.currentScreen = "";
+    // window.currentScreen = "";
     window.brandArr = {};
 }
 
