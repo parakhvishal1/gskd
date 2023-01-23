@@ -88,20 +88,24 @@ function showHeader(data) {
 }
 
 function showDatePicker() {
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     return `
         <div class="flex calendar-picker">
             <img class="picker" src="/gskd/assets/images/svg/calendar.svg" />
-            <input type='text' id='tbDate' placeholder='Pick Date' readonly="readonly" />
+            <input type='text' id='tbDate' placeholder='${locale["labels"]["pickDate"]}' readonly="readonly" />
             <img class="arrow-down" src="/gskd/assets/images/svg/down.svg" />
-             </div>
+        </div>
     `;
 }
 
 function showDatePickerWhite(date) {
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     return `
         <div class="flex calendar-picker">
             <img class="picker" src="/gskd/assets/images/svg/calendar-white.svg" />
-            <input type='text' id='tbDate' placeholder=${date ? date : 'Pick Date'} readonly="readonly"></input>
+            <input type='text' id='tbDate' placeholder=${date ? date : locale["labels"]["pickDate"]} readonly="readonly"></input>
             <!-- <img class="arrow-down" src="/gskd/assets/images/svg/down-white.svg" /> -->
         </div>
     `;
@@ -213,7 +217,7 @@ function addInputListener(inputElement) {
             /* let dateDivWrapper = $(this).parent().parent().parent().parent().parent().parent().siblings('.date-picker-value').children().children(".hasDatepicker");
             let isDateSelected = dateDivWrapper.datepicker({ dateFormat: 'M dd, y' }).val()
             if(!isDateSelected) {
-                showSnackbar(true, "Please select date!!!");
+                showSnackbar(true, locale["snackbars"]["selectDate"]);
                 return;
             } */
            $(this).blur();

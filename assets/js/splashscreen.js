@@ -6,7 +6,7 @@ function loadGeneralWelcome(data) {
                 
             </div>
             <div class="legal_tnc">
-                <div class="legal_tnc_title">Legal Terms & Conditions</div>
+                <div class="legal_tnc_title">${data["tncHeading"]}</div>
                 <div class="legal_tnc_body">${data["tnc"]}</div>
             </div>
         </div>

@@ -199,6 +199,8 @@ function loadUserProfile(data) {
 }
 
 function loadProfileOptions() {
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     let elementIsActive = $("#profile_setting_card").hasClass("active");
     if (elementIsActive) {
         $("#profile_setting_card").removeClass("active");
@@ -212,7 +214,7 @@ function loadProfileOptions() {
                 <div class="title hide">
                     <div class="name" onclick="loadEditProfile()">Profile Settings</div>
                 </div>
-                <div id="logout" class="info cta">Logout</div>
+                <div id="logout" class="info cta">${locale["buttons"]["logOut"]}</div>
             </div>
         `);
     }

@@ -5,6 +5,8 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
     const isAdditionDiscountEligible = filteredBrand[0]["additional_discount"];
     window.brandArr[currentSku] = (window.brandArr[currentSku] && window.brandArr[currentSku].length !== 0) ? window.brandArr[currentSku] : [];
 
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     $("#content_box").empty();
     $("#content_box").append(`
         <div class="order_details_container choosebrands" id="order_details_container_choosebrands_skulevel">
@@ -13,14 +15,14 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
                 <div class="icon"><i class="fa fa-shopping-cart"></i></div>
             </div>
             <div class="sub_detail_wrapper">
-                <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
-                <div class="sub_detail highlight">${isAdditionDiscountEligible ? "Additional Discount" : ""}</div>
+                <div class="sub_detail"><strong>${locale["labels"]["start"]}:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>${locale["labels"]["end"]}:</strong> ${data["last_date"]}</div>
+                <div class="sub_detail highlight">${isAdditionDiscountEligible ? locale["labels"]["additionalDiscount"] : ""}</div>
             </div>
             
             <div class="new_orders"></div>
 
             <div class="place_order">
-                <button class="btn outline" id="addanotheraccount" data=${encodeURIComponent(JSON.stringify(data))}>Add Another Account or Deferral Date</button>
+                <button class="btn outline" id="addanotheraccount" data=${encodeURIComponent(JSON.stringify(data))}>${locale["buttons"]["addAnotherAccount"]}</button>
             </div>
             <div id="previous-orders-accordion">
             </div>
@@ -29,8 +31,8 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
         <div class="bottom">
             <div class="btn_wrapper">
                 <div class="place_order">
-                    <button class="btn solid back" id="back">Back</button>
-                    <button class="btn solid continue" id="continue">Continue</button>
+                    <button class="btn solid back" id="back">${locale["buttons"]["back"]}</button>
+                    <button class="btn solid continue" id="continue">${locale["buttons"]["continue"]}</button>
                 </div>
             </div>
         </div>
@@ -55,21 +57,21 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
                             </div>
                             <div class="flex">
                                 <div class="order_status">
-                                    <div class="info"><span class="highlight">Order No:</span> ${lastOrder["order_no"]}</div>
+                                    <div class="info"><span class="highlight">${locale["labels"]["orderNo"]}:</span> ${lastOrder["order_no"]}</div>
                                 </div>
                                 <div class="order_on_date">
-                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["status"]}</div>
+                                    <div class="info"><span class="highlight">${locale["labels"]["status"]}:</span> ${lastOrder["status"]}</div>
                                 </div>
                             </div>
-                            <div class="title">PRODUCTS</div>
+                            <div class="title">${locale["labels"]["products"]}</div>
                             <table class="accordian table">
                                 <thead>
                                     <tr class="info_row bordered">
-                                        <td class="info_data" colspan="1">Est. Price</td>
-                                        <td class="info_data" colspan="1">Units</td>
-                                        <td class="info_data" colspan="1">Free Goods</td>
-                                        <td class="info_data" colspan="1">On Invoice Discount</td>
-                                        <td class="info_data" colspan="1">Pay Term</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["estPrice"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["units"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["freeGoods"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["onInvoiceDiscount"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["payTerm"]}</td>
                                     </tr>
                                 </thead>
                                 <tbody id="previous_order_body">
@@ -266,7 +268,7 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
                 loadBrandSelectionUI(window.dataStore);
                 ToBot("ordercart-continue", window.dataStore);
             } else {
-                showSnackbar(true, "Please select the date!!!");
+                showSnackbar(true, locale["snackbars"]["selectDate"]);
             }
             // ToApp("ordercart-screen", parseData)
         }
@@ -455,6 +457,8 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
     const isAdditionDiscountEligible = filteredBrand[0]["additional_discount"];
     window.brandArr[currentSku] = (window.brandArr[currentSku] && window.brandArr[currentSku].length !== 0) ? window.brandArr[currentSku] : [];
 
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     $("#content_box").empty();
     $("#content_box").append(`
         <div class="order_details_container choosebrands" id="order_details_container_choosebrands_brandlevel">
@@ -463,14 +467,14 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
                 <div class="icon"><i class="fa fa-shopping-cart"></i></div>
             </div>
             <div class="sub_detail_wrapper">
-                <div class="sub_detail"><strong>Start:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>End:</strong> ${data["last_date"]}</div>
-                <div class="sub_detail highlight">${isAdditionDiscountEligible ? "Additional Discount" : ""}</div>
+                <div class="sub_detail"><strong>${locale["labels"]["start"]}:</strong> ${data["start_date"]} <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>${locale["labels"]["end"]}:</strong> ${data["last_date"]}</div>
+                <div class="sub_detail highlight">${isAdditionDiscountEligible ? locale["labels"]["additionalDiscount"] : ""}</div>
             </div>
             <div class="brand_level_progress">${loadProgressCards({ "brands": filteredBrand }, true, true)}</div>
             <div class="new_orders"></div>
 
             <div class="place_order">
-                <button class="btn outline" id="addanotheraccount" data=${encodeURIComponent(JSON.stringify(data))}>Add Another Account or Deferral Date</button>
+                <button class="btn outline" id="addanotheraccount" data=${encodeURIComponent(JSON.stringify(data))}>${locale["buttons"]["addAnotherAccount"]}</button>
             </div>
             <div id="previous-orders-accordion">
             </div>
@@ -479,8 +483,8 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
         <div class="bottom">
             <div class="btn_wrapper">
                 <div class="place_order">
-                    <button class="btn solid back" id="back">Back</button>
-                    <button class="btn solid continue" id="continue">Continue</button>
+                    <button class="btn solid back" id="back">${locale["buttons"]["back"]}</button>
+                    <button class="btn solid continue" id="continue">${locale["buttons"]["continue"]}</button>
                 </div>
             </div>
         </div>
@@ -505,21 +509,21 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
                             </div>
                             <div class="flex">
                                 <div class="order_status">
-                                    <div class="info"><span class="highlight">Order No:</span> ${lastOrder["order_no"]}</div>
+                                    <div class="info"><span class="highlight">${locale["labels"]["orderNo"]}:</span> ${lastOrder["order_no"]}</div>
                                 </div>
                                 <div class="order_on_date">
-                                    <div class="info"><span class="highlight">Status:</span> ${lastOrder["status"]}</div>
+                                    <div class="info"><span class="highlight">${locale["labels"]["status"]}:</span> ${lastOrder["status"]}</div>
                                 </div>
                             </div>
-                            <div class="title">PRODUCTS</div>
+                            <div class="title">${locale["labels"]["products"]}</div>
                             <table class="accordian table">
                                 <thead>
                                     <tr class="info_row bordered">
-                                        <td class="info_data" colspan="1">Est. Price</td>
-                                        <td class="info_data" colspan="1">Units</td>
-                                        <td class="info_data" colspan="1">Free Goods</td>
-                                        <td class="info_data" colspan="1">On Invoice Discount</td>
-                                        <td class="info_data" colspan="1">Pay Term</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["estPrice"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["units"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["freeGoods"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["onInvoiceDiscount"]}</td>
+                                        <td class="info_data" colspan="1">${locale["labels"]["payTerm"]}</td>
                                     </tr>
                                 </thead>
                                 <tbody id="previous_order_body">
@@ -662,7 +666,7 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
                 loadBrandSelectionUI(parseData);
                 ToBot("ordercart-continue", parseData);
             } else {
-                showSnackbar(true, "Please select the date!!!");
+                showSnackbar(true, locale["snackbars"]["selectDate"]);
             }
             // ToApp("ordercart-screen", parseData)
         }
@@ -1376,6 +1380,9 @@ function addnewOrder(data, currentSku) {
 }
 
 function addnewOrderBrand(data, currentSku, skulevel) {
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
+
     $(".new_orders").prepend(`
         <div class="accordion">
             <div class="accordion-item">
@@ -1702,7 +1709,7 @@ function addnewOrderBrand(data, currentSku, skulevel) {
                 </tr>
                 <tr class="info_row brandscreen">
                     <td class="info_data" style="vertical-align: middle; padding: 0px 0 0 0;" colspan="2">
-                        Period Total:   <span style="font-weight: 600;">${Number(productData["discounts"]["purchased"]) ? Number(productData["discounts"]["purchased"]) : 0}</span>
+                        ${locale["labels"]["periodTotal"]}:   <span style="font-weight: 600;">${Number(productData["discounts"]["purchased"]) ? Number(productData["discounts"]["purchased"]) : 0}</span>
                     </td>
                     <td class="info_data" style="vertical-align: middle; padding: 0px 0 0 0;" colspan="2">
                         <div class="counter__wrapper">
@@ -1792,7 +1799,8 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
     let skuData = "";
     let parentSkuData = "";
     let storeddata = localStorage.getItem("data");
-
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     console.log("--a ", $(counterInput).parent().parent());
     if(skulevel) {
         skuData = $(counterInput).parent().parent().attr("skudata");
@@ -1823,7 +1831,7 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
     let dateDivWrapper = $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
     let isDateSelected = dateDivWrapper.datepicker({ dateFormat: 'M dd, y' }).val();
     if(!isDateSelected) {
-        showSnackbar(true, "Please select date!!!");
+        showSnackbar(true, locale["snackbars"]["selectDate"]);
         let totalMedSelected = Number(brand[0]["purchased"] ? brand[0]["purchased"] : 0) + Number(brand[0]["selected"] ? brand[0]["selected"] : Number($input.val()));
         if(inputtype === "blur" && (totalMedSelected + parseInt($input.val())) >= Number(brand[0]["max_limit"])) {
             $input.val(0);
@@ -1840,7 +1848,7 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
    /*  let isDateSelectedForAccount = false;
     let underAccount = window?.["dataStore"]?.["available_orders"]?.["orders"]?.filter(dsorders => dsorders["sku"] );
     if(!dsorders?.["order_date"]) {
-        showSnackbar(true, "Please select date!!!");
+        showSnackbar(true, locale["snackbars"]["selectDate"]);
         isDateSelectedForAccount = true
     }
     if(!isDateSelectedForAccount) return; */
@@ -1886,7 +1894,7 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
                 }
             });
             if(!shouldInputsAllowed) {
-                showSnackbar(true, "Maximum reached!!!");
+                showSnackbar(true, locale["snackbars"]["maxReached"]);
                 return;
             }
         } else {
@@ -1943,10 +1951,11 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
                 return;
             } */
             if(!shouldInputsAllowed) {
-                showSnackbar(true, "Maximum reached!!!");
+                showSnackbar(true, locale["snackbars"]["maxReached"]);
                 return;
             }
         }
+
         siblingWrapper.siblings(".counter__box__container.sub").children().children().children().children().css("fill", "#f36633");
         let datepickedElement = $(counterInput).parent().parent().parent().parent().parent().parent().parent().siblings(".date-picker-value").children().children(".hasDatepicker");
         let formattedDate = datepickedElement.datepicker({ dateFormat: 'M dd, y' }).val();
@@ -2176,6 +2185,9 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
 }
 
 function orderGroup(data) {
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
+
     let progresscards = data.map(orderData => {
         let classValue = "success";
         if (orderData["status"] === "Invoiced") {
@@ -2197,21 +2209,21 @@ function orderGroup(data) {
                             <div class="name">${orderData["account_no"]}</div>
                             <div class="arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
                         </div>
-                        <div class="info">Order No: ${orderData["order_no"]}</div>
+                        <div class="info">${locale["labels"]["orderNo"]}: ${orderData["order_no"]}</div>
                     </div>
                 </div>
-                <div class="info outer"><span class=${classValue}>${orderData["status"]}</span>${orderData["delivery_date"] ? " | Delivery On: " : ""}${orderData["delivery_date"]}</div>
+                <div class="info outer"><span class=${classValue}>${orderData["status"]}</span>${orderData["delivery_date"] ? ` | ${locale["labels"]["deliveryOn"]}: ` : ""}${orderData["delivery_date"]}</div>
 
                 <div class="order_cart">
                     <div class="detail">
                         <table class="ui very basic table">
                             <thead>
                                 <tr class="info_row">
-                                    <td class="info_data" colspan="1">Est. Price</td>
-                                    <td class="info_data" colspan="1">Units</td>
-                                    <td class="info_data" colspan="1">Free Goods</td>
-                                    <td class="info_data" colspan="1">On Invoice Discount</td>
-                                    <td class="info_data" colspan="1">Pay Term</td>
+                                    <td class="info_data" colspan="1">${locale["labels"]["estPrice"]}</td>
+                                    <td class="info_data" colspan="1">${locale["labels"]["units"]}</td>
+                                    <td class="info_data" colspan="1">${locale["labels"]["freeGoods"]}</td>
+                                    <td class="info_data" colspan="1">${locale["labels"]["onInvoiceDiscount"]}</td>
+                                    <td class="info_data" colspan="1">${locale["labels"]["payTerm"]}</td>
                                 </tr>
                             </thead>
                             <tbody id="order_card_tablebody">

@@ -12,9 +12,10 @@ function CallScreen(caseNum) {
             ToApp("welcome-screen", {
                 "title": "Welcome to gsk",
                 "sub-title": "Find more benefits for your pharmacy inside",
+                "tncHeading": "Legal Terms & Conditions",
                 "tnc": `At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
                 praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-                occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia.`,
+                occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia.&nbsp;<a href="#">hey there</a>`,
                 "bg-img": "/gskd/assets/images/png/brand.png"
             });
             break;
@@ -63,7 +64,65 @@ function CallScreen(caseNum) {
         case "4":
             ToApp("userwelcome-screen", {
                 "start_date": "Jan 01, 22",
-                "last_date": "Dec 31, 22",
+                "last_date": "Jan 31, 23",
+                "locale": {
+                    "labels": {
+                        "title": "Plan Progress",
+                        "lastOrder": "Last Order",
+                        "orderHistory": "Order History",
+                        "startDate": "Start Date",
+                        "endDate": "End Date",
+                        "start": "Start",
+                        "end": "End",
+                        "estPrice": "Est. Price",
+                        "units": "Units",
+                        "freeGoods": "Free Goods",
+                        "payTerm": "Pay Term",
+                        "pickDate": "Pick Date",
+                        "offInvoice": "Off Invoice",
+                        "onInvoice": "On Invoice",
+                        "offInvoiceDiscount": "Off Invoice Discount",
+                        "onInvoiceDiscount": "On Invoice Discount",
+                        "discAbbr": "Disc",
+                        "discount": "Discount",
+                        "value": "Value",
+                        "additionalDiscount": "Additional Discount",
+                        "orderDetails": "Order Details",
+                        "products": "PRODUCTS",
+                        "rebates": "Period Eligible / Rebates",
+                        "orderNo": "Order No",
+                        "status": "Status",
+                        "orderDate": "Order Date",
+                        "orderedOn": "Ordered On",
+                        "statusDate": "Status Date",
+                        "periodTotal": "Period Total",
+                        "deliveryOn": "Delivery On",
+                        "yes": "Yes",
+                        "no": "No",
+                        "logOutPopupTitle": "Are you sure you want to log-off?",
+                        "downloadOrderHistory": "Download Order History",
+                        "chooseBrands": "Choose Brands",
+                    },
+                    "buttons": {
+                        "back": "Back",
+                        "cancel": "Cancel",
+                        "confirm": "Confirm",
+                        "continue": "Continue",
+                        "placeNewOrder": "Place New Order",
+                        "logOut": "Logout",
+                        "chooseBrands": "Choose Brands",
+                        "checkout": "Checkout",
+                        "addAnotherAccount": "Add Another Account or Deferral Date",
+                        "accept": "Accept the terms",
+                        "decline": "Decline",
+                    },
+                    "snackbars": {
+                        "exceedMaxLimit": "Value exceeding the max limit.",
+                        "selectDate": "Please select date!!!",
+                        "maxReached": "Maximum reached!!!",
+                        "accountSelected": "All Acc Selected!!!",
+                    }
+                },
                 "download_url": `LOC,Period,Order Date,Order Type,Internal Order Status,Internal Order Number,External Order Number,External Order Status,External Order Date,Wholesaler Code,Account Code,Legal Id Code,Brand #,Brand,EAN,SKU#,SKU,Requested Volume,Invoiced Volume,On Invoice Discount,On Invoice Free Goods,On Invoice Payment Terms,Off Invoice Discount,Off Invoice Free Goods,Offer Type,User Identifier,Order Id,Delete Record(YES/NO)
                 Master,alpha,2022-12-09,ORDER,OPEN,,,NOT_CONFIRMED,,ABC001,LBS004,BLSL004,S_BRD_010,SKU Brand New 10,10042,S_BRD_010_SKU_001,Medicine SKU 10,104,104,,,,,,SEGMENT,51,2212000003,
                 Master,alpha,2022-12-09,ORDER,OPEN,,,IN_PROCESS,,ABC001,LBS004,BLSL004,BRD_001,Brand New 1,10003,BRD_001_SKU_001,Brand New 250Mg,200,200,4.0,0,0,,,PREDEFINED,51,2212000001,

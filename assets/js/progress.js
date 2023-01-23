@@ -1,14 +1,16 @@
 
 function loadPlanProgress(data, basicProgress, hideSelectedProgress) {
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     $("#progress_plan_main").empty();
     $("#progress_plan_main").prepend(`
         <div class="title">
-            <div class="name highlight">${data["title"]}</div>
+            <div class="name highlight">${locale["labels"]["title"]}</div>
             <div class="arrow calendar">
                 <!-- <span>
                     <img src="/gskd/assets/images/svg/calendar.svg" />
                 </span> -->
-                <p style="color: #f36633;">End Date:&nbsp;&nbsp;</p> ${data["last_date"]}
+                <p style="color: #f36633;">${locale["labels"]["endDate"]}:&nbsp;&nbsp;</p> ${data["last_date"]}
             </div>
         </div>
         <div id="plan_items"></div>
@@ -39,6 +41,8 @@ function loadProgressCards(data, detailed, hideAdd) {
 }
 
 function getProgressHeaderFooterLabels(data, sourceContainer) {
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
     let discount_range = data["on_invoice_range"] ? data["on_invoice_range"] : data["off_invoice_range"];
     let backgroundProgressWidth = Number(data["max_limit"])/discount_range.length;
     let backgroundProgressPerc = (backgroundProgressWidth/Number(data["max_limit"])) * 100;
@@ -83,12 +87,12 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
                     </div>
                     ${sourceContainer === "header" ? 
                         `
-                            ${(data["offInvoice_discount_execution"] === "FINANCIAL") ? '<div class="progress_header_label">Disc.</div>' : ''}
-                            ${(data["offInvoice_discount_execution"] === "FREE_GOODS") ? '<div class="progress_header_label" style="right: calc(100% + 4px);">Free Goods</div>' : ''}
+                            ${(data["offInvoice_discount_execution"] === "FINANCIAL") ? `<div class="progress_header_label">${locale["labels"]["discAbbr"]}.</div>` : ''}
+                            ${(data["offInvoice_discount_execution"] === "FREE_GOODS") ? `<div class="progress_header_label" style="right: calc(100% + 4px);">${locale["labels"]["freeGoods"]}</div>` : ''}
                         ` : ""
                     }
-                    ${sourceContainer === "header" ? '<div class="progress_header_label right">Off Invoice</div>' : ""}
-                    ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
+                    ${sourceContainer === "header" ? `<div class="progress_header_label right">${locale["labels"]["offInvoice"]}</div>` : ""}
+                    ${sourceContainer === "footer" ? `<div class="progress_footer_label">${locale["labels"]["value"]}</div>` : ""}
                 </div>
             `;
         }
@@ -105,13 +109,13 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
                     </div>
                     ${sourceContainer === "header" ? 
                         `
-                            ${(data["onInvoice_discount_execution"] === "FINANCIAL") ? '<div class="progress_header_label">Disc.</div>' : ''}
-                            ${(data["onInvoice_discount_execution"] === "FREE_GOODS") ? '<div class="progress_header_label" style="right: calc(100% + 4px);">Free Goods</div>' : ''}
+                            ${(data["onInvoice_discount_execution"] === "FINANCIAL") ? `<div class="progress_header_label">${locale["labels"]["discAbbr"]}.</div>` : ''}
+                            ${(data["onInvoice_discount_execution"] === "FREE_GOODS") ? `<div class="progress_header_label" style="right: calc(100% + 4px);">${locale["labels"]["freeGoods"]}</div>` : ''}
                             
                         ` : ""
                     }
-                    ${sourceContainer === "header" ? '<div class="progress_header_label right">On Invoice</div>' : ""}
-                    ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
+                    ${sourceContainer === "header" ? `<div class="progress_header_label right">${locale["labels"]["onInvoice"]}</div>` : ""}
+                    ${sourceContainer === "footer" ? `<div class="progress_footer_label">${locale["labels"]["value"]}</div>` : ""}
                 </div>
             `;
         }
@@ -150,8 +154,8 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
             <div class="main" style="justify-content: center;">
                 ${discountRangeData}
             </div>
-            ${sourceContainer === "header" ? '<div class="progress_header_label">Disc.</div>' : ""}
-            ${sourceContainer === "footer" ? '<div class="progress_footer_label">Value</div>' : ""}
+            ${sourceContainer === "header" ? `<div class="progress_header_label">${locale["labels"]["discAbbr"]}.</div>` : ""}
+            ${sourceContainer === "footer" ? `<div class="progress_footer_label">${locale["labels"]["value"]}</div>` : ""}
         </div>
     `;
 }
