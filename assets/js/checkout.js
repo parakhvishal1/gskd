@@ -7,13 +7,13 @@ function loadOrderCart(data) {
         <div class="order_details_container choosebrands">
             <div class="menu_header">
                 <div class="label">${locale["labels"]["orderDetails"]}</div>
-                <div class="icon goToBrandLevel cursor"><img src="/assets/images/svg/plus.svg" /></div>
+                <div class="icon goToBrandLevel cursor"><img src="/gskd/assets/images/svg/plus.svg" /></div>
             </div>
             ${getAccordianAccounts(data["new_orders"]["orders"])}
             <div>
-                ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? `<div class="menu_header"><div class="category_label">${locale["labels"]["rebates"]}</div></div>`: ""}
+                ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? `<div class="menu_header"><div class="category_label">${locale["labels"]["rebates"]}</div></div>` : ""}
                 <div id="rebates_order">
-                    ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? getAccordianAccounts([data["rebates_orders"]["orders"][0]], true): ""}
+                    ${data["rebates_orders"] && data["rebates_orders"]["orders"] && data["rebates_orders"]["orders"].length !== 0 ? getAccordianAccounts([data["rebates_orders"]["orders"][0]], true) : ""}
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@ function loadOrderCart(data) {
         }); */
         // ToApp('userwelcome-screen', data);
         // ToApp("ordercart-final-screen", data);
-        
+
     });
 
     $(".accordion-item-header.account_detail").click(function (e) {
@@ -80,7 +80,7 @@ function loadOrderCart(data) {
         }
     });
 
-    if(data["rebates_orders"]["orders"].length) {
+    if (data["rebates_orders"]["orders"].length) {
         $(".periodrebates").click(function (e) {
             e.stopPropagation();
             e.stopImmediatePropagation();
@@ -116,7 +116,7 @@ function loadOrderCart(data) {
         autoHideScrollbar: true
     }); */
 
-    
+
     /* $(".accordion-item-body-content").mCustomScrollbar({
         theme: "dark-thin",
         scrollButtons: { enable: false },
