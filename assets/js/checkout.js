@@ -181,7 +181,7 @@ function getAccordianAccounts(data, rebates) {
                                     <div class="input_date_picker" readonly="readonly">${order["ordered_date"]}</div>
                                 </div>
                             </div>
-                            <div class="flex title">PRODUCTS</div>
+                            <div class="flex title">${locale["labels"]["products"]}</div>
                             <table class="accordian table">
                                 <thead>
                                     <tr class="info_row borderBottom">
