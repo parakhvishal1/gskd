@@ -481,6 +481,9 @@ window.addEventListener('message', function (eventData) {
 
     if (parsedData?.event_code == 'select-brand') {
         let source = parsedData.data.data.source;
+        console.log('select-brand Mobile', source)
+        let src = parsedData.data.source
+        console.log('select-brandd src ', src)
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- select-brand event in parent iframe ---> \n\n\n", parsedData);
@@ -506,6 +509,8 @@ window.addEventListener('message', function (eventData) {
 
     if (parsedData?.event_code == 'ordercart-continue') {
         let source = parsedData.data.data.source;
+        console.log('select-brand Mobile', source)
+        let src = parsedData.data.source
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- ordercart-continue event in parent iframe ---> \n\n\n", parsedData);
