@@ -160,27 +160,38 @@ window.addEventListener('message', function (eventData) {
 
     }
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "termsui-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'termsui-screen',
-            data: parsedData.data.data
-        }), '*');
-        console.log("termsui-screen")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "termsui-screen") { //bot ui
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'termsui-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("termsui-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'termsui-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("termsui-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") { //bot ui
         console.log('Source-->>', parsedData.data.data.source);
         let source = parsedData.data.data.source;
         if (source == 'Mobile') {
-            injectDynamicCssForMobileUI();
+            injectDynamicCssForMobileBot();
             document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
                 event_code: 'userwelcome-screen',
                 data: parsedData.data.data
             }), '*');
-
-
             console.log("userwelcome-screen")
             console.log('Event Data-->>', parsedData.data.data)
             return;
@@ -189,82 +200,172 @@ window.addEventListener('message', function (eventData) {
                 event_code: 'userwelcome-screen',
                 data: parsedData.data.data
             }), '*');
-
-
             console.log("userwelcome-screen")
             console.log('Event Data-->>', parsedData.data.data)
             return;
         }
     }
 
-    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'user-login',
-            data: parsedData.data.data
-        }), '*');
-        console.log("user-login")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") { //bot ui
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'user-login',
+                data: parsedData.data.data
+            }), '*');
+            console.log("user-login")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'user-login',
+                data: parsedData.data.data
+            }), '*');
+            console.log("user-login")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "ordercart-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'ordercart-screen',
-            data: parsedData.data.data
-        }), '*');
-        console.log("ordercart-screen")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'ordercart-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("ordercart-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'ordercart-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("ordercart-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "load-userwelcome-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'load-userwelcome-screen',
-            data: parsedData.data.data
-        }), '*');
-        console.log("load-userwelcome-screen")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'load-userwelcome-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("load-userwelcome-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'load-userwelcome-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("load-userwelcome-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "show-brand-selection") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'show-brand-selection',
-            data: parsedData.data.data
-        }), '*');
-        console.log("show-brand-selection")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'show-brand-selection',
+                data: parsedData.data.data
+            }), '*');
+            console.log("show-brand-selection")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'show-brand-selection',
+                data: parsedData.data.data
+            }), '*');
+            console.log("show-brand-selection")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "show-brand-detailing") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'show-brand-detailing',
-            data: parsedData.data.data
-        }), '*');
-        console.log("show-brand-detailing")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'show-brand-detailing',
+                data: parsedData.data.data
+            }), '*');
+            console.log("show-brand-detailing")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'show-brand-detailing',
+                data: parsedData.data.data
+            }), '*');
+            console.log("show-brand-detailing")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
+
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "orderhistory-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'orderhistory-screen',
-            data: parsedData.data.data
-        }), '*');
-        console.log("orderhistory-screen")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'orderhistory-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("orderhistory-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'orderhistory-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("orderhistory-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "confirmorderon-bot") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'confirmorderon-bot',
-            data: parsedData.data.data
-        }), '*');
-        console.log("confirmorderon-bot")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'confirmorderon-bot',
+                data: parsedData.data.data
+            }), '*');
+            console.log("confirmorderon-bot")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'confirmorderon-bot',
+                data: parsedData.data.data
+            }), '*');
+            console.log("confirmorderon-bot")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
 
@@ -300,42 +401,98 @@ window.addEventListener('message', function (eventData) {
 
     if (parsedData?.event_code == 'logout') {
         // injectDynamicCssForMobileBot()
-        console.error('-logout--')
-        localStorage.removeItem("updated-data");
-        console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "logout",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.error('-logout--')
+            localStorage.removeItem("updated-data");
+            console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "logout",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.error('-logout--')
+            localStorage.removeItem("updated-data");
+            console.log("\n\n\n <--- Logout event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "logout",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'place-new-order') {
-        console.log("\n\n\n <--- place-new-order event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "place-new-order",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- place-new-order event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "place-new-order",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <--- place-new-order event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "place-new-order",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'view-checkout') {
-        console.log("\n\n\n <--- view-checkout event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "view-checkout",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- view-checkout event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "view-checkout",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <--- view-checkout event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "view-checkout",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'select-brand') {
-        console.log("\n\n\n <--- select-brand event in parent iframe ---> \n\n\n", parsedData);
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- select-brand event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "select-brand",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else[
+            console.log("\n\n\n <--- select-brand event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
                 code: "select-brand",
@@ -343,127 +500,283 @@ window.addEventListener('message', function (eventData) {
             }
         }, true);
         return;
+        ]
+
     }
 
     if (parsedData?.event_code == 'ordercart-continue') {
-        console.log("\n\n\n <--- ordercart-continue event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "ordercart-continue",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- ordercart-continue event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "ordercart-continue",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <--- ordercart-continue event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "ordercart-continue",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'confirm-order') {
-        console.log("\n\n\n <--- confirm-order event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "confirm-order",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- confirm-order event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "confirm-order",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <--- confirm-order event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "confirm-order",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'cancel-order') {
-        console.log("\n\n\n <--- cancel-order event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "cancel-order",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- cancel-order event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "cancel-order",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <--- cancel-order event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "cancel-order",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'confirm-order-total-invoice') {
-        console.log("\n\n\n <--- confirm-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "confirm-order-total-invoice",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- confirm-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "confirm-order-total-invoice",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <--- confirm-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "confirm-order-total-invoice",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'cancel-order-total-invoice') {
-        console.log("\n\n\n <--- cancel-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "cancel-order-total-invoice",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <--- cancel-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "cancel-order-total-invoice",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <--- cancel-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "cancel-order-total-invoice",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'back-brand-select') {
-        console.log("\n\n\n <---  back-brand-select event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "back-brand-select",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <---  back-brand-select event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "back-brand-select",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <---  back-brand-select event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "back-brand-select",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'ordercart-back') {
-        console.log("\n\n\n <---  ordercart-back event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "ordercart-back",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <---  ordercart-back event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "ordercart-back",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <---  ordercart-back event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "ordercart-back",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'back-on-orderhistory') {
-        console.log("\n\n\n <---  back-on-orderhistory event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "back-on-orderhistory",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <---  back-on-orderhistory event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "back-on-orderhistory",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <---  back-on-orderhistory event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "back-on-orderhistory",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'checkout-add-brands') {
-        console.log("\n\n\n <---  checkout-add-brands event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "checkout-add-brands",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <---  checkout-add-brands event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "checkout-add-brands",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <---  checkout-add-brands event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "checkout-add-brands",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'checkout-to-brand-detailing') {
-        console.log("\n\n\n <---  checkout-to-brand-detailing event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "checkout-to-brand-detailing",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <---  checkout-to-brand-detailing event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "checkout-to-brand-detailing",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <---  checkout-to-brand-detailing event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "checkout-to-brand-detailing",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'update-order-data') {
-        console.log("\n\n\n <---  update-order-data event in parent iframe ---> \n\n\n", parsedData);
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "update-order-data",
-                data: parsedData
-            }
-        }, true);
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log("\n\n\n <---  update-order-data event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "update-order-data",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        } else {
+            console.log("\n\n\n <---  update-order-data event in parent iframe ---> \n\n\n", parsedData);
+            window.frames.ymIframe.chat.send({
+                event: {
+                    code: "update-order-data",
+                    data: parsedData
+                }
+            }, true);
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'update-data-on-refresh') {
