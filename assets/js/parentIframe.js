@@ -172,15 +172,29 @@ window.addEventListener('message', function (eventData) {
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
         console.log('Source-->>', parsedData.data.data.source);
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'userwelcome-screen',
-            data: parsedData.data.data
-        }), '*');
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileUI();
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'userwelcome-screen',
+                data: parsedData.data.data
+            }), '*');
 
 
-        console.log("userwelcome-screen")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+            console.log("userwelcome-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'userwelcome-screen',
+                data: parsedData.data.data
+            }), '*');
+
+
+            console.log("userwelcome-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "user-login") {
