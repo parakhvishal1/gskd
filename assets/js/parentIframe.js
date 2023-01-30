@@ -165,6 +165,7 @@ window.addEventListener('message', function (eventData) {
         console.log("userwelcome-screen")
         console.log('Event Data-->>', parsedData.data.data)
         console.log('Event Data-->>', parsedData.data.source)
+        console.log('Event Data-->>', parsedData.data.download_url)
         return;
     }
 
