@@ -136,13 +136,28 @@ window.addEventListener('message', function (eventData) {
 
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'welcome-screen',
-            data: parsedData.data.data
-        }), '*');
-        console.log("welcome-screen")
-        console.log('Event Data-->>', parsedData.data.data)
-        return;
+        let source = parsedData.data.data.source;
+        if (source == 'Mobile') {
+            injectDynamicCssForMobileBot();
+            console.log('Event Data-->>', parsedData.data.data);
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'welcome-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("welcome-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        } else {
+            console.log('Event Data-->>', parsedData.data.data);
+            document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                event_code: 'welcome-screen',
+                data: parsedData.data.data
+            }), '*');
+            console.log("welcome-screen")
+            console.log('Event Data-->>', parsedData.data.data)
+            return;
+        }
+
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "termsui-screen") {
