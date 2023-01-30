@@ -164,8 +164,8 @@ window.addEventListener('message', function (eventData) {
 
         console.log("userwelcome-screen")
         console.log('Event Data-->>', parsedData.data.data)
-        console.log('Source-->>', parsedData.data.source)
-        console.log('DOwnload Url-->>', parsedData.data.download_url)
+        console.log('Source-->>', parsedData.data.data.source)
+        console.log('DOwnload Url-->>', parsedData.data.data.download_url)
         return;
     }
 
