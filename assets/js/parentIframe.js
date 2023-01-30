@@ -156,6 +156,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "userwelcome-screen") {
+        console.log('Source-->>', parsedData.data.data.source);
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'userwelcome-screen',
             data: parsedData.data.data
@@ -164,8 +165,6 @@ window.addEventListener('message', function (eventData) {
 
         console.log("userwelcome-screen")
         console.log('Event Data-->>', parsedData.data.data)
-        console.log('Source-->>', parsedData.data.data.source)
-        console.log('DOwnload Url-->>', parsedData.data.data.download_url)
         return;
     }
 
