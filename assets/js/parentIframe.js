@@ -401,7 +401,7 @@ window.addEventListener('message', function (eventData) {
 
     if (parsedData?.event_code == 'logout') {
         // injectDynamicCssForMobileBot()
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.error('-logout--')
@@ -430,7 +430,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'place-new-order') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- place-new-order event in parent iframe ---> \n\n\n", parsedData);
@@ -455,7 +455,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'view-checkout') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- view-checkout event in parent iframe ---> \n\n\n", parsedData);
@@ -480,10 +480,8 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'select-brand') {
-        // let source = parsedData.data.data.source;
-        // console.log('select-brand Mobile', source)
-        let src = parsedData.data.source
-        console.log('select-brandd src ', src)
+        let source = parsedData.data.source;
+        console.log('select-brand Mobile', source);
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- select-brand event in parent iframe ---> \n\n\n", parsedData);
@@ -508,8 +506,8 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'ordercart-continue') {
-        // let source = parsedData.data.data.source;
-        // console.log('select-brand Mobile', source)
+        let source = parsedData.data.source;
+        console.log('select-brand Mobile', source)
         let src = parsedData.data.source
         console.log('src', src)
         if (source == 'Mobile') {
@@ -536,7 +534,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'confirm-order') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- confirm-order event in parent iframe ---> \n\n\n", parsedData);
@@ -561,7 +559,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'cancel-order') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- cancel-order event in parent iframe ---> \n\n\n", parsedData);
@@ -586,7 +584,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'confirm-order-total-invoice') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- confirm-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
@@ -611,7 +609,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'cancel-order-total-invoice') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <--- cancel-order-total-invoice event in parent iframe ---> \n\n\n", parsedData);
@@ -636,7 +634,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'back-brand-select') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <---  back-brand-select event in parent iframe ---> \n\n\n", parsedData);
@@ -661,7 +659,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'ordercart-back') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <---  ordercart-back event in parent iframe ---> \n\n\n", parsedData);
@@ -686,7 +684,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'back-on-orderhistory') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <---  back-on-orderhistory event in parent iframe ---> \n\n\n", parsedData);
@@ -711,7 +709,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'checkout-add-brands') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <---  checkout-add-brands event in parent iframe ---> \n\n\n", parsedData);
@@ -736,7 +734,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'checkout-to-brand-detailing') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <---  checkout-to-brand-detailing event in parent iframe ---> \n\n\n", parsedData);
@@ -761,7 +759,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'update-order-data') {
-        let source = parsedData.data.data.source;
+        let source = parsedData.data.source;
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
             console.log("\n\n\n <---  update-order-data event in parent iframe ---> \n\n\n", parsedData);
