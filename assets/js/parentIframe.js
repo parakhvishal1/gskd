@@ -381,6 +381,12 @@ window.addEventListener('message', function (eventData) {
         return;
     }
 
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
+        console.log("get-source");
+        let source = parsedData.data.data.source;
+        console.log(source, 'get Source')
+    }
+
 
     // if (parsedData?.event_code == "name-received") {
     //     console.error('name-received')
