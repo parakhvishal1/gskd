@@ -384,7 +384,13 @@ window.addEventListener('message', function (eventData) {
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
         console.log("get-source");
         let source = parsedData.data.data.source;
-        console.log(source, 'get Source')
+        console.log(source, 'get Source');
+        window.frames.ymIframe.chat.send({
+            event: {
+                code: "back-on-orderhistory",
+                data: "get-source"
+            }
+        }, true);
     }
 
 
