@@ -255,7 +255,7 @@ window.addEventListener('message', function (eventData) {
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "load-userwelcome-screen") {
         let source = parsedData.data.data.source;
         if (source == 'Mobile') {
-            injectDynamicCssForMobileUI();
+            injectDynamicCssForMobileBot();
             document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
                 event_code: 'load-userwelcome-screen',
                 data: parsedData.data.data
