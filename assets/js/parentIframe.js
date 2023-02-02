@@ -384,7 +384,7 @@ window.addEventListener('message', function (eventData) {
         console.log("get-source");
         let source = parsedData.data.data.source;
         console.log(source, 'get Source');
-        injectDynamicCssForMobileUI();
+        injectDynamicCssForMobileBot();
         // window.frames.ymIframe.chat.send({
         //     event: {
         //         code: "back-on-orderhistory",
