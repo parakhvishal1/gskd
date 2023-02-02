@@ -368,7 +368,6 @@ window.addEventListener('message', function (eventData) {
 
     }
 
-
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
         console.log("bot-reloaded");
         let data = localStorage.getItem("updated-data")
@@ -385,14 +384,14 @@ window.addEventListener('message', function (eventData) {
         console.log("get-source");
         let source = parsedData.data.data.source;
         console.log(source, 'get Source');
-        window.frames.ymIframe.chat.send({
-            event: {
-                code: "back-on-orderhistory",
-                data: "get-source"
-            }
-        }, true);
+        injectDynamicCssForMobileUI();
+        // window.frames.ymIframe.chat.send({
+        //     event: {
+        //         code: "back-on-orderhistory",
+        //         data: "get-source"
+        //     }
+        // }, true);
     }
-
 
     // if (parsedData?.event_code == "name-received") {
     //     console.error('name-received')
