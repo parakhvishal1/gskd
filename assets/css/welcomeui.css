@@ -8,7 +8,9 @@
     height: 75%;
     /* background: url("/gsk/assets/images/svg/banner.svg"); */
     /* background: url("https://cdn.yellowmessenger.com/xcp1wyrVSFih1668751719553.jpg"); */
-    background: url("https://cdn.yellowmessenger.com/VvJMNjM6UJwG1673342227666.jpg");
+    /* for master staging */
+    /* background: url("https://cdn.yellowmessenger.com/VvJMNjM6UJwG1673342227666.jpg"); */
+    background: url("https://cdn.yellowmessenger.com/4pWB5rsEVHjm1674558676748.jpg");
     background-repeat: no-repeat;
     background-color: #fff;
     background-size: cover;
@@ -72,7 +74,8 @@
 }
 
 .content__box .splash_screen .legal_tnc .legal_tnc_body a {
-    color: #0000EE;;
+    color: #0000EE;
+    ;
     text-decoration: underline;
 }
 
