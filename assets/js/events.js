@@ -1192,7 +1192,52 @@ function CallScreen(caseNum) {
                             ]
                         }
                     ]
-                }
+                },
+                "profileDetails": {
+                    "firstName": "Ashish",
+                    "lastName": "Bhardwaj",
+                    "phoneNumber": "9639417178",
+                    "email": ""
+                },
+                "associatedAccounts": [
+                    {
+                        "wholeSalerName": "ABC1",
+                        "wholeSalerStatus": "Active",
+                        "accounts": [
+                            {
+                                "accountNumber": "A00000001",
+                                "legalIdCode": "12345",
+                                "invoice": "https://www.google-analytics.com/analytics.js",
+                                "accountStatus": "Active"
+                            },
+                            {
+                                "accountNumber": "A00000001",
+                                "legalIdCode": "12345",
+                                "invoice": "https://www.google-analytics.com/analytics.js",
+                                "accountStatus": "Active"
+                            }
+                        ]
+                    },
+                    {
+                        "wholeSalerName": "ABC2",
+                        "wholeSalerStatus": "Active/Inactive",
+                        "accounts": [
+                            {
+                                "accountNumber": "A00000001",
+                                "legalIdCode": "12345",
+                                "invoice": "https://www.google-analytics.com/analytics.js",
+                                "accountStatus": "Active"
+                            },
+                            {
+                                "accountNumber": "A00000001",
+                                "legalIdCode": "12345",
+                                "invoice": "https://www.google-analytics.com/analytics.js",
+                                "accountStatus": "Active"
+                            }
+                        ]
+                    }
+                ],
+                "notifications": "yes"
             });
             break;
         case "5":

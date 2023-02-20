@@ -60,12 +60,13 @@ function showHeader(data) {
         </div>
     `);
 
-    /* $(".svg_icon_wrapper").click(function(e) {
+    $(".svg_icon_wrapper").click(function(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        let parsedData = JSON.parse(localStorage.getItem("data"));
-        ToApp("userwelcome-screen", parsedData)
-    }); */
+        // let parsedData = JSON.parse(localStorage.getItem("data"));
+        // ToApp("userwelcome-screen", parsedData)
+        ToBot("help", {})
+    });
 
     $(".profile_section").click(function(e) {
         e.stopPropagation();
@@ -305,3 +306,17 @@ function getJoinedCheckout (data) {
 
     return finalCartData;
 }
+
+function downloadFile(url, file) {
+    fetch(url, { method: 'get', mode: 'no-cors', referrerPolicy: 'no-referrer' })
+        .then(res => res.blob())
+        .then(res => {
+            const elem = document.createElement('a');
+            elem.setAttribute('download', file);
+            const href = URL.createObjectURL(res);
+            elem.href = href;
+            elem.setAttribute('target', '_blank');
+            elem.click();
+            URL.revokeObjectURL(href);
+        });
+};

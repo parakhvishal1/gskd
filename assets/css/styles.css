@@ -342,6 +342,16 @@
     margin: 25px 0 15px 0;
 }
 
+.place_order.profile {
+    margin: 10px 0;
+}
+
+.place_order.profile button {
+    padding: 8px 16px;
+    box-shadow: none;
+    border: 1px solid #f36633;
+}
+
 .place_order.checkout .btn::before {
    content: url("/gskd/assets/images/svg/basket_white.svg");
    position: absolute;
@@ -375,6 +385,11 @@
 .place_order .btn.outline {
     background: #fff;
     color: #f36633;
+}
+
+.place_order .btn.outline.profile_details {
+    font-size: 15px;
+    font-weight: 400;
 }
 
 .place_order .btn.solid {
@@ -797,11 +812,15 @@ table {
 .accordion-item-header.notification:before {
     content: '';
     position: absolute;
-    top: 15px;
-    right: 2rem;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: green;
-    padding: 6px;
     border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    margin: auto 36px auto auto;
 }
 
 /* .accordion-item-header.orderdetail.active {
@@ -864,6 +883,14 @@ table {
     padding: 0 12px;
 }
 
+.accordion-item-body-content.profile_details {
+    padding: 0;
+}
+
+.accordian_upperwrapper.profile_details {
+    padding-top: 12px;
+}
+
 .accordion-item-body-content .block {
     margin: 10px 0;
 }
@@ -897,6 +924,14 @@ table {
     box-shadow: none;
 }
 
+.accordion-item-body.parent .accordion-item-body-content .accordion .accordion-item.profile {
+    border-top: 0.5px solid #e6e6e6;
+}
+
+.accordion-item-body.parent .accordion-item-body-content .accordion.associated_accounts:last-child .accordion-item.profile {
+   border-bottom: 0;
+}
+
 .accordion-item-body.parent .accordion-item-body-content .accordion .accordion-item .accordion-item-header.active {
     border: none;
     box-shadow: none;
@@ -912,6 +947,10 @@ table {
 
 .accordion-item-body.parent .accordion-item-body-content .accordion .accordion-item .accordion-item-header {
     padding: 12px 0;
+}
+
+.accordion-item-body.parent .accordion-item-body-content .accordion .accordion-item .accordion-item-header.inner.profile {
+    padding: 0;
 }
 
 .accordion-item-body.parent .accordion-item-body-content .accordion .accordion-item .accordion-item-header .account_status {
@@ -1003,6 +1042,14 @@ table {
     border-bottom: 1px solid #e6e6e6;
 }
 
+.accordion-item-body-content .accordian_upperwrapper.profile_details .accordion.associated_accounts .accordian.table tbody .info_row.bordered:last-child {
+    padding-bottom: 0px;
+}
+
+.accordion-item-body-content .accordian_upperwrapper.profile_details .accordion.associated_accounts .accordian.table tbody .info_row.bordered:last-child .info_data {
+    padding: 10px 0 6px 0;
+}
+
 .accordian.table tbody tr .title {
     display: flex;
     align-items: center;
@@ -1039,6 +1086,8 @@ table {
 
 .accordian.table .info_row .info_data .upload_icon {
     width: 12px;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .accordian.table .info_row .info_data .upload_icon svg {
@@ -1053,6 +1102,7 @@ table {
 
 .accordian.table .info_row .info_data .inline_block.top {
     vertical-align: top;
+    cursor: pointer;
 }
 
 .accordian.table .info_row .info_data:last-child {
@@ -1248,4 +1298,12 @@ table {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.notification_success::before {
+    background: #008a00 !important;
+}
+
+.notification_failed::before {
+    background: #f23904 !important;
 }

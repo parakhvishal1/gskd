@@ -1,5 +1,5 @@
 
-function loadPlanProgress(data, basicProgress, hideSelectedProgress) {
+function loadPlanProgress(data, basicProgress, hideSelectedProgress, initial) {
     let localStoredData = JSON.parse(localStorage.getItem("data"));
     let locale = localStoredData["locale"];
     $("#progress_plan_main").empty();
@@ -17,7 +17,7 @@ function loadPlanProgress(data, basicProgress, hideSelectedProgress) {
     `);
 
     data && data["brands"] && data["brands"].map(item => {
-        $("#plan_items").append(getProductsProgress(item, false, false, basicProgress, "#f36633", hideSelectedProgress));
+        $("#plan_items").append(getProductsProgress(item, false, false, basicProgress, "#f36633", hideSelectedProgress, initial));
     });
 }
 
@@ -160,7 +160,7 @@ function getProgressHeaderFooterLabels(data, sourceContainer) {
     `;
 }
 
-function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme, hideSelectedProgress) {
+function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme, hideSelectedProgress, initial) {
     let discount_range = item["on_invoice_range"] ? item["on_invoice_range"] : item["off_invoice_range"];
     let progressPercent = Math.ceil(((item["purchased"] || 0) / item["max_limit"]) * 100);
     let progressPercentSelected = Math.ceil(((parseInt(item["purchased"] || 0) + parseInt(item["selected"])) / item["max_limit"]) * 100);
@@ -297,7 +297,7 @@ function getProductsProgress(item, detailed, hideAdd, basicProgress, colorscheme
                         
                     </div>
                     ${!hideSelectedProgress ? getInvertedProgress(item, aggregateInvertedProgressPerc, colorscheme) : ""}
-                    ${getSelectedProgress(item, aggregateSelectedProgressPerc, "#f36633", hideSelectedProgress)}
+                    ${initial === "init" ? "" : getSelectedProgress(item, aggregateSelectedProgressPerc, "#f36633", hideSelectedProgress)}
                     <div class="progressbar_ratio inverted" style="width:${100}%; background: transparent !important;">
                         <div class="main" style="background: transparent;">
                             ${rangeDataDivs}

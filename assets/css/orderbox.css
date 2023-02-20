@@ -47,6 +47,10 @@
     font-weight: 700;
 }
 
+.order_card.menu .title .info.cta {
+    padding: 0px;
+}
+
 .order_card.menu .info.cta:hover {
     font-weight: 700;
 }

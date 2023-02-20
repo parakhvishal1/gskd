@@ -14,15 +14,27 @@
     }, 500);
 })();
 
-function GlobalVarInit() {
-    window.orderCartData = [];
-    window.updateCartData = {};
-    window.cartData = {};
-    window.wholesalerAccountData = [];
-    window.dataStore = {};
-    window.discountData = {};
-    // window.currentScreen = "";
-    window.brandArr = {};
+function GlobalVarInit(data) {
+    if(data && data["appstate"]) {
+        console.log(data["appstate"]);
+        window.orderCartData = data["appstate"]["orderCartData"];
+        window.updateCartData = data["appstate"]["updateCartData"];
+        window.cartData = data["appstate"]["cartData"];
+        window.wholesalerAccountData = data["appstate"]["wholesalerAccountData"];
+        window.dataStore = {};
+        window.discountData = data["appstate"]["discountData"];
+        // window.currentScreen = "";
+        window.brandArr = data["appstate"]["brandArr"];
+    } else {
+        window.orderCartData = [];
+        window.updateCartData = {};
+        window.cartData = {};
+        window.wholesalerAccountData = [];
+        window.dataStore = {};
+        window.discountData = {};
+        // window.currentScreen = "";
+        window.brandArr = {};
+    }
 }
 
 function StoreDataIn(data) {
@@ -35,90 +47,6 @@ function ToBot(eventName, data) {
     switch (eventName) {
         case "fetch-user-details":
             delete data["isLoggedIn"];
-            setTimeout(() => {
-                ToApp("user-details", {
-                    "profile_details": {
-                        "firstName": "Valentin",
-                        "lastName": "Buteler",
-                        "countryDialCode": "91",
-                        "phone": "9898011111",
-                        "email": "valentinbuteler@gmail.com"
-                    },
-                    "associated_accounts": {
-                        "accounts": [
-                            {
-                                "name": "Wholesaler A",
-                                "active_status": "active",
-                                "account_data": [
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "Active",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    },
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "Active",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    },
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "Active",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Wholesaler B",
-                                "active_status": "",
-                                "account_data": [
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "In-Active",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    },
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "In-Active",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    },
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "In-Active",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Wholesaler C",
-                                "active_status": "active",
-                                "account_data": [
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "Pending Verification",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    },
-                                    {
-                                        "account_no": "A00000001",
-                                        "legal_id": "12345",
-                                        "status": "Pending Verification",
-                                        "invoice": "https://www.invoicesimple.com/wp-content/uploads/2018/05/InvoiceSimple-PDF-Template.pdf"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "notification": {
-                        "status": "online"
-                    },
-                })
-            }, 0);
             break;
         case "terms-conditions":
             window.parent.postMessage(JSON.stringify({
@@ -240,8 +168,27 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
-            break;
-        case "get-data-from-localstorage":
+        case "help":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+        case "profile-details":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+        case "associated-accounts":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+        case "notification":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+        case "addaccount-associatedaccounts":
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data
@@ -268,10 +215,11 @@ function ToApp(eventName, data, orgData) {
             loadTermsUI(data);
             break;
         case "userwelcome-screen":
+            console.log("===== userwelcome =====\n", data);
             StoreDataIn(data);
-            GlobalVarInit();
+            GlobalVarInit(data);
             loadUserWelcomeUI(data);
-            data["plan_progress"] && loadPlanProgress(data["plan_progress"], true);
+            data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, false, "init");
             // loadBrandSelectionUIByBrandName(data);
             break;
         case "choosebrands-screen":

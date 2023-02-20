@@ -266,7 +266,18 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
             })
             if(isDateSelectedforNewOrder) {
                 loadBrandSelectionUI(window.dataStore);
-                ToBot("ordercart-continue", window.dataStore);
+                let nwData = {
+                    ...window.dataStore,
+                    "appstate": {
+                        "orderCartData": window.orderCartData,
+                        "updateCartData": window.updateCartData,
+                        "cartData": window.cartData,
+                        "wholesalerAccountData": window.wholesalerAccountData,
+                        "discountData": window.discountData,
+                        "brandArr": window.brandArr,
+                    }
+                }
+                ToBot("ordercart-continue", nwData);
             } else {
                 showSnackbar(true, locale["snackbars"]["selectDate"]);
             }
@@ -664,7 +675,19 @@ function showBrandLevelDetails(data, currentSku, requestType, requestSku) {
             })
             if(isDateSelectedforNewOrder) {
                 loadBrandSelectionUI(parseData);
-                ToBot("ordercart-continue", parseData);
+                let nwData = {
+                    ...parseData,
+                    "appstate": {
+                        "orderCartData": window.orderCartData,
+                        "updateCartData": window.updateCartData,
+                        "cartData": window.cartData,
+                        "wholesalerAccountData": window.wholesalerAccountData,
+                        "discountData": window.discountData,
+                        "brandArr": window.brandArr,
+                    }
+                }
+                ToBot("ordercart-continue", nwData);
+                // ToBot("ordercart-continue", parseData);
             } else {
                 showSnackbar(true, locale["snackbars"]["selectDate"]);
             }
