@@ -388,15 +388,50 @@ window.addEventListener('message', function (eventData) {
 
     }
 
+    // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
+    //     console.log("bot-reloaded");
+    //     let data = localStorage.getItem("updated-data")
+    //     console.log('refreshed local storage data in parentIframe', JSON.parse(data));
+    //     if (!data) return;
+    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+    //         event_code: 'bot-reloaded',
+    //         data: data
+    //     }), '*');
+    //     return;
+    // }
+
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
         console.log("bot-reloaded");
         let data = localStorage.getItem("updated-data")
         console.log('refreshed local storage data in parentIframe', JSON.parse(data));
-        if (!data) return;
-        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-            event_code: 'bot-reloaded',
-            data: data
-        }), '*');
+        if (data) {
+            let lSource = localStorage.getItem("source");
+            let lScreen = localStorage.getItem("screen");
+            if (lSource == 'Mobile') {
+                if (lScreen == 'ui') {
+                    injectDynamicCssForMobileBot();
+                    document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                        event_code: 'bot-reloaded',
+                        data: data
+                    }), '*');
+                } else {
+                    injectDynamicCssForMobileBot();
+                    document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                        event_code: 'bot-reloaded',
+                        data: data
+                    }), '*');
+
+                }
+
+            } else {
+                document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+                    event_code: 'bot-reloaded',
+                    data: data
+                }), '*');
+            }
+
+
+        }
         return;
     }
 
