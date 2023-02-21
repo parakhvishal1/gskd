@@ -15,7 +15,7 @@
 })();
 
 function GlobalVarInit(data) {
-    if(data && data["appstate"]) {
+    if (data && data["appstate"]) {
         console.log(data["appstate"]);
         window.orderCartData = data["appstate"]["orderCartData"];
         window.updateCartData = data["appstate"]["updateCartData"];
@@ -189,6 +189,12 @@ function ToBot(eventName, data) {
                 data: data
             }), '*');
         case "addaccount-associatedaccounts":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+            break;
+        case "get-data-from-localstorage":
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data
