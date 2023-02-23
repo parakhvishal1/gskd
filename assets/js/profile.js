@@ -105,7 +105,7 @@ function loadUserProfile(data) {
                                 <div class="accordion-item-header inner profile" data=${encodeURIComponent(JSON.stringify(account))}>
                                     <div class="flex" style="width: calc(100% - 50px);">
                                         <div class="account_name">${account["wholeSalerName"]}</div>
-                                        <div class="account_status ${className}">${account["wholeSalerStatus"] ? account["wholeSalerStatus"] : "Active"}</div>
+                                        <div class="account_status ${className}">${account["wholeSalerStatus"] ? account["wholeSalerStatus"] : "ACTIVE"}</div>
                                     </div>
                                 </div>
                                 <div class="accordion-item-body inner">
@@ -150,13 +150,13 @@ function loadUserProfile(data) {
                         `);
                         parsedCurrentElementData["accounts"].map(accountDetails => {
                             let classValue = "success";
-                            if (accountDetails["accountStatus"] === "Active") {
+                            if ((accountDetails["accountStatus"] === "ACTIVE") || (accountDetails["accountStatus"] === "VERIFIED")) {
                                 classValue = "success";
                             }
-                            if (accountDetails["accountStatus"] === "In-Active") {
+                            if (accountDetails["accountStatus"] === "IN_ACTIVE") {
                                 classValue = "failed";
                             }
-                            if (accountDetails["accountStatus"] === "Pending Verification") {
+                            if (accountDetails["accountStatus"] === "PENDING_VERIFICATION") {
                                 classValue = "warning";
                             }
 

@@ -310,6 +310,47 @@ window.addEventListener('message', function (eventData) {
         }), '*');
     }
 
+    if (parsedEventData.event_code === "help") {
+        // console.log('help Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'help',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if (parsedEventData.event_code === "profile-details") {
+        // console.log('profile-details Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'profile-details',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if (parsedEventData.event_code === "associated-accounts") {
+        // console.log('associated-accounts Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'associated-accounts',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if (parsedEventData.event_code === "notification") {
+        // console.log('notification Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'notification',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+    if (parsedEventData.event_code === "addaccount-associatedaccounts") {
+        // console.log('addaccount-associatedaccounts Data in child Iframe~~~>>', parsedEventData.data)
+        parent.postMessage(JSON.stringify({
+            event_code: 'addaccount-associatedaccounts',
+            data: parsedEventData.data
+        }), '*');
+    }
+
+
     if (parsedEventData.event_code === "get-data-from-localstorage") {
         // console.log('get-data-from-localstorage Data in child Iframe~~~>>', parsedEventData.data)
         parent.postMessage(JSON.stringify({

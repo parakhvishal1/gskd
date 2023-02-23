@@ -1202,19 +1202,19 @@ function CallScreen(caseNum) {
                 "associatedAccounts": [
                     {
                         "wholeSalerName": "ABC1",
-                        "wholeSalerStatus": "Active",
+                        "wholeSalerStatus": "ACTIVE",
                         "accounts": [
                             {
                                 "accountNumber": "A00000001",
                                 "legalIdCode": "12345",
                                 "invoice": "https://www.google-analytics.com/analytics.js",
-                                "accountStatus": "Active"
+                                "accountStatus": "ACTIVE"
                             },
                             {
                                 "accountNumber": "A00000001",
                                 "legalIdCode": "12345",
                                 "invoice": "https://www.google-analytics.com/analytics.js",
-                                "accountStatus": "Active"
+                                "accountStatus": "ACTIVE"
                             }
                         ]
                     },
