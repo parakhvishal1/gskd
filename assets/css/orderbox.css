@@ -119,23 +119,36 @@
 
 .calendar-picker {
     justify-content: unset;
-    padding-top: 12px;
+    margin-top: 12px;
+    position: relative;
+    display: inline-block;
 }
 
 .calendar-picker .picker {
     height: 15px;
     width: 20px;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto 0;
+    z-index: 1;
 }
 
 .calendar-picker .picker + .input_date_picker {
     font-size: 14px;
-    margin: 0 0.75rem 0 0.5rem;
+    margin: 0 0.75rem 0 1.5rem;
 }
 
 .calendar-picker input {
-    width: 4rem;
-    margin: 0 0.25rem 0 0.5rem;
+    width: 6.5rem;
+    /* margin: 0 0.25rem 0 1.5rem; */
+    padding: 6px 0.25rem 6px 1.5rem;
     cursor: pointer;
+    z-index: 2;
+    position: relative;
 }
 
 .icon .arrow-down {
@@ -146,6 +159,14 @@
 .calendar-picker .arrow-down {
     height: 10px;
     width: 10px;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto 0;
+    z-index: 1;
 }
 
 .title.backbtn {

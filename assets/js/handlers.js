@@ -438,7 +438,7 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
                 let parseData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : getParsedData();
                 parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
                     if(ordr["brandsku"].includes(filteredBrand[0]["sku"])) {
-                        addnewOrderBrand(ordr, currentSku);
+                        addnewOrderBrand(ordr, currentSku, true);
                     }
                 });
             } else {
@@ -446,7 +446,7 @@ function showSkuLevelDetailsBrand(data, currentSku, requestType, requestSku) {
                 let parseData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : getParsedData();
                 parseData && parseData?.["new_orders"] && parseData?.["new_orders"]?.["orders"] && parseData?.["new_orders"]?.["orders"].map((ordr, index) => {
                     if(ordr["sku"].includes(filteredBrand[0]["sku"])) {
-                        addnewOrderBrand(ordr, currentSku);
+                        addnewOrderBrand(ordr, currentSku, true);
                     }
                 });
             }
