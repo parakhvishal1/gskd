@@ -443,7 +443,7 @@ window.addEventListener('message', function (eventData) {
         console.log(screen, 'screen--->')
         if (source == 'Mobile') {
             console.log(screen, 'screen--->')
-            if (screen == BOT) {
+            if (screen == 'BOT') {
                 injectDynamicCssForMobileBot();
                 localStorage.setItem("screen", 'bot');
             } else {
