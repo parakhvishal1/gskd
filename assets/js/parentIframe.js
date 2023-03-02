@@ -800,7 +800,7 @@ window.addEventListener('message', function (eventData) {
         let source = parsedData.data.source;
         localStorage.setItem("source", source);
         if (source == 'Mobile') {
-            injectDynamicCssForMobileBot();
+            injectDynamicCssForMobileUI();
             localStorage.setItem("screen", 'bot');
             console.log("\n\n\n <---  checkout-add-brands event in parent iframe ---> \n\n\n", parsedData);
             window.frames.ymIframe.chat.send({
