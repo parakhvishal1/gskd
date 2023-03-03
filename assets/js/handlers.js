@@ -1726,7 +1726,7 @@ function addnewOrderBrand(data, currentSku, skulevel) {
                     </td> -->
                 </tr>
                 <tr class="info_row brandscreen">
-                    <td class="info_data skuBrand_level_progress" id="skulevelprogress-${productData["sku"]}" colspan="4">
+                    <td class="info_data skuBrand_level_progress" id="skulevelprogress-${productData["sku"]}-${data['_id']}" colspan="4">
                         ${loadProgressCards({"brands": [productData["discounts"]]}, true, true)}
                     </td>
                 </tr>
@@ -2015,8 +2015,8 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
                             // let currentItemValue = calculateSumAmount({[parentSkuData]: {...window.cartData[parentSkuData]}});
                             let progressCards = loadProgressCards({ "brands": [product["discounts"]] }, true, true);
                             $(counterInput).parent().parent('.counter__container').parent('.counter__wrapper').parent('.info_data').siblings('.info_data').text( `Period Total: ${parseInt(product["discounts"]["purchased"] || "0") + parseInt(product["discounts"]["selected"])}` );
-                            $(`#skulevelprogress-${product["sku"]}`).empty();
-                            $(`#skulevelprogress-${product["sku"]}`).append(progressCards);
+                            $(`#skulevelprogress-${product["sku"]}-${order["_id"]}`).empty();
+                            $(`#skulevelprogress-${product["sku"]}-${order["_id"]}`).append(progressCards);
                         }
                         // if(parseStoredData["available_orders"]["orders"][mainIndex]["sku"] === parentSkuData) {
                         //     if(parseStoredData["available_orders"]["orders"][mainIndex]["product_details"][index]["sku"] === skuData) {
@@ -2137,8 +2137,8 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
                             if(skulevel) {
                                 // let currentItemValue = calculateSumAmount({[parentSkuData]: {...window.cartData[parentSkuData]}});
                                 let progressCards = loadProgressCards({ "brands": [product["discounts"]] }, true, true)
-                                $(`#skulevelprogress-${product["sku"]}`).empty();
-                                $(`#skulevelprogress-${product["sku"]}`).append(progressCards);
+                                $(`#skulevelprogress-${product["sku"]}-${order["_id"]}`).empty();
+                                $(`#skulevelprogress-${product["sku"]}-${order["_id"]}`).append(progressCards);
                             }
                             // if(parseStoredData["available_orders"]["orders"][mainIndex]["sku"] === parentSkuData) {
                             //     if(parseStoredData["available_orders"]["orders"][mainIndex]["product_details"][index]["sku"] === skuData) {
