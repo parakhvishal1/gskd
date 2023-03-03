@@ -852,6 +852,7 @@ window.addEventListener('message', function (eventData) {
 
     if (parsedData?.event_code == 'update-order-data') {
         let source = parsedData.data.source;
+        console.log(source, '---Source---')
         localStorage.setItem("source", source);
         if (source == 'Mobile') {
             injectDynamicCssForMobileBot();
