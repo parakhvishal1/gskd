@@ -404,6 +404,8 @@ window.addEventListener('message', function (eventData) {
         console.log("bot-reloaded");
         let data = localStorage.getItem("updated-data")
         console.log('refreshed local storage data in parentIframe', JSON.parse(data));
+        let source = parsedData.data.data.source;
+        console.log(source, 'get Source bot-reloaded');
         if (data) {
             let lSource = localStorage.getItem("source");
             let lScreen = localStorage.getItem("screen");
