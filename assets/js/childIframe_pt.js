@@ -1,5 +1,7 @@
 (function addFrames() {
   try {
+    let h = window.innerHeight - 134;
+    document.getElementById("chatBoxMainContainer").style.height = `${h}px`
     window.onresize = function (event) {
       var frameHeight = window.innerHeight - 104 - 48;
       document.getElementById("chatBoxMainContainer").style.height = `${frameHeight}px`
