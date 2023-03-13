@@ -95,6 +95,7 @@ function ToBot(eventName, data) {
             }), '*');
             break;
         case "ordercart-continue":
+            console.log("ordercart-continue -> ", data);
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data

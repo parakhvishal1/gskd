@@ -10,12 +10,14 @@ function loadUserProfile(data) {
     let profile_details = data["profileDetails"];
     let associated_accounts = data["associatedAccounts"];
     let notification = data["notifications"];
+    let localStoredData = JSON.parse(localStorage.getItem("data"));
+    let locale = localStoredData["locale"];
 
     $("#content_box").append(`
         <div class="profile_section_container">
         <div class="accordion">
             <div class="accordion-item">
-                <div class="accordion-item-header parent">Profile Details</div>
+                <div class="accordion-item-header parent">${locale["labels"]["profileDetails"]}</div>
                 <div class="accordion-item-body parent">
                     <div class="accordion-item-body-content">
                         
@@ -26,7 +28,7 @@ function loadUserProfile(data) {
         
         <div class="accordion">
             <div class="accordion-item">
-                <div class="accordion-item-header parent">Associated Accounts</div>
+                <div class="accordion-item-header parent">${locale["labels"]["associatedAccounts"]}</div>
                 <div class="accordion-item-body parent">
                     <div class="accordion-item-body-content profile_details">
                         
@@ -38,7 +40,7 @@ function loadUserProfile(data) {
 
         <div class="accordion">
             <div class="accordion-item">
-                <div class="accordion-item-header parent">Notification</div>
+                <div class="accordion-item-header parent">${locale["labels"]["notification"]}</div>
                 <div class="accordion-item-body parent">
                     <div class="accordion-item-body-content">
                         
@@ -62,19 +64,19 @@ function loadUserProfile(data) {
                 bodyContentNode.empty();
                 bodyContentNode.append(`
                     <div class="block">
-                        <div class="label">First Name</div>
+                        <div class="label">${locale["labels"]["firstName"]}</div>
                         <div class="info">${profile_details["firstName"]}</div>
                     </div>
                     <div class="block">
-                        <div class="label">Last Name</div>
+                        <div class="label">${locale["labels"]["lastName"]}</div>
                         <div class="info">${profile_details["lastName"]}</div>
                     </div>
                     <div class="block">
-                        <div class="label">Mobile Number</div>
+                        <div class="label">${locale["labels"]["mobileNumber"]}</div>
                         <div class="info">${profile_details["countryDialCode"] ? `+${profile_details["countryDialCode"]}` : ''} ${profile_details["phoneNumber"] ? profile_details["phoneNumber"] : '-'}</div>
                     </div>
                     <div class="block">
-                        <div class="label">Email</div>
+                        <div class="label">${locale["labels"]["email"]}</div>
                         <div class="info">${profile_details["email"] ? profile_details["email"] : '-'}</div>
                     </div>
                 `);
@@ -90,7 +92,7 @@ function loadUserProfile(data) {
                             <span class="icon" style="display: inline-block">
                                 <svg fill="none" height="14" viewBox="0 0 18 14" width="18" xmlns="http://www.w3.org/2000/svg"><g fill="#f36633"><path d="m4.32952 6.79547c-.03747-.22227-.17111-.30138-.26229-.40938-.95176-1.13396-1.2153-2.41359-.72693-3.80247.49961-1.41148 1.51881-2.226479 2.98891-2.5228403 1.66495-.3352907 3.94939.7170443 4.38029 3.1469603.3473 1.97407-.84806 3.85145-2.85898 4.37008-.49961.12557-1.03045.11302-1.54754.16702-2.92646.3064-4.71131 2.81796-4.82248 4.74176.2011.157.43966.0779.65824.0791 2.49804.0067 4.99609.0067 7.49413 0 .20737-.017.41613-.0004.61823.049.326.1055.4909.3077.4996.6342.0128.1469-.0247.2938-.1062.4164s-.2022.2136-.3422.2579c-.1777.0593-.36513.0836-.55202.0716h-8.74316c-.103968.0069-.208281.0069-.312252 0-.479625-.0653-.68821142-.2976-.69445653-.7936-.01458937-1.3026.35909553-2.5798 1.07290853-3.66689.6926-1.10277 1.68288-1.98473 2.85527-2.54294.12865-.06278.25605-.12809.40093-.1959zm2.62295-.51863c.64019-.00363 1.25308-.26119 1.70542-.71668s.70757-1.07209.71019-1.71575c.00344-.48542-.13691-.96089-.40319-1.36583-.26627-.40494-.64641-.72102-1.092-.90798-.44558-.18696-.93643-.23633-1.41002-.14183s-.90848.3286-1.24927.67248-.57205.78196-.66433 1.25845c-.09227.47649-.04138.96981.14619 1.41711.18757.44731.50333.82836.90706 1.0946s.87714.40563 1.35994.40041z"/><path d="m12.7785 9.52553c0-.82265-.0099-1.59857 0-2.37081-.0084-.16614.0468-.32925.1545-.45638.1077-.12714.2599-.20882.4257-.22855.1533-.0234.3101.00569.4446.08253.1346.07684.239.19688.2962.34048.0366.13745.0516.27974.0444.42178v1.6576c0 .15986-.0358.32586.0642.55335h1.9185c.2047-.01509.4105.00192.6099.05042.1421.03076.2691.10977.3592.2235.09.11373.1376.25515.1346.39995.0111.348-.1518.5595-.4938.6788-.1787.0469-.364.0635-.5482.0492-.6568 0-1.3123 0-2.037 0v1.7916c0 .1844.0074.3689 0 .5521-.0235.4341-.2951.7243-.6728.7292-.3778.0049-.6753-.2877-.6877-.712-.016-.573 0-1.146-.0074-1.7215 0-.1992.0519-.407-.0667-.6394h-2.0148c-.1845.0113-.3696-.0095-.5469-.0615-.139-.0401-.26024-.1258-.34407-.2432-.08384-.1175-.1253-.2597-.11765-.4036 0-.31237.16296-.52387.47162-.637.1977-.05555.4038-.07554.6086-.05903.6519.00123 1.3037.00246 2.005.00246z"/></g></svg>
                             </span>
-                            Add Account
+                            ${locale["labels"]["addAccount"]}
                         </button>
                     </div>
                 `);
@@ -241,7 +243,7 @@ function loadProfileOptions() {
         $("#profile_setting_card").append(`
             <div class="order_card menu" tabindex=0>
                 <div class="title">
-                    <div class="info cta" onclick="loadEditProfile()">Profile Settings</div>
+                    <div class="info cta" onclick="loadEditProfile()">${locale["labels"]["profileSettings"]}</div>
                 </div>
                 <div id="logout" class="info cta">${locale["buttons"]["logOut"]}</div>
             </div>

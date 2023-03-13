@@ -9,7 +9,7 @@ function loadUserWelcomeUI(data) {
 
 
     if(!data?.["previous_orders"]?.["orders"].length) {
-        $("#content_box").append(`<div class='empty_screen_msg'>No Orders History Available.`);
+        $("#content_box").append(`<div class='empty_screen_msg'>${locale["labels"]["emptyOrder"]}`);
     }
 
     $("#content_box").append(`

@@ -18,7 +18,7 @@
             <div class="overflow-container-header">
                 <ul class="header-wrapper">
                   <div style="width: 100%; height:100%">
-                    <img src="https://cdn.yellowmessenger.com/IfFdw9Cnnlzp1678677773281.jpg" alt="GSK Image" style="width: 100%; height:100%">
+                    <img src="https://cdn.yellowmessenger.com/7EAbPihYqpwv1678692649814.jpg" alt="GSK Image" style="width: 100%; height:100%">
                   </div>
                 </ul>
             </div>
