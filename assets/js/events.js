@@ -102,6 +102,9 @@ function CallScreen(caseNum) {
                         "logOutPopupTitle": "Are you sure you want to log-off?",
                         "downloadOrderHistory": "Download Order History",
                         "chooseBrands": "Choose Brands",
+                        "profileDetails": "Profile Details",
+                        "associatedAccounts": "Associated Accounts",
+                        "notification": "Notification"
                     },
                     "buttons": {
                         "back": "Back",
