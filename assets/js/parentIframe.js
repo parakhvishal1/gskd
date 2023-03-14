@@ -133,10 +133,22 @@ window.addEventListener('message', function (eventData) {
     //     console.log('Bot-reloaded2');
     // }
 
+    // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "attach") {
+    //     console.log('Attach---');
+    //     let h = window.innerHeight - 134;
+    //     document.getElementById("chatBoxMainContainer").style.height = `${h}px`
+
+    // }
+
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "attach") {
-        console.log('Attach---');
-        let h = window.innerHeight - 134;
-        document.getElementById("chatBoxMainContainer").style.height = `${h}px`
+        console.log('Event Data-->>', parsedData.data.data);
+        document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+            event_code: 'attach',
+            data: 'data'
+        }), '*');
+        console.log("welcome-screen")
+        console.log('Event Data-->>', parsedData.data.data)
+        return;
 
     }
 
