@@ -56,6 +56,7 @@ window.addEventListener('message', function (eventData) {
     let parsedEventData = JSON.parse(eventData.data);
 
     if (parsedEventData.event_code === "attach" && parsedEventData.data) {
+        console.log('Attach---')
         let h = window.innerHeight - 134;
         document.getElementById("chatBoxMainContainer").style.height = `${h}px`
     }

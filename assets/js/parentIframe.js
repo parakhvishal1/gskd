@@ -141,13 +141,11 @@ window.addEventListener('message', function (eventData) {
     // }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "attach") {
-        console.log('Event Data-->>', parsedData.data.data);
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
             event_code: 'attach',
             data: 'data'
         }), '*');
-        console.log("welcome-screen")
-        console.log('Event Data-->>', parsedData.data.data)
+        console.log("---Attach---");
         return;
 
     }
