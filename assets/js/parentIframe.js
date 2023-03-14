@@ -133,7 +133,12 @@ window.addEventListener('message', function (eventData) {
     //     console.log('Bot-reloaded2');
     // }
 
+    if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "attach") {
+        console.log('Attach---');
+        let h = window.innerHeight - 134;
+        document.getElementById("chatBoxMainContainer").style.height = `${h}px`
 
+    }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
         let source = parsedData.data.data.source;
