@@ -133,7 +133,15 @@ window.addEventListener('message', function (eventData) {
   //     console.log('Bot-reloaded2');
   // }
 
+  if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "attach") {
+    document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
+      event_code: 'attach',
+      data: 'data'
+    }), '*');
+    console.log("---Attach---");
+    return;
 
+  }
 
   if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "welcome-screen") {
     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
