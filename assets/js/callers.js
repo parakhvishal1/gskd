@@ -265,7 +265,7 @@ function ToApp(eventName, data, orgData) {
             loadBrandSelectionUI(data);
             break;
         case "show-brand-selection":
-            GlobalVarInit(data);
+            GlobalVarInit();
             StoreDataIn(data);
             ToApp("choosebrands-screen", data);
             break;
