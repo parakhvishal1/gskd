@@ -122,6 +122,7 @@ function ToBot(eventName, data) {
                 loadUserWelcomeUI(data);
                 data["plan_progress"] && loadPlanProgress(data["plan_progress"], true, true);
             }
+            GlobalVarInit();
             break;
         case "cancel-order":
             window.parent.postMessage(JSON.stringify({
@@ -270,7 +271,7 @@ function ToApp(eventName, data, orgData) {
             ToApp("choosebrands-screen", data);
             break;
         case "show-brand-detailing":
-            GlobalVarInit();
+            GlobalVarInit(data);
             StoreDataIn(data);
             loadBrandSelectionUIByBrandName(data);
             break;
