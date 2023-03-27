@@ -206,6 +206,7 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
+            break;
         case "delete":
             console.log("data ", data);
             window.parent.postMessage(JSON.stringify({
