@@ -365,7 +365,7 @@ function loadUserWelcomeUI(data) {
                                 <td class="info_data" colspan="1">£ ${item["price"]}</td>
                                 <td class="info_data editable" colspan="1"><input value=${item["units"]} type="text" size="4" maxlength="4" autocomplete="off"/></td>
                                 <td class="info_data" colspan="1">+${item["free_goods"]}</td>
-                                <td class="info_data" colspan="1">${item["discount"]}%</td>
+                                <td class="info_data" colspan="2">${item["discount"]}%</td>
                                 <td class="info_data" colspan="1">${item["payterm"]} D</td>
                             </tr>
                         `);

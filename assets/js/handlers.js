@@ -1842,6 +1842,11 @@ function updateCounter(counterInput, type, currentSku, skulevel, brandData, inpu
     let parseStoredData = Object.keys(window.dataStore).length !== 0 ? JSON.parse(JSON.stringify(window.dataStore)) : JSON.parse(storeddata);
     let siblingWrapper = $(counterInput).parent().siblings(".counter__input");
     let $input = $(siblingWrapper);
+    if(!(/^[0-9][0-9]*$/.test($input.val()))) {
+        $input.val(0);
+        $input.change();
+        return;
+    } 
     let brand = parseStoredData["plan_progress"]["brands"].filter(brand => brand["sku"] === currentSku);
 
     console.log("brand --> ", brand);

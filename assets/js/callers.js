@@ -200,7 +200,14 @@ function ToBot(eventName, data) {
                 event_code: eventName,
                 data: data
             }), '*');
+            break;
         case "addaccount-associatedaccounts":
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+        case "delete":
+            console.log("data ", data);
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
                 data: data
