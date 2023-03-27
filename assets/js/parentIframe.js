@@ -357,7 +357,7 @@ window.addEventListener('message', function (eventData) {
         let source = parsedData.data.data.source;
         localStorage.setItem("source", source);
         if (source == 'Mobile') {
-            injectDynamicCssForMobileUI();
+            injectDynamicCssForMobileBot();
             localStorage.setItem("screen", 'ui');
             document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
                 event_code: 'orderhistory-screen',
