@@ -940,7 +940,7 @@ window.addEventListener('message', function (eventData) {
     }
 
     if (parsedData?.event_code == 'addaccount-associatedaccounts') {
-        console.log("\n\n\n <---  addaccount-associatedaccounts event in parent iframe ---> \n\n\n", parsedData);
+        // console.log("\n\n\n <---  addaccount-associatedaccounts event in parent iframe ---> \n\n\n", parsedData);
         window.frames.ymIframe.chat.send({
             event: {
                 code: "addaccount-associatedaccounts",
