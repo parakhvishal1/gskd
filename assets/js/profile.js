@@ -98,7 +98,7 @@ function loadUserProfile(data) {
                 `);
                 associated_accounts.map(account => {
                     let className = "";
-                    if(account["wholeSalerStatus"]?.toLowerCase() === "active") {
+                    if (account["wholeSalerStatus"]?.toLowerCase() === "active") {
                         className = "success"
                     }
                     $(".accordian_upperwrapper").append(`
@@ -142,7 +142,7 @@ function loadUserProfile(data) {
                                     <tr class="info_row bordered">
                                         <td class="info_data title" colspan="4">Account <br/>Number</td>
                                         <td class="info_data title" colspan="2">Legal <br/>ID</td>
-                                        <td class="info_data title" colspan="1">Attach <br/>Invoice</td>
+                                        <td class="info_data title" colspan="1">Download <br/>Invoice</td>
                                     </tr>
                                 </thead>
                                 <tbody class="accordian_account_detailed">
@@ -193,7 +193,7 @@ function loadUserProfile(data) {
                             e.stopImmediatePropagation();
                             let decodedData = JSON.parse(decodeURIComponent($(this).attr("acc")));
                             let decodedElData = JSON.parse(decodeURIComponent($(this).attr("elData")));
-                            let mergedData = {...decodedData, ...decodedElData};
+                            let mergedData = { ...decodedData, ...decodedElData };
                             ToBot("delete", mergedData);
                         });
                         $(".upload_icon").click(function (e) {
@@ -214,7 +214,7 @@ function loadUserProfile(data) {
             if (textContent === "Notification") {
                 let bodyContentNode = $(accordionItemBody).children(".accordion-item-body-content");
                 $(this).addClass("notification");
-                if(notification == "yes") {
+                if (notification == "yes") {
                     $(this).addClass("notification_success");
                 } else {
                     $(this).addClass("notification_failed");
@@ -253,7 +253,7 @@ function loadProfileOptions() {
         `);
     }
 
-    $("#logout").click(function(e) {
+    $("#logout").click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
         logoutApp();
