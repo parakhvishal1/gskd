@@ -310,6 +310,14 @@ window.addEventListener('message', function (eventData) {
     }), '*');
   }
 
+  if (parsedEventData.event_code === "delete") {
+    // console.log('delete Data in child Iframe~~~>>', parsedEventData.data)
+    parent.postMessage(JSON.stringify({
+      event_code: 'delete',
+      data: parsedEventData.data
+    }), '*');
+  }
+
   if (parsedEventData.event_code === "update-data-on-refresh") {
     // console.log('update-data-on-refresh Data in child Iframe~~~>>', parsedEventData.data)
     parent.postMessage(JSON.stringify({
