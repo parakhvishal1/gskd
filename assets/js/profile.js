@@ -211,7 +211,7 @@ function loadUserProfile(data) {
                 });
                 ToBot("associated-accounts", {});
             }
-            if (textContent === "Notification") {
+            if (textContent === "Preferences") {
                 let bodyContentNode = $(accordionItemBody).children(".accordion-item-body-content");
                 $(this).addClass("notification");
                 if (notification == "yes") {
