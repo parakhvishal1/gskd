@@ -165,6 +165,7 @@ window.addEventListener('message', function (eventData) {
             console.log('Event Data-->>', parsedData.data.data)
             return;
         } else {
+            console.log(source, 'Source--->')
             console.log('Event Data-->>', parsedData.data.data);
             document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
                 event_code: 'welcome-screen',
