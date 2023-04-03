@@ -93,52 +93,6 @@ window.addEventListener('message', function (eventData) {
 
     console.log("parsedData", parsedData)
 
-    // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "get-source") {
-    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-    //         event_code: 'get-source',
-    //         data: parsedData.data.data
-    //     }), '*');
-    //     console.error("get-source")
-    //     console.log('Event Data-->>', parsedData.data.data);
-
-    //     if (parsedData.data.data == 'Mobile') {
-    //         console.error('Mobile view ', parsedData.data.data)
-    //         injectDynamicCssForMobileUI();
-    //         injectDynamicCssForMobileBot()
-    //     } else {
-    //         console.error('Desktop view', parsedData.data.data)
-    //         injectDynamicCssToChild()
-    //     }
-    //     return;
-
-    // }
-
-    // window.onload = function () {
-    //     console.log("bot-reloaded");
-    //     let data = localStorage.getItem("updated-data")
-    //     console.log('refreshed local storage data in parentIframe', JSON.parse(data));
-    //     if (!data) return;
-    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-    //         event_code: 'bot-reloaded',
-    //         data: data
-    //     }), '*');
-    //     return;
-    // }
-
-    // window.location.reload = function () {
-    //     console.log('Bot-reloaded1');
-    // }
-
-    // document.location.reload = function () {
-    //     console.log('Bot-reloaded2');
-    // }
-
-    // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "attach") {
-    //     console.log('Attach---');
-    //     let h = window.innerHeight - 134;
-    //     document.getElementById("chatBoxMainContainer").style.height = `${h}px`
-
-    // }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "attach") {
         document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
@@ -404,17 +358,6 @@ window.addEventListener('message', function (eventData) {
 
     }
 
-    // if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
-    //     console.log("bot-reloaded");
-    //     let data = localStorage.getItem("updated-data")
-    //     console.log('refreshed local storage data in parentIframe', JSON.parse(data));
-    //     if (!data) return;
-    //     document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-    //         event_code: 'bot-reloaded',
-    //         data: data
-    //     }), '*');
-    //     return;
-    // }
 
     if (parsedData?.event_code == 'custom-event' && parsedData?.data?.code == "bot-reloaded") {
         console.log("bot-reloaded");
@@ -978,14 +921,6 @@ window.addEventListener('message', function (eventData) {
     if (parsedData?.event_code == 'get-data-from-localstorage') {
         console.log("get-data-from-localstorage");
         let data = localStorage.getItem("updated-data")
-        // console.log('refreshed local storage data in parentIframe', JSON.parse(data));
-        // if (!data) return;
-        // document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
-        //     event_code: 'bot-reloaded',
-        //     data: data
-        // }), '*');
-        // return;
-
 
         if (data) {
             console.log("\n\n\n <---  Send data to Bot ---> \n\n\n", parsedData);
