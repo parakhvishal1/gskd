@@ -7,7 +7,6 @@
             document.getElementById("chatBoxMainContainer").style.height = `${frameHeight}px`
         };
         document.getElementById('player').style.width = '0px'
-        document.getElementById("chatContainer").style.overflow = "initial";
         document.querySelector('#chatContainer').insertAdjacentHTML(
             'afterbegin',
             `<div class="mod-head-side-bar-container">
