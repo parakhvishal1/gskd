@@ -138,7 +138,7 @@ window.addEventListener('message', function (eventData) {
         let data = parsedEventData.data;
         console.log("eventName---", eventName);
         console.log('Event Data---', data);
-        document.getElementById("chatContainer").style.height = "100%";
+        document.getElementById("chatContainer").style.width = "100%";
     }
 
     if (parsedEventData.event_code === "show-brand-detailing" && parsedEventData.data) {
