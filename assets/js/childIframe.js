@@ -139,6 +139,7 @@ window.addEventListener('message', function (eventData) {
         console.log("eventName---", eventName);
         console.log('Event Data---', data);
         document.getElementById("chatContainer").style.width = "100%";
+        document.getElementById("chatContainer").style.overflow = "initial";
     }
 
     if (parsedEventData.event_code === "show-brand-detailing" && parsedEventData.data) {
