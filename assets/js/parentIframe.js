@@ -314,7 +314,6 @@ window.addEventListener('message', function (eventData) {
             }), '*');
             console.log("show-brand-selection")
             console.log('Event Data-->>', parsedData.data.data)
-            document.getElementById("chatContainer").style.overflow = "initial";
             return;
         } else {
             document.getElementById('ymIframe').contentWindow.postMessage(JSON.stringify({
