@@ -7,6 +7,7 @@
             document.getElementById("chatBoxMainContainer").style.height = `${frameHeight}px`
         };
         document.getElementById('player').style.width = '0px'
+        document.getElementById("chatContainer").style.overflow = "initial";
         document.querySelector('#chatContainer').insertAdjacentHTML(
             'afterbegin',
             `<div class="mod-head-side-bar-container">
@@ -139,7 +140,7 @@ window.addEventListener('message', function (eventData) {
         console.log("eventName---", eventName);
         console.log('Event Data---', data);
         // document.getElementById("chatBoxMainContainer").style.overflow = "initial";
-        document.getElementById("chatContainer").style.overflow = " ";
+        // document.getElementById("chatContainer").style.overflow = "initial";
     }
 
     if (parsedEventData.event_code === "show-brand-detailing" && parsedEventData.data) {
