@@ -788,7 +788,8 @@ window.addEventListener('message', function (eventData) {
         let source = parsedData.data.source;
         localStorage.setItem("source", source);
         if (source == 'Mobile') {
-            injectDynamicCssForMobileBot();
+            injectDynamicCssForMobileUI();
+            // injectDynamicCssForMobileBot();
             localStorage.setItem("screen", 'bot');
             console.log("\n\n\n <---  checkout-to-brand-detailing event in parent iframe ---> \n\n\n", parsedData);
             window.frames.ymIframe.chat.send({
