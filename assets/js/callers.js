@@ -214,6 +214,13 @@ function ToBot(eventName, data) {
                 data: data
             }), '*');
             break;
+        case "profile-settings":
+            console.log("data ", data);
+            window.parent.postMessage(JSON.stringify({
+                event_code: eventName,
+                data: data
+            }), '*');
+            break;
         case "get-data-from-localstorage":
             window.parent.postMessage(JSON.stringify({
                 event_code: eventName,
