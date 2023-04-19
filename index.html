@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
 
     <!-- seo properties -->
     <meta name="description" content="">
@@ -104,15 +105,15 @@
         </div>
     </div>
 
-    
-    
+
+
     <script>
         // if(!(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-            window.onbeforeunload = function () {
-                const data = localStorage.getItem("data");
-                ToBot("update-data-on-refresh", data);
-                return "Are you sure you want to exit?";
-            };
+        window.onbeforeunload = function () {
+            const data = localStorage.getItem("data");
+            ToBot("update-data-on-refresh", data);
+            return "Are you sure you want to exit?";
+        };
         // }
 
         document.onreadystatechange = () => {
