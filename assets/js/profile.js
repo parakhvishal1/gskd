@@ -59,7 +59,7 @@ function loadUserProfile(data) {
         let accordionItemBody = $(this).siblings(".accordion-item-body");
         if (!$(this).hasClass("active")) {
             $(this).addClass("active");
-            if (textContent === "Profile Details") {
+            if (textContent === "Profile Details" || textContent === "Detalhes de perfil") {
                 let bodyContentNode = $(accordionItemBody).children(".accordion-item-body-content");
                 bodyContentNode.empty();
                 bodyContentNode.append(`
@@ -82,7 +82,7 @@ function loadUserProfile(data) {
                 `);
                 ToBot("profile-details", {});
             }
-            if (textContent === "Associated Accounts") {
+            if (textContent === "Associated Accounts" || textContent === "contas associadas") {
                 let bodyContentNode = $(accordionItemBody).children(".accordion-item-body-content");
                 bodyContentNode.empty();
                 bodyContentNode.append(`
@@ -211,7 +211,7 @@ function loadUserProfile(data) {
                 });
                 ToBot("associated-accounts", {});
             }
-            if (textContent === "Preferences") {
+            if (textContent === "Preferences" || textContent === "Preferências") {
                 let bodyContentNode = $(accordionItemBody).children(".accordion-item-body-content");
                 $(this).addClass("notification");
                 if (notification == "yes") {
