@@ -88,13 +88,13 @@ function showHeader(data) {
     });
 }
 
-function showDatePicker() {
+function showDatePicker(id) {
     let localStoredData = JSON.parse(localStorage.getItem("data"));
     let locale = localStoredData["locale"];
     return `
         <div class="flex calendar-picker">
             <img class="picker" src="/gskd/assets/images/svg/calendar.svg" />
-            <input type='text' id='tbDate' placeholder='${locale["labels"]["pickDate"]}' readonly="readonly" />
+            <input type='text' id='tbDate-${id}' placeholder='${locale["labels"]["pickDate"]}' readonly="readonly" class='dateSelectPicker'/>
             <img class="arrow-down" src="/gskd/assets/images/svg/down.svg" />
         </div>
     `;
