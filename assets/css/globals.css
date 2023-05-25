@@ -60,17 +60,26 @@ h6 {
     overflow-wrap: break-word;
 }
 
+table, th, td {
+    /* border: 0.5px solid #ccc; */
+    border-collapse: collapse;
+}
+
 .bodyContent,
 .container__box {
     width: 100%;
 }
 
 #bodyCasontent .header + .bodyContent {
-    height: calc(100% - 14px - 76px - 20px);
+    height: calc(100% - 14px - 76px - 140px);
+}
+
+#bodyCasontent .header + .bodyContent.order_welcome {
+    height: calc(100% - 6px - 76px - 140px);
 }
 
 #bodyCasontent .header.hide + .bodyContent {
-    height: calc(100% - 14px);
+    height: calc(100% - 140px);
 }
 
 input:focus {
@@ -95,6 +104,10 @@ button {
 
 .nohighlight {
     color: #151515 !important;
+}
+
+.textAlignRight {
+    text-align: right;
 }
 
 .cta {
@@ -250,7 +263,7 @@ svg {
     }
 }
 
-input[id$="tbDate"] {
+input.dateSelectPicker {
     border: none;
     background: transparent;
     outline: 0;
@@ -288,6 +301,11 @@ thead .info_row .info_data {
 .info_data > input {
     font-size: 13px;
     font-weight: 400;
+}
+
+td.editable,
+td[editable] {
+    padding-top: 4px !important;
 }
 
 .bold {
